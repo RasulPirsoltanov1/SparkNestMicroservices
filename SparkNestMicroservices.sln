@@ -1,0 +1,51 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.9.34607.119
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{F6A35111-CDCA-4297-AAE9-44422C7BD950}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Services", "Services", "{81349D8E-1C64-4BF0-A192-76AA7EEE3D2A}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Product", "Product", "{28991EA0-2D24-46E8-8D3D-029C266EC638}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SparkNest.Services.ProductAPI", "src\Services\Product\SparkNest.Services.Product.API\SparkNest.Services.ProductAPI.csproj", "{4DDB31E4-9B43-4870-9030-DEB68FF5614D}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{D533D4D6-BF44-4A81-B281-5F57A16CD30E}"
+	ProjectSection(SolutionItems) = preProject
+		Notes.txt = Notes.txt
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Commons", "Commons", "{7B499BA6-A504-4FF4-8F07-C0D903198900}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SparkNest.Common", "Commons\SparkNest.Common\SparkNest.Common.csproj", "{D9AB5B48-DE83-48E3-AB98-C16684D92681}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{4DDB31E4-9B43-4870-9030-DEB68FF5614D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4DDB31E4-9B43-4870-9030-DEB68FF5614D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4DDB31E4-9B43-4870-9030-DEB68FF5614D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4DDB31E4-9B43-4870-9030-DEB68FF5614D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D9AB5B48-DE83-48E3-AB98-C16684D92681}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D9AB5B48-DE83-48E3-AB98-C16684D92681}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D9AB5B48-DE83-48E3-AB98-C16684D92681}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D9AB5B48-DE83-48E3-AB98-C16684D92681}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{81349D8E-1C64-4BF0-A192-76AA7EEE3D2A} = {F6A35111-CDCA-4297-AAE9-44422C7BD950}
+		{28991EA0-2D24-46E8-8D3D-029C266EC638} = {81349D8E-1C64-4BF0-A192-76AA7EEE3D2A}
+		{4DDB31E4-9B43-4870-9030-DEB68FF5614D} = {28991EA0-2D24-46E8-8D3D-029C266EC638}
+		{7B499BA6-A504-4FF4-8F07-C0D903198900} = {F6A35111-CDCA-4297-AAE9-44422C7BD950}
+		{D9AB5B48-DE83-48E3-AB98-C16684D92681} = {7B499BA6-A504-4FF4-8F07-C0D903198900}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {38840450-182B-4FB2-A535-57FC89B94029}
+	EndGlobalSection
+EndGlobal
