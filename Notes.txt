@@ -1,2 +1,4 @@
 Services : 
-	Product.Api => http://localhost:1001/
+	SparkNest.Services.ProductAPI => http://localhost:2001
+	SparkNest.Services.FileStockAPI => http://localhost:2002
+	SparkNest.Services.IdentityServiceAPI => http://localhost:5001
