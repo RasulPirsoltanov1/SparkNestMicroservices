@@ -26,7 +26,7 @@ namespace SparkNest.Services.FileStockAPI.Controllers
             }
             return CreateActionResultInstance<NoContent>(Response<NoContent>.Fail("photo is empty", 400));
         }
-
+        [HttpGet("{photoUrl}")]
         public async Task<IActionResult> PhotoDelete(string photoUrl)
         {
             try

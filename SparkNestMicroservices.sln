@@ -22,11 +22,15 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SparkNest.Services.Identity
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Common", "Common", "{14EBD543-A77E-473C-B0FA-C3859ABFE733}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SparkNest.Common.Base", "src\Common\SparkNest.Common.Base\SparkNest.Common.Base.csproj", "{7B64D7BA-12A4-4283-9354-0E33D235CCFB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SparkNest.Common.Base", "src\Common\SparkNest.Common.Base\SparkNest.Common.Base.csproj", "{7B64D7BA-12A4-4283-9354-0E33D235CCFB}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "FileStock", "FileStock", "{3AFF03AB-B0F8-48CB-8735-B08606B53CEC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SparkNest.Services.FileStockAPI", "src\Services\FileStock\SparkNest.Services.FileStockAPI\SparkNest.Services.FileStockAPI.csproj", "{1B90966D-96E9-444B-8437-50D8F88C00B4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SparkNest.Services.FileStockAPI", "src\Services\FileStock\SparkNest.Services.FileStockAPI\SparkNest.Services.FileStockAPI.csproj", "{1B90966D-96E9-444B-8437-50D8F88C00B4}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Basket", "Basket", "{E65A90AC-50DB-495E-891D-9103951271CE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SparkNest.Services.BasketAPI", "src\Services\Basket\SparkNest.Services.BasketAPI\SparkNest.Services.BasketAPI.csproj", "{09B0C656-1A63-428B-AAC0-336490C793BD}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -50,6 +54,10 @@ Global
 		{1B90966D-96E9-444B-8437-50D8F88C00B4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1B90966D-96E9-444B-8437-50D8F88C00B4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1B90966D-96E9-444B-8437-50D8F88C00B4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{09B0C656-1A63-428B-AAC0-336490C793BD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{09B0C656-1A63-428B-AAC0-336490C793BD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{09B0C656-1A63-428B-AAC0-336490C793BD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{09B0C656-1A63-428B-AAC0-336490C793BD}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -64,6 +72,8 @@ Global
 		{7B64D7BA-12A4-4283-9354-0E33D235CCFB} = {14EBD543-A77E-473C-B0FA-C3859ABFE733}
 		{3AFF03AB-B0F8-48CB-8735-B08606B53CEC} = {81349D8E-1C64-4BF0-A192-76AA7EEE3D2A}
 		{1B90966D-96E9-444B-8437-50D8F88C00B4} = {3AFF03AB-B0F8-48CB-8735-B08606B53CEC}
+		{E65A90AC-50DB-495E-891D-9103951271CE} = {81349D8E-1C64-4BF0-A192-76AA7EEE3D2A}
+		{09B0C656-1A63-428B-AAC0-336490C793BD} = {E65A90AC-50DB-495E-891D-9103951271CE}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {38840450-182B-4FB2-A535-57FC89B94029}

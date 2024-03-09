@@ -1,4 +1,5 @@
 Services : 
-	SparkNest.Services.ProductAPI => http://localhost:2001
+	SparkNest.Services.IdentityServiceAPI => http://localhost:5001 i used IdentityServer template for this service
+	SparkNest.Services.ProductAPI => http://localhost:2001 
 	SparkNest.Services.FileStockAPI => http://localhost:2002
-	SparkNest.Services.IdentityServiceAPI => http://localhost:5001
+	SparkNest.Services.BasketAPI => http://localhost:2003
