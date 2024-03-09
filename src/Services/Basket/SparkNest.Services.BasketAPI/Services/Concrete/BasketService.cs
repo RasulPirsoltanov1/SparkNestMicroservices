@@ -1,4 +1,5 @@
-﻿using SparkNest.Common.DTOs;
+﻿using SparkNest.Common.Base.Services;
+using SparkNest.Common.DTOs;
 using SparkNest.Services.BasketAPI.DTOs;
 using SparkNest.Services.BasketAPI.Services.Abstract;
 using System.Text.Json;
@@ -8,10 +9,12 @@ namespace SparkNest.Services.BasketAPI.Services.Concrete
     public class BasketService : IBasketService
     {
         RedisService _redisService;
+        ISharedIdentityService _sharedIdentityService;
 
-        public BasketService(RedisService redisService)
+        public BasketService(RedisService redisService, ISharedIdentityService sharedIdentityService)
         {
             this._redisService = redisService;
+            _sharedIdentityService = sharedIdentityService;
         }
 
         public async Task<Response<bool>> DeleteAsync(string userId)
@@ -37,7 +40,7 @@ namespace SparkNest.Services.BasketAPI.Services.Concrete
 
         public async Task<Response<bool>> SaveOrUpdateAsync(BasketDTO basketDTO)
         {
-            var status = await _redisService.GetDb().StringSetAsync(basketDTO.UserId, JsonSerializer.Serialize(basketDTO));
+            var status = await _redisService.GetDb().StringSetAsync(_sharedIdentityService.UserId, JsonSerializer.Serialize(basketDTO));
 
             return status ? Response<bool>.Success(200) : Response<bool>.Fail("Basket could not save or update", 500);
         }

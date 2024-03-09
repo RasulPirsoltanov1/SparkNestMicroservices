@@ -1,0 +1,6 @@
+@SparkNest.Services.DiscountAPI_HostAddress = http://localhost:5069
+
+GET {{SparkNest.Services.DiscountAPI_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

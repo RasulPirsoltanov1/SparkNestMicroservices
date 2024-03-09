@@ -1,4 +1,4 @@
-namespace SparkNest.Services.BasketAPI
+namespace SparkNest.Services.DiscountAPI
 {
     public class WeatherForecast
     {
