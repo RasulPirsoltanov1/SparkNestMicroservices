@@ -19,15 +19,19 @@ namespace SparkNest.Services.IdentityServiceAPI
             {
                 Scopes={"product_full_permission"}
             },
-              new ApiResource("resource_basket")
+            new ApiResource("resource_basket")
             {
                 Scopes={"basket_full_permission"}
             },
-             new ApiResource("resource_file_stock")
+            new ApiResource("resource_file_stock")
             {
                 Scopes={"file_stock_full_permission"}
             },
-                  new ApiResource(IdentityServerConstants.LocalApi.ScopeName)
+            new ApiResource("resource_discount")
+            {
+                Scopes={ "discount_full_permission" }
+            },
+            new ApiResource(IdentityServerConstants.LocalApi.ScopeName)
         };
 
 
@@ -46,6 +50,7 @@ namespace SparkNest.Services.IdentityServiceAPI
                 new ApiScope("product_full_permission","full access for catalog api."),
                 new ApiScope("file_stock_full_permission","full access for file stock api."),
                 new ApiScope("basket_full_permission","full access for file basket api."),
+                new ApiScope("discount_full_permission","full access for file basket api."),
                 new ApiScope(IdentityServerConstants.LocalApi.ScopeName),
                 //new ApiScope("scope1"),
                 //new ApiScope("scope2"),
@@ -69,7 +74,7 @@ namespace SparkNest.Services.IdentityServiceAPI
                     AllowOfflineAccess =true,
                     ClientSecrets = {new Secret("secret".Sha256()) },
                     AllowedGrantTypes= GrantTypes.ResourceOwnerPassword,
-                    AllowedScopes = { "basket_full_permission",IdentityServerConstants.StandardScopes.Email, IdentityServerConstants.StandardScopes.OpenId, IdentityServerConstants.StandardScopes.Profile, IdentityServerConstants.StandardScopes.OfflineAccess ,"roles",IdentityServerConstants.LocalApi.ScopeName },
+                    AllowedScopes = { "discount_full_permission", "basket_full_permission",IdentityServerConstants.StandardScopes.Email, IdentityServerConstants.StandardScopes.OpenId, IdentityServerConstants.StandardScopes.Profile, IdentityServerConstants.StandardScopes.OfflineAccess ,"roles",IdentityServerConstants.LocalApi.ScopeName },
                     AccessTokenLifetime = 1*60*60,
                     RefreshTokenExpiration = TokenExpiration.Absolute,
                     AbsoluteRefreshTokenLifetime  =(int)(DateTime.Now.AddDays(60)-DateTime.Now).TotalSeconds,
