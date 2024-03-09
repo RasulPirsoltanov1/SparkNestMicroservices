@@ -14,7 +14,7 @@
         {
             BasketItems = new List<BasketItemDTO>();
         }
-        public int UserId { get; set; }
+        public string UserId { get; set; }
         public int DiscountCode { get; set; }
         public decimal? Total
         {

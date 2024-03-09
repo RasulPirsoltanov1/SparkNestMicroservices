@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
+using SparkNest.Services.BasketAPI.Settings;
 
 namespace SparkNest.Services.BasketAPI.Controllers
 {
@@ -10,12 +11,15 @@ namespace SparkNest.Services.BasketAPI.Controllers
         {
             "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
         };
+        IRedisSettings redisSettings;
 
+   
         private readonly ILogger<WeatherForecastController> _logger;
 
-        public WeatherForecastController(ILogger<WeatherForecastController> logger)
+        public WeatherForecastController(ILogger<WeatherForecastController> logger, IRedisSettings redisSettings)
         {
             _logger = logger;
+            this.redisSettings = redisSettings;
         }
 
         [HttpGet(Name = "GetWeatherForecast")]
@@ -28,6 +32,11 @@ namespace SparkNest.Services.BasketAPI.Controllers
                 Summary = Summaries[Random.Shared.Next(Summaries.Length)]
             })
             .ToArray();
+        }
+        [HttpGet("test")]
+        public IActionResult GetI()
+        {
+            return Ok(redisSettings);
         }
     }
 }
