@@ -42,10 +42,16 @@ namespace SparkNest.Services.DiscountAPI.Controllers
         {
             return CreateActionResultInstance(await _discountService.UpdateAsync(discount));
         }
-        [HttpGet("byUser")]
-        public async Task<IActionResult> GetByUser(string code)
+        [HttpGet("GetByUserAndCode/{code}")]
+        public async Task<IActionResult> GetByCodeAndUserId(string code)
         {
             return CreateActionResultInstance(await _discountService.GetByCodeAndUserIdAsync(code, _sharedIdentityService.UserId));
+        }
+
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteById(int id)
+        {
+            return CreateActionResultInstance(await _discountService.DeleteAsync(id));
         }
     }
 }

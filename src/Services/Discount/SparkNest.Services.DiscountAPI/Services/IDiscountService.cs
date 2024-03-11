@@ -10,6 +10,6 @@ namespace SparkNest.Services.DiscountAPI.Services
         Task<Response<NoContent>> SaveAsync(Discount discount);
         Task<Response<NoContent>> UpdateAsync(Discount discount);
         Task<Response<NoContent>> DeleteAsync(int id);
-        Task<Response<Discount>> GetByCodeAndUserIdAsync(string code,string userId);
+        Task<Response<List<Discount>>> GetByCodeAndUserIdAsync(string code,string userId);
     }
 }

@@ -30,11 +30,23 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SparkNest.Services.FileStoc
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Basket", "Basket", "{E65A90AC-50DB-495E-891D-9103951271CE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SparkNest.Services.BasketAPI", "src\Services\Basket\SparkNest.Services.BasketAPI\SparkNest.Services.BasketAPI.csproj", "{09B0C656-1A63-428B-AAC0-336490C793BD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SparkNest.Services.BasketAPI", "src\Services\Basket\SparkNest.Services.BasketAPI\SparkNest.Services.BasketAPI.csproj", "{09B0C656-1A63-428B-AAC0-336490C793BD}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Discount", "Discount", "{ABDC3B6A-21BE-4841-8DA8-557D97E4B490}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SparkNest.Services.DiscountAPI", "src\Services\Discount\SparkNest.Services.DiscountAPI\SparkNest.Services.DiscountAPI.csproj", "{4828D2C6-95A1-4C3F-885D-69217E653467}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SparkNest.Services.DiscountAPI", "src\Services\Discount\SparkNest.Services.DiscountAPI\SparkNest.Services.DiscountAPI.csproj", "{4828D2C6-95A1-4C3F-885D-69217E653467}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Order", "Order", "{48809177-1B29-4D5D-8CBD-AE8447BE665E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SparkNest.Services.OrderAPI", "src\Services\Order\SparkNest.Services.OrderAPI\SparkNest.Services.OrderAPI.csproj", "{916B9E44-50D1-488C-A6E7-A21B9337DCAE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SparkNest.Services.OrderAPI.Domain.Core", "src\Services\Order\SparkNest.Services.OrderAPI.Domain.Core\SparkNest.Services.OrderAPI.Domain.Core.csproj", "{67377618-B45A-45D9-98C7-0B2AB8D7B2A4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SparkNest.Services.OrderAPI.Domain", "src\Services\Order\SparkNest.Services.OrderAPI.Domain\SparkNest.Services.OrderAPI.Domain.csproj", "{6EC6FE16-5C60-4BE1-A3BE-FA364788DF83}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SparkNest.Services.OrderAPI.Infrastructure", "src\Services\Order\SparkNest.Services.OrderAPI.Infrastructure\SparkNest.Services.OrderAPI.Infrastructure.csproj", "{5004786C-7AD5-4D3A-A0CE-2632DCF13FC9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SparkNest.Services.OrderAPI.Application", "src\Services\Order\SparkNest.Services.OrderAPI.Application\SparkNest.Services.OrderAPI.Application.csproj", "{3ECA043A-D94F-4BB5-BC0D-F271EC80A1F3}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -66,6 +78,26 @@ Global
 		{4828D2C6-95A1-4C3F-885D-69217E653467}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4828D2C6-95A1-4C3F-885D-69217E653467}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4828D2C6-95A1-4C3F-885D-69217E653467}.Release|Any CPU.Build.0 = Release|Any CPU
+		{916B9E44-50D1-488C-A6E7-A21B9337DCAE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{916B9E44-50D1-488C-A6E7-A21B9337DCAE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{916B9E44-50D1-488C-A6E7-A21B9337DCAE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{916B9E44-50D1-488C-A6E7-A21B9337DCAE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{67377618-B45A-45D9-98C7-0B2AB8D7B2A4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{67377618-B45A-45D9-98C7-0B2AB8D7B2A4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{67377618-B45A-45D9-98C7-0B2AB8D7B2A4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{67377618-B45A-45D9-98C7-0B2AB8D7B2A4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6EC6FE16-5C60-4BE1-A3BE-FA364788DF83}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6EC6FE16-5C60-4BE1-A3BE-FA364788DF83}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6EC6FE16-5C60-4BE1-A3BE-FA364788DF83}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6EC6FE16-5C60-4BE1-A3BE-FA364788DF83}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5004786C-7AD5-4D3A-A0CE-2632DCF13FC9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5004786C-7AD5-4D3A-A0CE-2632DCF13FC9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5004786C-7AD5-4D3A-A0CE-2632DCF13FC9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5004786C-7AD5-4D3A-A0CE-2632DCF13FC9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3ECA043A-D94F-4BB5-BC0D-F271EC80A1F3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3ECA043A-D94F-4BB5-BC0D-F271EC80A1F3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3ECA043A-D94F-4BB5-BC0D-F271EC80A1F3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3ECA043A-D94F-4BB5-BC0D-F271EC80A1F3}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -84,6 +116,12 @@ Global
 		{09B0C656-1A63-428B-AAC0-336490C793BD} = {E65A90AC-50DB-495E-891D-9103951271CE}
 		{ABDC3B6A-21BE-4841-8DA8-557D97E4B490} = {81349D8E-1C64-4BF0-A192-76AA7EEE3D2A}
 		{4828D2C6-95A1-4C3F-885D-69217E653467} = {ABDC3B6A-21BE-4841-8DA8-557D97E4B490}
+		{48809177-1B29-4D5D-8CBD-AE8447BE665E} = {81349D8E-1C64-4BF0-A192-76AA7EEE3D2A}
+		{916B9E44-50D1-488C-A6E7-A21B9337DCAE} = {48809177-1B29-4D5D-8CBD-AE8447BE665E}
+		{67377618-B45A-45D9-98C7-0B2AB8D7B2A4} = {48809177-1B29-4D5D-8CBD-AE8447BE665E}
+		{6EC6FE16-5C60-4BE1-A3BE-FA364788DF83} = {48809177-1B29-4D5D-8CBD-AE8447BE665E}
+		{5004786C-7AD5-4D3A-A0CE-2632DCF13FC9} = {48809177-1B29-4D5D-8CBD-AE8447BE665E}
+		{3ECA043A-D94F-4BB5-BC0D-F271EC80A1F3} = {48809177-1B29-4D5D-8CBD-AE8447BE665E}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {38840450-182B-4FB2-A535-57FC89B94029}

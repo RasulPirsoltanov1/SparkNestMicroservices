@@ -36,7 +36,7 @@ namespace SparkNest.Services.DiscountAPI.Services
             return Response<List<Discount>>.Success(discounts.ToList(), 200);
         }
 
-        public async Task<Response<Discount>> GetByCodeAndUserIdAsync(string code, string userId)
+        public async Task<Response<List<Discount>>> GetByCodeAndUserIdAsync(string code, string userId)
         {
             var discount = await _dbConnection.QueryAsync<Discount>("SELECT * FROM discount where userid=@userId and code=@code",new
             {
@@ -45,9 +45,9 @@ namespace SparkNest.Services.DiscountAPI.Services
             }); 
             if(discount == null)
             {
-                return Response<Discount>.Fail("discount not found",404);
+                return Response<List<Discount>>.Fail("discount not found",404);
             }
-            return Response<Discount>.Success(discount.SingleOrDefault(), 200);
+            return Response<List<Discount>>.Success(discount.ToList(), 200);
         }
 
         public async Task<Response<Discount>> GetByIdAsync(int id)
@@ -68,14 +68,14 @@ namespace SparkNest.Services.DiscountAPI.Services
             var status = await _dbConnection.ExecuteAsync("INSERT INTO discount(userid,rate,code) VALUES(@UserId,@Rate,@Code)", discount);
             if (status > 0)
             {
-                return Response<NoContent>.Success(200);
+                return Response<NoContent>.Success(204);
             }
             return Response<NoContent>.Fail(string.Join(",", discount), 500);
         }
 
         public async Task<Response<NoContent>> UpdateAsync(Discount discount)
         {
-            var status = await _dbConnection.ExecuteAsync("update discount set userid=@UserId,rate=@Rate,code=@Code");
+            var status = await _dbConnection.ExecuteAsync("update discount set userid=@UserId,rate=@Rate,code=@Code where Id=@Id",discount);
             if (status > 0)
             {
                 return Response<NoContent>.Success(200);
