@@ -24,6 +24,11 @@ builder.Services.AddAuthentication(opt =>
     opt.RequireHttpsMetadata = false;
 });
 
+
+
+
+
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

@@ -1,7 +1,19 @@
+using SparkNest.UI.MVC.Models;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+
+
+builder.Services.AddSingleton<ServiceApiSettings>(provider =>
+{
+    var settings = builder.Configuration.GetSection("ServiceApiSettings").Get<ServiceApiSettings>();
+    return settings;
+});
+
+
+
 
 var app = builder.Build();
 
