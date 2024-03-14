@@ -7,3 +7,8 @@ Services :
 	SparkNest.Services.OrderAPI => http://localhost:2005
 	SparkNest.Services.FakePaymentAPI => http://localhost:2006
 	DiscountDB Port=> 2005
+
+
+UI:
+	SparkNest.UI.MVC => http://localhost:2007
+
