@@ -3,6 +3,7 @@ using IdentityServer4.Validation;
 using Microsoft.AspNetCore.Identity;
 using SparkNest.Services.IdentityServiceAPI.Models;
 using System.Collections.Generic;
+using System.Security.Claims;
 using System.Threading.Tasks;
 
 namespace SparkNest.Services.IdentityServiceAPI.Services
@@ -37,7 +38,7 @@ namespace SparkNest.Services.IdentityServiceAPI.Services
                 };
                 return; 
             }
-            context.Result = new GrantValidationResult(existUser.Id.ToString(), OidcConstants.AuthenticationMethods.Password);
+            context.Result = new GrantValidationResult(existUser.Id.ToString(), OidcConstants.AuthenticationMethods.Password,new List<Claim>() { new Claim("role", "Admin") });
         }
     }
 }

@@ -5,4 +5,5 @@ Services :
 	SparkNest.Services.BasketAPI => http://localhost:2003
 	SparkNest.Services.DiscountAPI => http://localhost:2004
 	SparkNest.Services.OrderAPI => http://localhost:2005
+	SparkNest.Services.FakePaymentAPI => http://localhost:2006
 	DiscountDB Port=> 2005

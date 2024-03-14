@@ -9,6 +9,10 @@ namespace SparkNest.Services.OrderAPI.Domain.OrderAggregate
 {
     public class Order : Entity, IAggregateRoot
     {
+        public Order()
+        {
+            
+        }
         public Order(string buyerId, Address address)
         {
             BuyerId = buyerId;

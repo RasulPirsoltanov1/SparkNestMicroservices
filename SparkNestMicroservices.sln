@@ -38,15 +38,23 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SparkNest.Services.Discount
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Order", "Order", "{48809177-1B29-4D5D-8CBD-AE8447BE665E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SparkNest.Services.OrderAPI", "src\Services\Order\SparkNest.Services.OrderAPI\SparkNest.Services.OrderAPI.csproj", "{916B9E44-50D1-488C-A6E7-A21B9337DCAE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SparkNest.Services.OrderAPI", "src\Services\Order\SparkNest.Services.OrderAPI\SparkNest.Services.OrderAPI.csproj", "{916B9E44-50D1-488C-A6E7-A21B9337DCAE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SparkNest.Services.OrderAPI.Domain.Core", "src\Services\Order\SparkNest.Services.OrderAPI.Domain.Core\SparkNest.Services.OrderAPI.Domain.Core.csproj", "{67377618-B45A-45D9-98C7-0B2AB8D7B2A4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SparkNest.Services.OrderAPI.Domain.Core", "src\Services\Order\SparkNest.Services.OrderAPI.Domain.Core\SparkNest.Services.OrderAPI.Domain.Core.csproj", "{67377618-B45A-45D9-98C7-0B2AB8D7B2A4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SparkNest.Services.OrderAPI.Domain", "src\Services\Order\SparkNest.Services.OrderAPI.Domain\SparkNest.Services.OrderAPI.Domain.csproj", "{6EC6FE16-5C60-4BE1-A3BE-FA364788DF83}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SparkNest.Services.OrderAPI.Domain", "src\Services\Order\SparkNest.Services.OrderAPI.Domain\SparkNest.Services.OrderAPI.Domain.csproj", "{6EC6FE16-5C60-4BE1-A3BE-FA364788DF83}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SparkNest.Services.OrderAPI.Infrastructure", "src\Services\Order\SparkNest.Services.OrderAPI.Infrastructure\SparkNest.Services.OrderAPI.Infrastructure.csproj", "{5004786C-7AD5-4D3A-A0CE-2632DCF13FC9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SparkNest.Services.OrderAPI.Infrastructure", "src\Services\Order\SparkNest.Services.OrderAPI.Infrastructure\SparkNest.Services.OrderAPI.Infrastructure.csproj", "{5004786C-7AD5-4D3A-A0CE-2632DCF13FC9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SparkNest.Services.OrderAPI.Application", "src\Services\Order\SparkNest.Services.OrderAPI.Application\SparkNest.Services.OrderAPI.Application.csproj", "{3ECA043A-D94F-4BB5-BC0D-F271EC80A1F3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SparkNest.Services.OrderAPI.Application", "src\Services\Order\SparkNest.Services.OrderAPI.Application\SparkNest.Services.OrderAPI.Application.csproj", "{3ECA043A-D94F-4BB5-BC0D-F271EC80A1F3}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "FakePayment", "FakePayment", "{F8877599-94AC-4047-A5FD-C61C76CADF1A}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SparkNest.Services.FakePaymentAPI", "src\Services\FakePayment\SparkNest.Services.FakePaymentAPI\SparkNest.Services.FakePaymentAPI.csproj", "{30DFBC7A-70AE-455A-91A6-C6E8F88223FB}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Gateways", "Gateways", "{9C42AD3F-4B03-4C26-89B9-5BA60EC8D525}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SparkNest.Gateways.GatewayMVC", "src\Gateways\SparkNest.Gateways.GatewayMVC\SparkNest.Gateways.GatewayMVC.csproj", "{BA23B5D9-559A-4764-B04E-7674D23D794D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -98,6 +106,14 @@ Global
 		{3ECA043A-D94F-4BB5-BC0D-F271EC80A1F3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3ECA043A-D94F-4BB5-BC0D-F271EC80A1F3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3ECA043A-D94F-4BB5-BC0D-F271EC80A1F3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{30DFBC7A-70AE-455A-91A6-C6E8F88223FB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{30DFBC7A-70AE-455A-91A6-C6E8F88223FB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{30DFBC7A-70AE-455A-91A6-C6E8F88223FB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{30DFBC7A-70AE-455A-91A6-C6E8F88223FB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BA23B5D9-559A-4764-B04E-7674D23D794D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BA23B5D9-559A-4764-B04E-7674D23D794D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BA23B5D9-559A-4764-B04E-7674D23D794D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BA23B5D9-559A-4764-B04E-7674D23D794D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -122,6 +138,10 @@ Global
 		{6EC6FE16-5C60-4BE1-A3BE-FA364788DF83} = {48809177-1B29-4D5D-8CBD-AE8447BE665E}
 		{5004786C-7AD5-4D3A-A0CE-2632DCF13FC9} = {48809177-1B29-4D5D-8CBD-AE8447BE665E}
 		{3ECA043A-D94F-4BB5-BC0D-F271EC80A1F3} = {48809177-1B29-4D5D-8CBD-AE8447BE665E}
+		{F8877599-94AC-4047-A5FD-C61C76CADF1A} = {81349D8E-1C64-4BF0-A192-76AA7EEE3D2A}
+		{30DFBC7A-70AE-455A-91A6-C6E8F88223FB} = {F8877599-94AC-4047-A5FD-C61C76CADF1A}
+		{9C42AD3F-4B03-4C26-89B9-5BA60EC8D525} = {F6A35111-CDCA-4297-AAE9-44422C7BD950}
+		{BA23B5D9-559A-4764-B04E-7674D23D794D} = {9C42AD3F-4B03-4C26-89B9-5BA60EC8D525}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {38840450-182B-4FB2-A535-57FC89B94029}

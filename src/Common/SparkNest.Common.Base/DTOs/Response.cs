@@ -4,7 +4,10 @@ using System.Text;
 using System.Text.Json.Serialization;
 
 namespace SparkNest.Common.DTOs
-{
+{/// <summary>
+/// Global Response
+/// </summary>
+/// <typeparam name="T"></typeparam>
     public class Response<T>
     {
         public T Data { get; set; }

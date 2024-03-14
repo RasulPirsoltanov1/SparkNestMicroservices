@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace SparkNest.Services.OrderAPI.Application.Mapping
 {
-    public static class ObjectMappin
+    public static class ObjectMapping
     {
         private static Lazy<IMapper> _lazy = new Lazy<IMapper>(() =>
         {

@@ -44,6 +44,22 @@ builder.Services.AddScoped<IProductService, ProductService>();
 
 var app = builder.Build();
 
+
+
+using (var scope = app.Services.CreateScope())
+{
+    var categoryService = scope.ServiceProvider.GetRequiredService<ICategoryService>();
+    if (!categoryService.GetAllAsync().Result.Data.Any())
+    {
+        for (int i = 0; i < 10; i++)
+        {
+           await categoryService.CreateAsync(new SparkNest.Services.ProductAPI.DTOs.CategoryDTO { Name = "Test "+i });
+        }
+    }
+}
+
+
+
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {

@@ -9,6 +9,10 @@ namespace SparkNest.Services.OrderAPI.Domain.OrderAggregate
 {
     public class OrderItem:Entity
     {
+        public OrderItem()
+        {
+            
+        }
         public OrderItem(string productId, string productName, string productUrl, decimal price)
         {
             ProductId = productId;
