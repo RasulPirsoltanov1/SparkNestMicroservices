@@ -38,7 +38,7 @@ namespace SparkNest.Services.IdentityServiceAPI.Services
                 };
                 return; 
             }
-            context.Result = new GrantValidationResult(existUser.Id.ToString(), OidcConstants.AuthenticationMethods.Password,new List<Claim>() { new Claim("role", "Admin") });
+              context.Result = new GrantValidationResult(existUser.Id.ToString(), OidcConstants.AuthenticationMethods.Password,new List<Claim>() { new Claim("role", "Admin") });
         }
     }
 }

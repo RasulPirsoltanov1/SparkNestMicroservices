@@ -60,7 +60,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "UI", "UI", "{6F263FD6-4BD1-
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "MVC", "MVC", "{E8F03177-BA5F-40F7-B9A3-2EF8BCB9ED8C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SparkNest.UI.MVC", "src\UI\MVC\SparkNest.UI.MVC\SparkNest.UI.MVC.csproj", "{0E4C6333-8A27-4A3F-BE6B-D3F156446477}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SparkNest.UI.MVC", "src\UI\MVC\SparkNest.UI.MVC\SparkNest.UI.MVC.csproj", "{0E4C6333-8A27-4A3F-BE6B-D3F156446477}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

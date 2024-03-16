@@ -8,6 +8,8 @@
 
   <ItemGroup>
     <PackageReference Include="IdentityModel" Version="6.2.0" />
+    <PackageReference Include="Microsoft.IdentityModel.Protocols.OpenIdConnect" Version="7.4.0" />
+    <PackageReference Include="SimpleIdServer.OpenIdConnect" Version="4.0.7" />
   </ItemGroup>
 
   <ItemGroup>

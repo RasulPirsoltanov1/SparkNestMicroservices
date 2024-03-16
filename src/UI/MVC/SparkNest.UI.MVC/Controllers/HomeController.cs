@@ -1,5 +1,7 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using SparkNest.UI.MVC.Models;
+using SparkNest.UI.MVC.Services.Interfaces;
 using System.Diagnostics;
 
 namespace SparkNest.UI.MVC.Controllers
@@ -8,17 +10,25 @@ namespace SparkNest.UI.MVC.Controllers
     {
         private readonly ILogger<HomeController> _logger;
         ServiceApiSettings _serviceApiSettings;
+        IIdentityService _identityService;
 
-        public HomeController(ILogger<HomeController> logger, ServiceApiSettings serviceApiSettings)
+        public HomeController(ILogger<HomeController> logger, ServiceApiSettings serviceApiSettings, IIdentityService identityService)
         {
             _logger = logger;
             _serviceApiSettings = serviceApiSettings;
+            _identityService = identityService;
         }
-        public IActionResult IndexSet()
+        public async Task<IActionResult> IndexSet()
         {
-
-            return Ok(_serviceApiSettings);
+         var resposne =   await _identityService.SignIn(new SignInInput
+            {
+                Email ="resulresull510@gmail.com",
+                IsRememberMe = true,
+                Password = "Rasul123."
+            });
+            return Ok(resposne);
         }
+        [Authorize(Roles ="Admin")]
         public IActionResult Index()
         {
 

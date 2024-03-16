@@ -1,4 +1,8 @@
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using SparkNest.UI.MVC.Models;
+using SparkNest.UI.MVC.Services.Concretes;
+using SparkNest.UI.MVC.Services.Interfaces;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -10,6 +14,25 @@ builder.Services.AddSingleton<ServiceApiSettings>(provider =>
 {
     var settings = builder.Configuration.GetSection("ServiceApiSettings").Get<ServiceApiSettings>();
     return settings;
+});
+
+
+builder.Services.AddSingleton<ClientSettings>(provider =>
+{
+    var settings = builder.Configuration.GetSection("ClientSettings").Get<ClientSettings>();
+    return settings;
+});
+
+builder.Services.AddHttpContextAccessor();
+builder.Services.AddHttpClient();
+builder.Services.AddScoped<IIdentityService, IdentityService>();
+
+builder.Services.AddAuthentication().AddCookie(CookieAuthenticationDefaults.AuthenticationScheme, opt =>
+{
+    opt.LoginPath = "/Auth/SignIn";
+    opt.ExpireTimeSpan = TimeSpan.FromMicroseconds(10);
+    opt.SlidingExpiration = true;
+    opt.Cookie.Name = "SparkNest";
 });
 
 
@@ -26,6 +49,7 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllerRoute(
