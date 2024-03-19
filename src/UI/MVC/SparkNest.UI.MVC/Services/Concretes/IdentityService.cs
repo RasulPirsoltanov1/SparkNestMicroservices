@@ -88,12 +88,53 @@ namespace SparkNest.UI.MVC.Services.Concretes
             }
             });
             authenticationProperties.IsPersistent = signInInput.IsRememberMe;
-            await _HttpContextAccessor.HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme,claimsPrincipal, authenticationProperties);
-            return Response<bool>.Success(true,200);
+            await _HttpContextAccessor.HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, claimsPrincipal, authenticationProperties);
+            return Response<bool>.Success(true, 200);
         }
-        public Task<TokenResponse> GetAccessTokenByRefreshToken()
+        public async Task<TokenResponse> GetAccessTokenByRefreshToken()
         {
-            throw new NotImplementedException();
+            var discovery = await _httpClient.GetDiscoveryDocumentAsync(new DiscoveryDocumentRequest
+            {
+                Address = _serviceApiSettings.BaseUri,
+                Policy = new DiscoveryPolicy { RequireHttps = false }
+            });
+
+            if (discovery.IsError)
+            {
+                throw discovery.Exception;
+            }
+            var refreshToken = await _HttpContextAccessor.HttpContext.GetTokenAsync(OpenIdConnectParameterNames.AccessToken);
+            RefreshTokenRequest refreshTokenRequest = new RefreshTokenRequest
+            {
+                Address = discovery.TokenEndpoint,
+                ClientId = _clientSettings.WebClientForUser.ClientId,
+                ClientSecret = _clientSettings.WebClientForUser.ClientSecret,
+                RefreshToken = refreshToken
+            };
+            var token = await _httpClient.RequestRefreshTokenAsync(refreshTokenRequest);
+            if (token.IsError)
+            {
+                return null;
+            }
+            var authenticationTokens = new List<AuthenticationToken> {
+                new AuthenticationToken() {
+                Name =OpenIdConnectParameterNames.AccessToken,
+                Value = token.AccessToken
+            },
+                   new AuthenticationToken() {
+                Name =OpenIdConnectParameterNames.RefreshToken,
+                Value = token.RefreshToken
+            },
+                      new AuthenticationToken() {
+                Name =OpenIdConnectParameterNames.ExpiresIn,
+                Value = DateTime.Now.AddSeconds(token.ExpiresIn).ToString("O",CultureInfo.InvariantCulture)
+            }
+            };
+            var authenticationResult = await _HttpContextAccessor.HttpContext.AuthenticateAsync();
+            var properties = authenticationResult.Properties;
+            properties.StoreTokens(authenticationTokens);
+            await _HttpContextAccessor.HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme,authenticationResult.Principal,properties);
+            return token;
         }
 
         public Task RevokeRefreshToken()

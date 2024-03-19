@@ -28,7 +28,6 @@ namespace SparkNest.UI.MVC.Controllers
             });
             return Ok(resposne);
         }
-        [Authorize(Roles ="Admin")]
         public IActionResult Index()
         {
 
