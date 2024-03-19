@@ -133,13 +133,33 @@ namespace SparkNest.UI.MVC.Services.Concretes
             var authenticationResult = await _HttpContextAccessor.HttpContext.AuthenticateAsync();
             var properties = authenticationResult.Properties;
             properties.StoreTokens(authenticationTokens);
-            await _HttpContextAccessor.HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme,authenticationResult.Principal,properties);
+            await _HttpContextAccessor.HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, authenticationResult.Principal, properties);
             return token;
         }
 
-        public Task RevokeRefreshToken()
+        public async Task RevokeRefreshToken()
         {
-            throw new NotImplementedException();
+            var discovery = await _httpClient.GetDiscoveryDocumentAsync(new DiscoveryDocumentRequest
+            {
+                Address = _serviceApiSettings.BaseUri,
+                Policy = new DiscoveryPolicy { RequireHttps = false }
+            });
+
+            if (discovery.IsError)
+            {
+                throw discovery.Exception;
+            }
+            var refreshToken = await _HttpContextAccessor.HttpContext.GetTokenAsync(OpenIdConnectParameterNames.AccessToken);
+
+            TokenRevocationRequest tokenRevocationRequest = new TokenRevocationRequest
+            {
+                Address = discovery.RevocationEndpoint,
+                ClientId = _clientSettings.WebClientForUser.ClientId,
+                ClientSecret = _clientSettings.WebClientForUser.ClientSecret,
+                Token = refreshToken,
+                TokenTypeHint = "refresh_token"
+            };
+            await _httpClient.RevokeTokenAsync(tokenRevocationRequest);
         }
 
     }
