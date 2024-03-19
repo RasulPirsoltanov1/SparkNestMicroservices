@@ -23,9 +23,16 @@ builder.Services.AddSingleton<ClientSettings>(provider =>
     return settings;
 });
 
+
 builder.Services.AddHttpContextAccessor();
 builder.Services.AddHttpClient();
+var serviceApiASettings = builder.Configuration.GetSection("ServiceApiSettings").Get<ServiceApiSettings>();
+builder.Services.AddHttpClient<IUserService, UserService>(opt =>
+{
+    opt.BaseAddress = new Uri(serviceApiASettings.IdentityBaseUri);
+});
 builder.Services.AddScoped<IIdentityService, IdentityService>();
+builder.Services.AddScoped<IUserService, UserService>();
 
 builder.Services.AddAuthentication().AddCookie(CookieAuthenticationDefaults.AuthenticationScheme, opt =>
 {

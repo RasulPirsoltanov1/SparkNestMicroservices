@@ -31,7 +31,7 @@ namespace SparkNest.UI.MVC.Services.Concretes
         {
             var discovery = await _httpClient.GetDiscoveryDocumentAsync(new DiscoveryDocumentRequest
             {
-                Address = _serviceApiSettings.BaseUri,
+                Address = _serviceApiSettings.IdentityBaseUri,
                 Policy = new DiscoveryPolicy { RequireHttps = false }
             });
 
@@ -95,7 +95,7 @@ namespace SparkNest.UI.MVC.Services.Concretes
         {
             var discovery = await _httpClient.GetDiscoveryDocumentAsync(new DiscoveryDocumentRequest
             {
-                Address = _serviceApiSettings.BaseUri,
+                Address = _serviceApiSettings.IdentityBaseUri,
                 Policy = new DiscoveryPolicy { RequireHttps = false }
             });
 
@@ -141,7 +141,7 @@ namespace SparkNest.UI.MVC.Services.Concretes
         {
             var discovery = await _httpClient.GetDiscoveryDocumentAsync(new DiscoveryDocumentRequest
             {
-                Address = _serviceApiSettings.BaseUri,
+                Address = _serviceApiSettings.IdentityBaseUri,
                 Policy = new DiscoveryPolicy { RequireHttps = false }
             });
 

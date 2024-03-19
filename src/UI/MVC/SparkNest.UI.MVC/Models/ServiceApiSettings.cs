@@ -2,7 +2,7 @@
 {
     public class ServiceApiSettings
     {
-        public string BaseUri { get; set; }
+        public string IdentityBaseUri { get; set; }
         public string FileStockUri { get; set; }
     }
 }
