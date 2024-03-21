@@ -33,7 +33,9 @@ namespace SparkNest.Services.IdentityServiceAPI
             services.AddControllersWithViews();
 
             services.AddDbContext<ApplicationDbContext>(options =>
-                options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+            {
+                options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"));
+            });
 
             services.AddIdentity<ApplicationUser, IdentityRole>()
                 .AddEntityFrameworkStores<ApplicationDbContext>()
@@ -54,7 +56,7 @@ namespace SparkNest.Services.IdentityServiceAPI
                 .AddInMemoryApiScopes(Config.ApiScopes)
                 .AddInMemoryClients(Config.Clients)
                 .AddAspNetIdentity<ApplicationUser>();
-            
+
             //custom validator
             builder.AddResourceOwnerValidator<IdentityResourceOwnerPasswordValidator>();
 

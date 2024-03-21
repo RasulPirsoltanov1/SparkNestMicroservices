@@ -14,7 +14,7 @@ namespace SparkNest.UI.MVC.Services.Concretes
 
         public async Task<UserVM> GetUser()
         {
-           return await _httpClient.GetFromJsonAsync<UserVM>("/api/user/getuser");
+           return await _httpClient.GetFromJsonAsync<UserVM>("api/user/getuser");
         }
     }
 }

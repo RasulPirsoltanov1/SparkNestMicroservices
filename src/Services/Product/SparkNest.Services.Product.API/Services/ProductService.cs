@@ -83,10 +83,9 @@ namespace SparkNest.Services.ProductAPI.Services
             return Response<NoContent>.Success(200);
         }
 
-        public async Task<Response<NoContent>> DeleteAsync(ProductUpdateDTO productUpdateDTO)
+        public async Task<Response<NoContent>> DeleteAsync(string productId)
         {
-            var product = _mapper.Map<Product>(productUpdateDTO);
-            var result = await _productCollection.DeleteOneAsync(x => x.Id == productUpdateDTO.Id);
+            var result = await _productCollection.DeleteOneAsync(x => x.Id == productId);
             if (result.DeletedCount == 0)
             {
                 return Response<NoContent>.Fail("Product not found!", 404);

@@ -29,51 +29,53 @@ namespace SparkNest.UI.MVC.Services.Concretes
 
         public async Task<Response<bool>> SignIn(SignInInput signInInput)
         {
-            var discovery = await _httpClient.GetDiscoveryDocumentAsync(new DiscoveryDocumentRequest
+            try
             {
-                Address = _serviceApiSettings.IdentityBaseUri,
-                Policy = new DiscoveryPolicy { RequireHttps = false }
-            });
-
-            if (discovery.IsError)
-            {
-                throw discovery.Exception;
-            }
-
-            var passwordTokenRequest = new PasswordTokenRequest
-            {
-                ClientId = _clientSettings.WebClientForUser.ClientId,
-                ClientSecret = _clientSettings.WebClientForUser.ClientSecret,
-                UserName = signInInput.Email,
-                Address = discovery.TokenEndpoint,
-                Password = signInInput.Password
-            };
-
-            var token = await _httpClient.RequestPasswordTokenAsync(passwordTokenRequest);
-            if (token.IsError)
-            {
-                var responseContent = await token.HttpResponse.Content.ReadAsStringAsync();
-                var errorDTO = JsonSerializer.Deserialize<ErrorDTO>(responseContent, new JsonSerializerOptions
+                var discovery = await _httpClient.GetDiscoveryDocumentAsync(new DiscoveryDocumentRequest
                 {
-                    PropertyNameCaseInsensitive = true
+                    Address = _serviceApiSettings.IdentityBaseUri,
+                    Policy = new DiscoveryPolicy { RequireHttps = false }
                 });
-                return Response<bool>.Fail(errorDTO.Errors, 404);
-            }
 
-            var userInfoRequest = new UserInfoRequest
-            {
-                Token = token.AccessToken,
-                Address = discovery.UserInfoEndpoint,
-            };
-            var userInfo = await _httpClient.GetUserInfoAsync(userInfoRequest);
-            if (userInfo.IsError)
-            {
-                throw userInfo.Exception;
-            }
-            ClaimsIdentity claimsIdentity = new ClaimsIdentity(userInfo.Claims, CookieAuthenticationDefaults.AuthenticationScheme, ClaimTypes.Name, ClaimTypes.Role);
-            ClaimsPrincipal claimsPrincipal = new ClaimsPrincipal(claimsIdentity);
-            var authenticationProperties = new AuthenticationProperties();
-            authenticationProperties.StoreTokens(new List<AuthenticationToken> {
+                if (discovery.IsError)
+                {
+                    throw discovery.Exception;
+                }
+
+                var passwordTokenRequest = new PasswordTokenRequest
+                {
+                    ClientId = _clientSettings.WebClientForUser.ClientId,
+                    ClientSecret = _clientSettings.WebClientForUser.ClientSecret,
+                    UserName = signInInput.Email,
+                    Address = discovery.TokenEndpoint,
+                    Password = signInInput.Password
+                };
+
+                var token = await _httpClient.RequestPasswordTokenAsync(passwordTokenRequest);
+                if (token.IsError)
+                {
+                    var responseContent = await token.HttpResponse.Content.ReadAsStringAsync();
+                    var errorDTO = JsonSerializer.Deserialize<ErrorDTO>(responseContent, new JsonSerializerOptions
+                    {
+                        PropertyNameCaseInsensitive = true
+                    });
+                    return Response<bool>.Fail(errorDTO.Errors, 404);
+                }
+
+                var userInfoRequest = new UserInfoRequest
+                {
+                    Token = token.AccessToken,
+                    Address = discovery.UserInfoEndpoint,
+                };
+                var userInfo = await _httpClient.GetUserInfoAsync(userInfoRequest);
+                if (userInfo.IsError)
+                {
+                    throw userInfo.Exception;
+                }
+                ClaimsIdentity claimsIdentity = new ClaimsIdentity(userInfo.Claims, CookieAuthenticationDefaults.AuthenticationScheme, "name", "role");
+                ClaimsPrincipal claimsPrincipal = new ClaimsPrincipal(claimsIdentity);
+                var authenticationProperties = new AuthenticationProperties();
+                authenticationProperties.StoreTokens(new List<AuthenticationToken> {
                 new AuthenticationToken() {
                 Name =OpenIdConnectParameterNames.AccessToken,
                 Value = token.AccessToken
@@ -87,9 +89,15 @@ namespace SparkNest.UI.MVC.Services.Concretes
                 Value = DateTime.Now.AddSeconds(token.ExpiresIn).ToString("O",CultureInfo.InvariantCulture)
             }
             });
-            authenticationProperties.IsPersistent = signInInput.IsRememberMe;
-            await _HttpContextAccessor.HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, claimsPrincipal, authenticationProperties);
-            return Response<bool>.Success(true, 200);
+                authenticationProperties.IsPersistent = signInInput.IsRememberMe;
+                await _HttpContextAccessor.HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, claimsPrincipal, authenticationProperties);
+                return Response<bool>.Success(true, 200);
+            }
+            catch (Exception ex)
+            {
+                await Console.Out.WriteLineAsync(ex.Message);
+                return null;
+            }
         }
         public async Task<TokenResponse> GetAccessTokenByRefreshToken()
         {
@@ -104,6 +112,9 @@ namespace SparkNest.UI.MVC.Services.Concretes
                 throw discovery.Exception;
             }
             var refreshToken = await _HttpContextAccessor.HttpContext.GetTokenAsync(OpenIdConnectParameterNames.AccessToken);
+            if (refreshToken is null)
+                return null;
+
             RefreshTokenRequest refreshTokenRequest = new RefreshTokenRequest
             {
                 Address = discovery.TokenEndpoint,

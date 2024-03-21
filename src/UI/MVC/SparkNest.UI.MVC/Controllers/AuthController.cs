@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Mvc;
 using SparkNest.UI.MVC.Models;
 using SparkNest.UI.MVC.Services.Interfaces;
 
@@ -7,17 +9,25 @@ namespace SparkNest.UI.MVC.Controllers
     public class AuthController : Controller
     {
         IIdentityService _identityService;
+        IHttpContextAccessor _contextAccessor;
 
-        public AuthController(IIdentityService identityService)
+        public AuthController(IIdentityService identityService, IHttpContextAccessor contextAccessor)
         {
             _identityService = identityService;
+            _contextAccessor = contextAccessor;
         }
 
         public IActionResult SignIn()
         {
             return View();
         }
+        public async Task<IActionResult> SignOut()
+        {
+            await _contextAccessor.HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+            await _identityService.RevokeRefreshToken();
+            return RedirectToAction("Index", "Home");
 
+        }
         [HttpPost]
         public async Task<IActionResult> SignIn(SignInInput signInInput)
         {
@@ -30,7 +40,8 @@ namespace SparkNest.UI.MVC.Controllers
                 var result = await _identityService.SignIn(signInInput);
                 if (result.Errors != null)
                 {
-                    result.Errors.ForEach(error => {
+                    result.Errors.ForEach(error =>
+                    {
                         ModelState.AddModelError("", error);
                     });
                     return View(signInInput);
@@ -40,7 +51,7 @@ namespace SparkNest.UI.MVC.Controllers
             {
                 await Console.Out.WriteLineAsync(ex.Message);
             }
-            return View();
+            return RedirectToAction("Index", "User");
         }
     }
 }
