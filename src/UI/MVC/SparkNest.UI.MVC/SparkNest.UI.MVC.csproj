@@ -16,4 +16,8 @@
     <ProjectReference Include="..\..\..\Common\SparkNest.Common.Base\SparkNest.Common.Base.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Exceptions\" />
+  </ItemGroup>
+
 </Project>

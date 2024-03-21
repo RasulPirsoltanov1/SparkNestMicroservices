@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
+using SparkNest.UI.MVC.Handlers;
 using SparkNest.UI.MVC.Models;
 using SparkNest.UI.MVC.Services.Concretes;
 using SparkNest.UI.MVC.Services.Interfaces;
@@ -30,7 +31,8 @@ var serviceApiASettings = builder.Configuration.GetSection("ServiceApiSettings")
 builder.Services.AddHttpClient<IUserService, UserService>(opt =>
 {
     opt.BaseAddress = new Uri(serviceApiASettings.IdentityBaseUri);
-});
+}).AddHttpMessageHandler<ResourceOwnerPasswordTokenHandler>();
+
 builder.Services.AddScoped<IIdentityService, IdentityService>();
 builder.Services.AddScoped<IUserService, UserService>();
 
