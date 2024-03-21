@@ -40,14 +40,16 @@ builder.Services.AddHttpClient<IUserService, UserService>(opt =>
 
 }).AddHttpMessageHandler<ResourceOwnerPasswordTokenHandler>();
 
+builder.Services.AddHttpClient<IClientCredentialTokenService,ClientCredentialTokenService>(opt =>
+{
+    opt.BaseAddress = new Uri(serviceApiASettings.IdentityBaseUri);
+
+});
 
 builder.Services.AddHttpClient<IProductService, ProductService>(opt =>
 {
     opt.BaseAddress = new Uri(serviceApiASettings.BaseUri + serviceApiASettings.ProductUriPath);
 }).AddHttpMessageHandler<ClientCredentialTokenHandler>();
-
-
-
 
 
 builder.Services.AddAuthentication().AddCookie(CookieAuthenticationDefaults.AuthenticationScheme, opt =>
