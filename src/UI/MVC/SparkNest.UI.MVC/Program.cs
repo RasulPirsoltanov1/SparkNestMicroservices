@@ -24,17 +24,25 @@ builder.Services.AddSingleton<ClientSettings>(provider =>
     var settings = builder.Configuration.GetSection("ClientSettings").Get<ClientSettings>();
     return settings;
 });
+
+
+//HttpClient Interceptors
 builder.Services.AddScoped<ResourceOwnerPasswordTokenHandler>();
 builder.Services.AddScoped<ClientCredentialTokenHandler>();
-
 builder.Services.AddHttpContextAccessor();
+
+//Services Registration
 var serviceApiASettings = builder.Configuration.GetSection("ServiceApiSettings").Get<ServiceApiSettings>();
 builder.Services.AddClientAccessTokenManagement();
-
 builder.Services.AddScoped<IIdentityService, IdentityService>();
 builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<ISharedIdentityService, SharedIdentityService>();
+builder.Services.AddScoped<IFileStockService, FileStockService>();
 
+
+
+
+//Http services 
 builder.Services.AddHttpClient<IUserService, UserService>(opt =>
 {
     opt.BaseAddress = new Uri(serviceApiASettings.IdentityBaseUri);
@@ -44,8 +52,12 @@ builder.Services.AddHttpClient<IUserService, UserService>(opt =>
 builder.Services.AddHttpClient<IClientCredentialTokenService,ClientCredentialTokenService>(opt =>
 {
     opt.BaseAddress = new Uri(serviceApiASettings.IdentityBaseUri);
-
 });
+
+builder.Services.AddHttpClient<IFileStockService, FileStockService>(opt =>
+{
+    opt.BaseAddress = new Uri(serviceApiASettings.BaseUri+serviceApiASettings.FileStockUriPath);
+}).AddHttpMessageHandler<ClientCredentialTokenHandler>();
 
 builder.Services.AddHttpClient<IProductService, ProductService>(opt =>
 {
@@ -53,6 +65,8 @@ builder.Services.AddHttpClient<IProductService, ProductService>(opt =>
 }).AddHttpMessageHandler<ClientCredentialTokenHandler>();
 
 
+
+//Cookie Authentication Configurations
 builder.Services.AddAuthentication().AddCookie(CookieAuthenticationDefaults.AuthenticationScheme, opt =>
 {
     opt.LoginPath = "/Auth/SignIn";

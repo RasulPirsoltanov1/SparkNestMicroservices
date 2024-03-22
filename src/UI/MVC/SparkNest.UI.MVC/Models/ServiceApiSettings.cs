@@ -6,5 +6,6 @@
         public string BaseUri { get; set; }
         public string FileStockUri { get; set; }
         public string ProductUriPath { get; set; }
+        public string FileStockUriPath { get; set; }
     }
 }
