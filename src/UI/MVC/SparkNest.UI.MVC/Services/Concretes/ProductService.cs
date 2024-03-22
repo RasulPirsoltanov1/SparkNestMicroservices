@@ -51,6 +51,8 @@ namespace SparkNest.UI.MVC.Services.Concretes
 
         public async Task<ProductVM> GetByProductId(string productId)
         {
+            if (productId == null)
+                return null;
             var response = await _httpClient.GetAsync($"product/{productId}");
             if (!response.IsSuccessStatusCode)
             {

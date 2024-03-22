@@ -39,6 +39,10 @@ namespace SparkNest.Services.IdentityServiceAPI
             {
                 Scopes={ "discount_full_permission" }
             },
+               new ApiResource("resource_gatewaymvc")
+            {
+                Scopes={ "gatewaymvc_full_permission" }
+            },
             new ApiResource(IdentityServerConstants.LocalApi.ScopeName)
         };
 
@@ -88,7 +92,7 @@ namespace SparkNest.Services.IdentityServiceAPI
                     AllowedScopes = { "discount_full_permission", "order_full_permission","basket_full_permission", "fakepayment_full_permission", "gatewaymvc_full_permission", IdentityServerConstants.StandardScopes.Email, IdentityServerConstants.StandardScopes.OpenId, IdentityServerConstants.StandardScopes.Profile, IdentityServerConstants.StandardScopes.OfflineAccess ,
                      "roles",
                         IdentityServerConstants.LocalApi.ScopeName },
-                    AccessTokenLifetime = 1*60*60,
+                    AccessTokenLifetime = 1*60*600,
                     RefreshTokenExpiration = TokenExpiration.Absolute,
                     AbsoluteRefreshTokenLifetime  =(int)(DateTime.Now.AddDays(60)-DateTime.Now).TotalSeconds,
                     RefreshTokenUsage =TokenUsage.ReUse,

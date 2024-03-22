@@ -72,23 +72,36 @@ namespace SparkNest.UI.MVC.Services.Concretes
                 {
                     throw userInfo.Exception;
                 }
-                ClaimsIdentity claimsIdentity = new ClaimsIdentity(userInfo.Claims, CookieAuthenticationDefaults.AuthenticationScheme, "name", "role");
+
+                var claims = new List<Claim>();
+
+                // Adding claims from userInfo.Claims
+                claims.AddRange(userInfo.Claims);
+
+                // Adding UserId claim if present
+                var userIdClaim = userInfo.Claims.FirstOrDefault(c => c.Type == "sub");
+                if (userIdClaim != null)
+                {
+                    claims.Add(new Claim(ClaimTypes.NameIdentifier, userIdClaim.Value));
+                }
+
+                ClaimsIdentity claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme, "name", "role");
                 ClaimsPrincipal claimsPrincipal = new ClaimsPrincipal(claimsIdentity);
                 var authenticationProperties = new AuthenticationProperties();
                 authenticationProperties.StoreTokens(new List<AuthenticationToken> {
-                new AuthenticationToken() {
+            new AuthenticationToken() {
                 Name =OpenIdConnectParameterNames.AccessToken,
                 Value = token.AccessToken
             },
-                   new AuthenticationToken() {
+            new AuthenticationToken() {
                 Name =OpenIdConnectParameterNames.RefreshToken,
                 Value = token.RefreshToken
             },
-                      new AuthenticationToken() {
+            new AuthenticationToken() {
                 Name =OpenIdConnectParameterNames.ExpiresIn,
                 Value = DateTime.Now.AddSeconds(token.ExpiresIn).ToString("O",CultureInfo.InvariantCulture)
             }
-            });
+        });
                 authenticationProperties.IsPersistent = signInInput.IsRememberMe;
                 await _HttpContextAccessor.HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, claimsPrincipal, authenticationProperties);
                 return Response<bool>.Success(true, 200);
@@ -99,6 +112,7 @@ namespace SparkNest.UI.MVC.Services.Concretes
                 return null;
             }
         }
+
         public async Task<TokenResponse> GetAccessTokenByRefreshToken()
         {
             var discovery = await _httpClient.GetDiscoveryDocumentAsync(new DiscoveryDocumentRequest

@@ -29,6 +29,7 @@ builder.Services.AddScoped<ClientCredentialTokenHandler>();
 
 builder.Services.AddHttpContextAccessor();
 var serviceApiASettings = builder.Configuration.GetSection("ServiceApiSettings").Get<ServiceApiSettings>();
+builder.Services.AddClientAccessTokenManagement();
 
 builder.Services.AddScoped<IIdentityService, IdentityService>();
 builder.Services.AddScoped<IUserService, UserService>();
@@ -55,7 +56,7 @@ builder.Services.AddHttpClient<IProductService, ProductService>(opt =>
 builder.Services.AddAuthentication().AddCookie(CookieAuthenticationDefaults.AuthenticationScheme, opt =>
 {
     opt.LoginPath = "/Auth/SignIn";
-    opt.ExpireTimeSpan = TimeSpan.FromMinutes(1);
+    opt.ExpireTimeSpan = TimeSpan.FromDays(10);
     opt.SlidingExpiration = true;
     opt.Cookie.Name = "SparkNest";
 });
