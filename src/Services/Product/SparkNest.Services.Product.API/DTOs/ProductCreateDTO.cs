@@ -8,7 +8,7 @@ namespace SparkNest.Services.ProductAPI.DTOs
         public decimal Price { get; set; }
         public string UserId { get; set; }
         public FeatureDTO Feature { get; set; }
-        public string Picture { get; set; }
+        public string PhotoUrl { get; set; }
         [BsonRepresentation(MongoDB.Bson.BsonType.ObjectId)]
         public string CategoryId { get; set; }
         public string Description { get; set; }

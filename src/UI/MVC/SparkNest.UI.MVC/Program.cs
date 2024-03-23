@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using SparkNest.Common.Base.Services;
 using SparkNest.UI.MVC.Handlers;
+using SparkNest.UI.MVC.Helpers;
 using SparkNest.UI.MVC.Models;
 using SparkNest.UI.MVC.Services.Concretes;
 using SparkNest.UI.MVC.Services.Interfaces;
@@ -74,6 +75,9 @@ builder.Services.AddAuthentication().AddCookie(CookieAuthenticationDefaults.Auth
     opt.SlidingExpiration = true;
     opt.Cookie.Name = "SparkNest";
 });
+
+//Helpers 
+builder.Services.AddSingleton<FileStockHelper>();
 
 
 

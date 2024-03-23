@@ -26,11 +26,11 @@ namespace SparkNest.UI.MVC.Services.Concretes
 
         public async Task<string> GetTokenAsync()
         {
-            //var currentToken = await _clientAccessTokenCache.GetAsync("WebClient", parameters: null, cancellationToken: default);
-            //if (currentToken != null)
-            //{
-            //    return currentToken.AccessToken;
-            //}
+            var currentToken = await _clientAccessTokenCache.GetAsync("WebClient", parameters: null, cancellationToken: default);
+            if (currentToken != null)
+            {
+                return currentToken.AccessToken;
+            }
             var discovery = await _httpClient.GetDiscoveryDocumentAsync(new DiscoveryDocumentRequest
             {
                 Address = _serviceApiSettings.IdentityBaseUri,

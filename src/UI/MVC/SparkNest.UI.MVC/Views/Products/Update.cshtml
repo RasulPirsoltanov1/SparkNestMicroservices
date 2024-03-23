@@ -1,8 +1,12 @@
 ﻿@using SparkNest.UI.MVC.Models.Product
 @model ProductUpdateVM
 
-<form asp-controller="Products" asp-action="Update" method="post">
+<form asp-controller="Products" asp-action="Update" method="post" enctype="multipart/form-data">
     <div asp-validation-summary="All" class=" alert-danger"></div>
+    <div class="form-group">
+       <img src="@Model.PhotoUrl" width="200px"style="margin:auto;"/>
+    </div>
+
     <div class="form-group">
         <label asp-for="Name" class="control-label"></label>
         <input asp-for="Name" class="form-control" />
@@ -10,9 +14,9 @@
     </div>
 
     <div class="form-group">
-        <label asp-for="Price" class="control-label"></label>
-        <input asp-for="Price" class="form-control" />
-        <span asp-validation-for="Price" class="text-danger"></span>
+        <label asp-for="Photo" class="control-label"></label>
+        <input asp-for="Photo" class="form-control" />
+        <span asp-validation-for="Photo" class="text-danger"></span>
     </div>
 
     <div class="form-group">
@@ -29,12 +33,7 @@
         <span asp-validation-for="CategoryId" class="text-danger"></span>
     </div>
 
-    <div class="form-group">
-        <label asp-for="Picture" class="control-label"></label>
-        <input asp-for="Picture" class="form-control" />
-        <span asp-validation-for="Picture" class="text-danger"></span>
-    </div>
-
+ 
     <div class="form-group">
         <label asp-for="Description" class="control-label"></label>
         <textarea asp-for="Description" class="form-control"></textarea>

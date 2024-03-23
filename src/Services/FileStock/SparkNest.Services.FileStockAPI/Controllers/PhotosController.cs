@@ -26,12 +26,19 @@ namespace SparkNest.Services.FileStockAPI.Controllers
             }
             return CreateActionResultInstance<NoContent>(Response<NoContent>.Fail("photo is empty", 400));
         }
-        [HttpGet("{photoUrl}")]
+        [HttpDelete("{photoUrl}")]
         public async Task<IActionResult> PhotoDelete(string photoUrl)
         {
             try
             {
-                await IFormFileExtension.DeleteFileAsync(photoUrl);
+                if (photoUrl != null)
+                {
+                    string path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot","uploads","photos", photoUrl);
+                    if (System.IO.File.Exists(path))
+                    {
+                        System.IO.File.Delete(path);
+                    }
+                }
                 return CreateActionResultInstance<NoContent>(Response<NoContent>.Success(204));
             }
             catch (Exception ex)

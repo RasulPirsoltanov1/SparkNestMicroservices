@@ -37,7 +37,7 @@ namespace SparkNest.UI.MVC.Controllers
                 return View(productCreateVM);
             productCreateVM.UserId = _sharedIdentityService.UserId;
             var response = await _productService.CreateProductAsync(productCreateVM);
-            return View();
+            return RedirectToAction(nameof(Index));
         }
         [HttpGet]
         public async Task<IActionResult> Update(string id)
@@ -54,7 +54,7 @@ namespace SparkNest.UI.MVC.Controllers
                 Description = product.Description,
                 Feature = product.Feature,
                 Name = product.Name,
-                Picture = product.Picture,
+                PhotoUrl = product.PhotoUrl,
                 Price = product.Price,
                 UserId = product.UserId
             });

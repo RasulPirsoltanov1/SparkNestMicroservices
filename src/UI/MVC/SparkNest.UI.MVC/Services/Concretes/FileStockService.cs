@@ -1,4 +1,5 @@
-﻿using SparkNest.UI.MVC.Models.Files;
+﻿using SparkNest.Common.DTOs;
+using SparkNest.UI.MVC.Models.Files;
 using SparkNest.UI.MVC.Services.Interfaces;
 
 namespace SparkNest.UI.MVC.Services.Concretes
@@ -13,16 +14,36 @@ namespace SparkNest.UI.MVC.Services.Concretes
             _httpClient = httpClient;
         }
 
-        public Task<bool> DeletePhoto(string photoPath)
+        public async Task<bool> DeletePhoto(string photoPath)
         {
-            throw new NotImplementedException();
+            if (photoPath == null)
+            {
+                return false;
+            }
+            var response = await _httpClient.DeleteAsync($"photos/{photoPath}");
+            if (!response.IsSuccessStatusCode)
+            {
+                return false;
+            }
+            return true;
         }
 
-        public Task<PhotoVM> UploadPhoto(IFormFile photo)
+        public async Task<PhotoVM> UploadPhoto(IFormFile photo)
         {
-            if(photo == null || photo.Length<=0)
+            if (photo == null || photo.Length <= 0)
                 return null;
-
+            using (var memoryStream = new MemoryStream())
+            {
+                photo.CopyTo(memoryStream);
+                var multiPartContent = new MultipartFormDataContent();
+                multiPartContent.Add(new ByteArrayContent(memoryStream.ToArray()), "photo", photo.FileName);
+                var response = await _httpClient.PostAsync("photos", multiPartContent);
+                if (!response.IsSuccessStatusCode)
+                {
+                    return null;
+                }
+                return (await response.Content.ReadFromJsonAsync<Response<PhotoVM>>()).Data;
+            }
             throw new NotImplementedException();
         }
     }

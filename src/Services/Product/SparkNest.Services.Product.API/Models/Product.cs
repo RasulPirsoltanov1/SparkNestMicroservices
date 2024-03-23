@@ -12,7 +12,7 @@ namespace SparkNest.Services.ProductAPI.Models
         [BsonRepresentation(BsonType.Decimal128)]
         public decimal Price{ get; set; }
         public string UserId{ get; set; }
-        public string Picture { get; set; }
+        public string PhotoUrl { get; set; }
         [BsonRepresentation(BsonType.DateTime)]
         public DateTime CreatedDate{ get; set; }
         public Feature Feature{ get; set; }

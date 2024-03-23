@@ -1,5 +1,7 @@
 ﻿using SparkNest.Common.DTOs;
+using SparkNest.UI.MVC.Helpers;
 using SparkNest.UI.MVC.Models;
+using SparkNest.UI.MVC.Models.Files;
 using SparkNest.UI.MVC.Models.Product;
 using SparkNest.UI.MVC.Services.Interfaces;
 using System.Net.Http.Json;
@@ -10,10 +12,16 @@ namespace SparkNest.UI.MVC.Services.Concretes
     public class ProductService : IProductService
     {
         HttpClient _httpClient;
+        IFileStockService _fileStockService;
+        FileStockHelper _fileStockHelper;
+        ServiceApiSettings _serviceApiSettings;
 
-        public ProductService(HttpClient httpClient)
+        public ProductService(HttpClient httpClient, IFileStockService fileStockService, FileStockHelper fileStockHelper, ServiceApiSettings serviceApiSettings)
         {
             _httpClient = httpClient;
+            _fileStockService = fileStockService;
+            _fileStockHelper = fileStockHelper;
+            _serviceApiSettings = serviceApiSettings;
         }
         public async Task<List<ProductVM>> GetAllProductsAsync()
         {
@@ -23,7 +31,20 @@ namespace SparkNest.UI.MVC.Services.Concretes
                 return null;
             }
             var successResponse = await response.Content.ReadFromJsonAsync<Response<List<ProductVM>>>();
-            return successResponse.Data;
+            var data = successResponse.Data.Select(x => new ProductVM
+            {
+                Category = x.Category,
+                Id = x.Id,
+                Name = x.Name,
+                CategoryId = x.CategoryId,
+                CreatedDate = x.CreatedDate,
+                Description = x.Description,
+                Feature = x.Feature,
+                PhotoUrl = _fileStockHelper.GetFileStockUrl(x.PhotoUrl),
+                Price = x.Price,
+                UserId = x.UserId
+            }).ToList();
+            return data;
         }
 
         public async Task<List<CategoryVM>> GetAllCateegoryAsync()
@@ -46,7 +67,20 @@ namespace SparkNest.UI.MVC.Services.Concretes
                 return null;
             }
             var successResponse = await response.Content.ReadFromJsonAsync<Response<List<ProductVM>>>();
-            return successResponse.Data;
+            var data = successResponse.Data.Select(x => new ProductVM
+            {
+                Category = x.Category,
+                Id = x.Id,
+                Name = x.Name,
+                CategoryId = x.CategoryId,
+                CreatedDate = x.CreatedDate,
+                Description = x.Description,
+                Feature = x.Feature,
+                PhotoUrl = _fileStockHelper.GetFileStockUrl(x.PhotoUrl),
+                Price = x.Price,
+                UserId = x.UserId
+            }).ToList();
+            return data;
         }
 
         public async Task<ProductVM> GetByProductId(string productId)
@@ -59,15 +93,23 @@ namespace SparkNest.UI.MVC.Services.Concretes
                 return null;
             }
             var successResponse = await response.Content.ReadFromJsonAsync<Response<ProductVM>>();
-            return successResponse.Data;
+            var data = successResponse.Data;
+            data.PhotoUrl = _fileStockHelper.GetFileStockUrl(data.PhotoUrl);
+            return data;
         }
         public async Task<bool> CreateProductAsync(ProductCreateVM product)
         {
-            var response = await _httpClient.PostAsJsonAsync<ProductCreateVM>($"product", product);
-            return response.IsSuccessStatusCode;
+            PhotoVM? response = await _fileStockService.UploadPhoto(product.Photo);
+            if (response == null)
+            {
+                return false;
+            }
+            product.PhotoUrl = response.Url;
+            var result = await _httpClient.PostAsJsonAsync<ProductCreateVM>($"product", product);
+            return result.IsSuccessStatusCode;
         }
 
-        public async  Task<bool> DeleteAsync(string productId)
+        public async Task<bool> DeleteAsync(string productId)
         {
 
             var response = await _httpClient.DeleteAsync($"product/{productId}");
@@ -76,8 +118,17 @@ namespace SparkNest.UI.MVC.Services.Concretes
 
         public async Task<bool> UpdateProductAsync(ProductUpdateVM product)
         {
-            var response = await _httpClient.PutAsJsonAsync<ProductUpdateVM>($"product", product);
-            return response.IsSuccessStatusCode;
+            PhotoVM? response = await _fileStockService.UploadPhoto(product.Photo);
+            if (response == null)
+            {
+                return false;
+            }
+            var prod = await GetByProductId(product.Id);
+            var photoPath = prod.PhotoUrl.Replace(@"http://localhost:2002/uploads\photos\", "");
+            var RES = await _fileStockService.DeletePhoto(photoPath);
+            product.PhotoUrl = response.Url;
+            var result = await _httpClient.PutAsJsonAsync<ProductUpdateVM>($"product", product);
+            return result.IsSuccessStatusCode;
         }
     }
 }
