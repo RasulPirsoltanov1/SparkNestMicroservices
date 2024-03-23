@@ -40,7 +40,8 @@ namespace SparkNest.UI.MVC.Services.Concretes
                 CreatedDate = x.CreatedDate,
                 Description = x.Description,
                 Feature = x.Feature,
-                PhotoUrl = _fileStockHelper.GetFileStockUrl(x.PhotoUrl),
+                PhotoUrl = x.PhotoUrl,
+                PhotoFileStockUrl = _fileStockHelper.GetFileStockUrl(x.PhotoUrl),
                 Price = x.Price,
                 UserId = x.UserId
             }).ToList();
@@ -76,7 +77,8 @@ namespace SparkNest.UI.MVC.Services.Concretes
                 CreatedDate = x.CreatedDate,
                 Description = x.Description,
                 Feature = x.Feature,
-                PhotoUrl = _fileStockHelper.GetFileStockUrl(x.PhotoUrl),
+                PhotoUrl =x.PhotoUrl,
+                PhotoFileStockUrl = _fileStockHelper.GetFileStockUrl(x.PhotoUrl),
                 Price = x.Price,
                 UserId = x.UserId
             }).ToList();
@@ -94,7 +96,7 @@ namespace SparkNest.UI.MVC.Services.Concretes
             }
             var successResponse = await response.Content.ReadFromJsonAsync<Response<ProductVM>>();
             var data = successResponse.Data;
-            data.PhotoUrl = _fileStockHelper.GetFileStockUrl(data.PhotoUrl);
+            data.PhotoFileStockUrl = _fileStockHelper.GetFileStockUrl(data.PhotoUrl);
             return data;
         }
         public async Task<bool> CreateProductAsync(ProductCreateVM product)
@@ -118,15 +120,18 @@ namespace SparkNest.UI.MVC.Services.Concretes
 
         public async Task<bool> UpdateProductAsync(ProductUpdateVM product)
         {
-            PhotoVM? response = await _fileStockService.UploadPhoto(product.Photo);
-            if (response == null)
+            if (product.Photo != null)
             {
-                return false;
+                PhotoVM? response = await _fileStockService.UploadPhoto(product.Photo);
+                if (response == null)
+                {
+                    return false;
+                }
+                product.PhotoUrl = response.Url;
+                var prod = await GetByProductId(product.Id);
+                var photoPath = prod.PhotoFileStockUrl.Replace(@"http://localhost:2002/uploads\photos\", "");
+                var RES = await _fileStockService.DeletePhoto(photoPath);
             }
-            var prod = await GetByProductId(product.Id);
-            var photoPath = prod.PhotoUrl.Replace(@"http://localhost:2002/uploads\photos\", "");
-            var RES = await _fileStockService.DeletePhoto(photoPath);
-            product.PhotoUrl = response.Url;
             var result = await _httpClient.PutAsJsonAsync<ProductUpdateVM>($"product", product);
             return result.IsSuccessStatusCode;
         }

@@ -11,12 +11,13 @@ namespace SparkNest.UI.MVC.Controllers
         private readonly ILogger<HomeController> _logger;
         ServiceApiSettings _serviceApiSettings;
         IIdentityService _identityService;
-
-        public HomeController(ILogger<HomeController> logger, ServiceApiSettings serviceApiSettings, IIdentityService identityService)
+        IProductService _productService;
+        public HomeController(ILogger<HomeController> logger, ServiceApiSettings serviceApiSettings, IIdentityService identityService, IProductService productService)
         {
             _logger = logger;
             _serviceApiSettings = serviceApiSettings;
             _identityService = identityService;
+            _productService = productService;
         }
         public async Task<IActionResult> IndexSet()
         {
@@ -28,12 +29,16 @@ namespace SparkNest.UI.MVC.Controllers
             });
             return Ok(resposne);
         }
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-
-            return View();
+            var products = await _productService.GetAllProductsAsync();
+            return View(products);
         }
-
+        public async Task<IActionResult> Detail(string Id)
+        {
+            var product = await _productService.GetByProductId(Id);
+            return View(product);
+        }
         public IActionResult Privacy()
         {
             return View();

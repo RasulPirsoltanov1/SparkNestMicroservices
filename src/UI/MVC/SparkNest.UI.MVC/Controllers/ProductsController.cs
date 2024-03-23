@@ -54,7 +54,7 @@ namespace SparkNest.UI.MVC.Controllers
                 Description = product.Description,
                 Feature = product.Feature,
                 Name = product.Name,
-                PhotoUrl = product.PhotoUrl,
+                PhotoFileStockUrl = product.PhotoFileStockUrl,
                 Price = product.Price,
                 UserId = product.UserId
             });

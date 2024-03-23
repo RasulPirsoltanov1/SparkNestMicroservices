@@ -7,10 +7,18 @@
         public decimal Price { get; set; }
         public string UserId { get; set; }
         public string PhotoUrl { get; set; }
+        public string PhotoFileStockUrl { get; set; }
         public DateTime CreatedDate { get; set; }
         public FeatureVM Feature { get; set; }
         public string CategoryId { get; set; }
         public CategoryVM Category { get; set; }
         public string Description { get; set; }
+        public string? ShortDescription
+        {
+            get
+            {
+                return Description.Length > 100 ? Description.Substring(0, 100) : Description;
+            }
+        }
     }
 }
