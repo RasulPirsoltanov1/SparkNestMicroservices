@@ -1,5 +1,7 @@
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
+using SparkNest.UI.MVC.Exceptions;
 using SparkNest.UI.MVC.Models;
 using SparkNest.UI.MVC.Services.Interfaces;
 using System.Diagnostics;
@@ -21,9 +23,9 @@ namespace SparkNest.UI.MVC.Controllers
         }
         public async Task<IActionResult> IndexSet()
         {
-         var resposne =   await _identityService.SignIn(new SignInInput
+            var resposne = await _identityService.SignIn(new SignInInput
             {
-                Email ="resulresull510@gmail.com",
+                Email = "resulresull510@gmail.com",
                 IsRememberMe = true,
                 Password = "Rasul123."
             });
@@ -47,6 +49,13 @@ namespace SparkNest.UI.MVC.Controllers
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {
+            var httpContextFeature = HttpContext.Features.Get<IExceptionHandlerFeature>();
+            if (httpContextFeature.Error != null && httpContextFeature.Error is UnAuthorizeException)
+            {
+                return RedirectToAction("SignOut", "Auth");
+            }
+
+
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
     }
