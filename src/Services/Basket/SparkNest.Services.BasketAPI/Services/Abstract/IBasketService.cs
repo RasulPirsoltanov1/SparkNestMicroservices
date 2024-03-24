@@ -5,8 +5,8 @@ namespace SparkNest.Services.BasketAPI.Services.Abstract
 {
     public interface IBasketService
     {
-        Task<Response<BasketDTO>> GetBasketAsync(string userId);
-        Task<Response<bool>> SaveOrUpdateAsync(BasketDTO basketDTO);
+        Task<Response<BasketDto>> GetBasketAsync(string userId);
+        Task<Response<bool>> SaveOrUpdateAsync(BasketDto basketDTO);
         Task<Response<bool>> DeleteAsync(string userId);
     }
 }

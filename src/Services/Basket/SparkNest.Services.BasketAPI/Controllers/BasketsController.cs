@@ -28,10 +28,11 @@ namespace SparkNest.Services.BasketAPI.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> SaveOrUpdateBasket(BasketDTO basketDTO)
+        public async Task<IActionResult> SaveOrUpdateBasket(BasketDto basketDTO)
         {
-            await _basketService.SaveOrUpdateAsync(basketDTO);
-            return Ok();
+            basketDTO.UserId = _sharedIdentityService.UserId;
+            var response = await _basketService.SaveOrUpdateAsync(basketDTO);
+            return CreateActionResultInstance(response);
         }
         [HttpDelete]
         public async Task<IActionResult> DeleteBasket()

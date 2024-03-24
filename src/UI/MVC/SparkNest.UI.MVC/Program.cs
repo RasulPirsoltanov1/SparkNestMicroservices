@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using SparkNest.Common.Base.Services;
+using SparkNest.UI.MVC.Extensions;
 using SparkNest.UI.MVC.Handlers;
 using SparkNest.UI.MVC.Helpers;
 using SparkNest.UI.MVC.Models;
@@ -41,31 +42,8 @@ builder.Services.AddScoped<ISharedIdentityService, SharedIdentityService>();
 builder.Services.AddScoped<IFileStockService, FileStockService>();
 
 
-
-
 //Http services 
-builder.Services.AddHttpClient<IUserService, UserService>(opt =>
-{
-    opt.BaseAddress = new Uri(serviceApiASettings.IdentityBaseUri);
-
-}).AddHttpMessageHandler<ResourceOwnerPasswordTokenHandler>();
-
-builder.Services.AddHttpClient<IClientCredentialTokenService,ClientCredentialTokenService>(opt =>
-{
-    opt.BaseAddress = new Uri(serviceApiASettings.IdentityBaseUri);
-});
-
-builder.Services.AddHttpClient<IFileStockService, FileStockService>(opt =>
-{
-    opt.BaseAddress = new Uri(serviceApiASettings.BaseUri+serviceApiASettings.FileStockUriPath);
-}).AddHttpMessageHandler<ClientCredentialTokenHandler>();
-
-builder.Services.AddHttpClient<IProductService, ProductService>(opt =>
-{
-    opt.BaseAddress = new Uri(serviceApiASettings.BaseUri + serviceApiASettings.ProductUriPath);
-}).AddHttpMessageHandler<ClientCredentialTokenHandler>();
-
-
+builder.Services.AddHttpClientServices();
 
 //Cookie Authentication Configurations
 builder.Services.AddAuthentication().AddCookie(CookieAuthenticationDefaults.AuthenticationScheme, opt =>

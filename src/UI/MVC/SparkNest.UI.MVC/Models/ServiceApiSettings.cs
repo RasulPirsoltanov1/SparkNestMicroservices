@@ -5,7 +5,9 @@
         public string IdentityBaseUri { get; set; }
         public string BaseUri { get; set; }
         public string FileStockUri { get; set; }
+        public string BasketUri { get; set; }
         public string ProductUriPath { get; set; }
         public string FileStockUriPath { get; set; }
+        public string BasketUriPath { get; set; }
     }
 }
