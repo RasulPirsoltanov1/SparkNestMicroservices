@@ -1,5 +1,4 @@
-﻿@using SparkNest.UI.MVC.Models.Baskets
-﻿@{
+﻿﻿@{
     ViewData["Title"] = "Index";
 }
 
@@ -14,25 +13,27 @@
 
                 <h5 class="card-title">Sepet</h5>
 
-                @if (Model != null && Model.basketItems.Any())
+                @if (Model != null && Model.BasketItems.Any())
                 {
                     <table class="table table-striped">
 
                         <tr>
-                            <th>Kurs isim</th>
-                            <th>Kurs fiyat</th>
+                            <th>Product isim</th>
+                            <th>Product fiyat</th>
+                            <th>Product sayi</th>
                             <th>İşlemler</th>
                         </tr>
 
-                        @foreach (var item in Model.basketItems)
+                        @foreach (var item in Model.BasketItems)
                         {
                             <tr>
                                 <td>@item.ProductName</td>
                                 <td>
-                                    @item.GetCurrentPrice TL @(Model.HasDiscount ? $"(%{Model.DiscountRate.Value} uygulandı)" : "")
+                                    @item.GetCurrentPrice TL @(Model.HasDiscount ? $"(%{Model.DiscountRate.Value} uygulandı)" : "") 
                                 </td>
+                                <td>@item.Quantity</td>
                                 <td>
-                                    <a class="btn btn-danger" asp-controller="Basket" asp-action="RemoveBasketItem" asp-route-productId="@item.ProductId">sil</a>
+                                    <a class="btn btn-danger" asp-controller="Basket" asp-action="RemoveBasketItem" asp-route-productId="@item.ProductId">Delete</a>
                                 </td>
                             </tr>
                         }
@@ -49,7 +50,7 @@
 
                         <tr>
                             <td>@(Model.HasDiscount ? "İndirimli fiyat" : "Toplam fiyat")</td>
-                            <th colspan="2">@Model.TotalPrice $</th>
+                            <th colspan="3">@Model.TotalPrice TL</th>
                         </tr>
                     </table>
 
@@ -58,14 +59,14 @@
                         {
                             <div class="alert alert-success">
                                 "@Model.DiscountCode"indirim kodu uygulandı
-                                <a asp-controller="Basket" asp-action="CancelApplyDiscount"> (iptal et)</a>
+                                <a asp-controller="Basket" asp-action="CancellApplyDiscount"> (iptal et)</a>
                             </div>
 
                         }
 
                         <div class="input-group mb-3">
-                            <input type="text" class="form-control" name="DiscountApplyInput.Code">
-                            <button class="btn btn-outline-secondary" type="submit">Uygula</button>
+                            <input type="text" class="form-control" name="DiscountApplyVM.Code">
+                            <button class="btn btn-outline-secondary" type="submit">Apply</button>
                         </div>
 
                         @if (TempData["discountStatus"] != null && (bool)TempData["discountStatus"] == false)
@@ -78,7 +79,7 @@
                         }
                     </form>
                     <a class="btn btn-success" asp-controller="Order" asp-action="Checkout">Ödeme bilgileri</a>
-                    <a class="btn btn-warning" asp-controller="Home" asp-action="Index">Kursları incelemeye devam et</a>
+                    <a class="btn btn-warning" asp-controller="Home" asp-action="Index">Product arı incelemeye devam et</a>
                 }
                 else
                 {

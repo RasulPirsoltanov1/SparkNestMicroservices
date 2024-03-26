@@ -38,7 +38,10 @@ namespace SparkNest.UI.MVC.Extensions
 
             }).AddHttpMessageHandler<ResourceOwnerPasswordTokenHandler>();
 
-
+            services.AddHttpClient<IDiscountService, DiscountService>(opt =>
+            {
+                opt.BaseAddress = new Uri(serviceApiSettings.BaseUri + serviceApiSettings.DiscountPath);
+            }).AddHttpMessageHandler<ResourceOwnerPasswordTokenHandler>();
             return services;
         }
     }

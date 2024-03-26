@@ -1,5 +1,6 @@
 ﻿using SparkNest.Common.Base.Services;
 using SparkNest.Common.DTOs;
+using SparkNest.UI.MVC.Controllers;
 using SparkNest.UI.MVC.Models.Baskets;
 using SparkNest.UI.MVC.Services.Interfaces;
 using System.Text;
@@ -10,10 +11,12 @@ namespace SparkNest.UI.MVC.Services.Concretes
     public class BasketService : IBasketService
     {
         HttpClient _httpClient;
+        IDiscountService _discountService;
 
-        public BasketService(HttpClient httpClient)
+        public BasketService(HttpClient httpClient, IDiscountService discountService)
         {
             _httpClient = httpClient;
+            _discountService = discountService;
         }
 
         public async Task<bool> SaveOrUpdate(BasketVM basketVM)
@@ -21,7 +24,7 @@ namespace SparkNest.UI.MVC.Services.Concretes
             var jsonContent = JsonSerializer.Serialize(basketVM);
             var content = new StringContent(jsonContent, Encoding.UTF8, "application/json");
 
-            var response = await _httpClient.PostAsync("basketss", content);
+            var response = await _httpClient.PostAsJsonAsync("baskets", basketVM);
 
             return response.IsSuccessStatusCode;
         }
@@ -38,22 +41,32 @@ namespace SparkNest.UI.MVC.Services.Concretes
         public async Task<bool> RemoveBasketItem(string productId)
         {
             var basket = await Get();
-            if (basket is null)
+
+            if (basket == null)
+
             {
                 return false;
             }
-            var deleteBasketItem = basket.basketItems.FirstOrDefault(x => x.ProductId == productId);
+
+            var deleteBasketItem = basket.BasketItems.FirstOrDefault(x => x.ProductId == productId);
+
             if (deleteBasketItem == null)
-                return false;
-            var deleteBasketResult = basket.basketItems.Remove(deleteBasketItem);
-            if (!deleteBasketResult)
             {
                 return false;
             }
-            if (basket.basketItems.Any())
+
+            var deleteResult = basket.BasketItems.Remove(deleteBasketItem);
+
+            if (!deleteResult)
+            {
+                return false;
+            }
+
+            if (!basket.BasketItems.Any())
             {
                 basket.DiscountCode = null;
             }
+
             return await SaveOrUpdate(basket);
         }
 
@@ -67,35 +80,57 @@ namespace SparkNest.UI.MVC.Services.Concretes
             var basket = await Get();
             if (basket != null)
             {
-                var existingBasketItem = basket.basketItems.FirstOrDefault(x => x.ProductId == basketItemVM.ProductId);
+                var existingBasketItem = basket.BasketItems.FirstOrDefault(x => x.ProductId == basketItemVM.ProductId);
                 if (existingBasketItem != null)
                 {
                     existingBasketItem.Quantity += 1;
                 }
                 else
                 {
-                    basket.basketItems.Add(basketItemVM);
+                    basket.BasketItems.Add(basketItemVM);
                 }
             }
             else
             {
                 basket = new BasketVM();
-                basket.basketItems.Add(basketItemVM);
+                basket.BasketItems.Add(basketItemVM);
             }
 
             await SaveOrUpdate(basket);
         }
 
-        public Task<bool> ApplyDicount(string discountCode)
+        public async Task<bool> ApplyDicount(string discountCode)
         {
-            throw new NotImplementedException();
+            await CancelApplyDicount();
+            var basket =await Get();
+            if (basket == null)
+                return false;
+            var hasDiscount = await _discountService.GetDiscount(discountCode);
+            if(hasDiscount == null)
+            {
+                return false;
+            }
+            basket.DiscountRate = hasDiscount.Rate;
+            basket.DiscountCode = hasDiscount.Code;
+            await SaveOrUpdate(basket);
+            return true;
+
         }
 
-        public Task<bool> CancelApplyDicount()
+        public async Task<bool> CancelApplyDicount()
         {
-            throw new NotImplementedException();
+            BasketVM basket = await Get();
+            if (basket == null || basket.DiscountCode == null)
+                return false;
+            basket.CancelDiscount();
+            await SaveOrUpdate(basket);
+            return true;
         }
 
-
+        public async Task<bool> TestSend(TestBasket testBasket)
+        {
+            var response = await _httpClient.PostAsJsonAsync("baskets", testBasket);
+            return response.IsSuccessStatusCode;
+        }
     }
 }

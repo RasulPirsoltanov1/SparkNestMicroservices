@@ -1,50 +1,55 @@
-﻿namespace SparkNest.UI.MVC.Models.Baskets
+﻿using SparkNest.UI.MVC.Models.Baskets;
+
+public class BasketVM
 {
-    public class BasketVM
+    public BasketVM()
     {
-        public string? UserId { get; set; }
+        BasketItems = new List<BasketItemVM>(); // _basketItems yerine BasketItems kullanıldı
+    }
 
-        public string? DiscountCode { get; set; }
+    public string? UserId { get; set; }
+    public string DiscountCode { get; set; }
+    public int? DiscountRate { get; set; }
 
-        public int? DiscountRate { get; set; }
-        public decimal? TotalPrice
+    public decimal? TotalPrice
+    {
+        get
         {
-            get
-            {
-                var total = _basketItems?.Sum(x => x.GetCurrentPrice * x.Quantity);
-                return total;
-            }
+            var total = BasketItems?.Sum(x => x.GetCurrentPrice * x.Quantity);
+            return total;
         }
-        private List<BasketItemVM>? _basketItems { get; set; }
-        public List<BasketItemVM>? basketItems
+    }
+    private List<BasketItemVM> _basketItems;
+
+    public List<BasketItemVM> BasketItems
+    {
+        get
         {
-            get
+            if (HasDiscount)
             {
-                if (HasDiscount)
+                //Örnek kurs fiyat 100 TL indirim %10
+                _basketItems.ForEach(x =>
                 {
-                    _basketItems.ForEach(x =>
-                    {
-                        if (DiscountRate is not null && DiscountRate > 0)
-                        {
-                            var discountPrice = x.Price * ((decimal)DiscountRate / 100);
-                            x.AppliedPrice(Math.Round(x.Price - discountPrice, 2));
-                        }
-                    });
-                }
-                return _basketItems;
+                    var discountPrice = x.Price * ((decimal)DiscountRate.Value / 100);
+                    x.AppliedPrice(Math.Round(x.Price - discountPrice, 2));
+                });
             }
-            set
-            {
-                _basketItems = value;
-            }
+            return _basketItems;
         }
-
-        public bool HasDiscount
+        set
         {
-            get
-            {
-                return string.IsNullOrEmpty(DiscountCode);
-            }
+            _basketItems = value;
         }
+    }
+    //public List<BasketItemVM>? BasketItems { get; set; } // _basketItems kullanımı kaldırıldı
+
+    public bool HasDiscount
+    {
+        get => !string.IsNullOrEmpty(DiscountCode) && DiscountRate.HasValue;
+    }
+    public void CancelDiscount()
+    {
+        DiscountRate = null;
+        DiscountCode = null;
     }
 }

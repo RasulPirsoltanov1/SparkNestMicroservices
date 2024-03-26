@@ -1,4 +1,5 @@
-﻿using SparkNest.UI.MVC.Models.Product;
+﻿using SparkNest.UI.MVC.Controllers;
+using SparkNest.UI.MVC.Models.Product;
 
 namespace SparkNest.UI.MVC.Services.Interfaces
 {

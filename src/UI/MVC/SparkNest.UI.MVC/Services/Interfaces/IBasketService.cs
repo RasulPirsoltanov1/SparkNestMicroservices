@@ -1,4 +1,5 @@
-﻿using SparkNest.UI.MVC.Models.Baskets;
+﻿using SparkNest.UI.MVC.Controllers;
+using SparkNest.UI.MVC.Models.Baskets;
 
 namespace SparkNest.UI.MVC.Services.Interfaces
 {
@@ -11,5 +12,6 @@ namespace SparkNest.UI.MVC.Services.Interfaces
         Task<bool> RemoveBasketItem(string productId);
         Task<bool> ApplyDicount(string discountCode);
         Task<bool> CancelApplyDicount();
+        Task<bool> TestSend(TestBasket testBasket);
     }
 }

@@ -41,22 +41,22 @@ namespace SparkNest.Services.BasketAPI.Services.Concrete
         public async Task<Response<bool>> SaveOrUpdateAsync(BasketDto basketDTO)
         {
             var existingBasket = await GetBasketAsync(_sharedIdentityService.UserId);
-            if (existingBasket.Data != null)
-            {
-                foreach (var item in basketDTO.basketItems) // basketDTO.basketItems deki elemntlerin icleri neden null olarak geliyor?
-                {
-                    var existingItem = existingBasket.Data.basketItems.FirstOrDefault(x => x.ProductId == item.ProductId);
-                    if (existingItem != null)
-                    {
-                        existingBasket.Data.basketItems.FirstOrDefault(x => x.ProductId == item.ProductId).Quantity += item.Quantity == 0 ? 1 : item.Quantity;
-                    }
-                    else
-                    {
-                        existingBasket.Data.basketItems.Add(item);
-                    }
-                }
-                basketDTO = existingBasket.Data;
-            }
+            //if (existingBasket.Data != null)
+            //{
+            //    foreach (var item in basketDTO.basketItems) // basketDTO.basketItems deki elemntlerin icleri neden null olarak geliyor?
+            //    {
+            //        var existingItem = existingBasket.Data.basketItems.FirstOrDefault(x => x.ProductId == item.ProductId);
+            //        if (existingItem != null)
+            //        {
+            //            existingBasket.Data.basketItems.FirstOrDefault(x => x.ProductId == item.ProductId).Quantity += item.Quantity == 0 ? 1 : item.Quantity;
+            //        }
+            //        else
+            //        {
+            //            existingBasket.Data.basketItems.Add(item);
+            //        }
+            //    }
+            //    basketDTO = existingBasket.Data;
+            //}
 
             var status = await _redisService.GetDb().StringSetAsync(_sharedIdentityService.UserId, JsonSerializer.Serialize(basketDTO));
 

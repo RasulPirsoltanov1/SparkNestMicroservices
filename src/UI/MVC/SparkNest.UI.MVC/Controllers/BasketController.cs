@@ -1,9 +1,12 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using SparkNest.UI.MVC.Models.Baskets;
+using SparkNest.UI.MVC.Models.Discount;
 using SparkNest.UI.MVC.Services.Interfaces;
 
 namespace SparkNest.UI.MVC.Controllers
 {
+    [Authorize]
     public class BasketController : Controller
     {
         IProductService _productService;
@@ -30,5 +33,24 @@ namespace SparkNest.UI.MVC.Controllers
             await _basketService.RemoveBasketItem(productId);
             return RedirectToAction(nameof(Index));
         }
+        public async Task<IActionResult> ApplyDiscount(DiscountApplyVM discountApplyVM) 
+        {
+          var discountStatus=  await _basketService.ApplyDicount(discountApplyVM.Code);
+            TempData["discountStatus"] = discountStatus;
+            return RedirectToAction(nameof(Index));
+         }
+        public async Task<IActionResult> CancellApplyDiscount()
+        {
+            var discountStatus = await _basketService.CancelApplyDicount();
+            TempData["discountStatus"] = discountStatus;
+            return RedirectToAction(nameof(Index));
+        }
+        public async Task<IActionResult> Test(TestBasket testBasket)
+        {
+            testBasket.Id = 12;
+            await _basketService.TestSend(testBasket);
+            return Ok();
+        }
+
     }
 }

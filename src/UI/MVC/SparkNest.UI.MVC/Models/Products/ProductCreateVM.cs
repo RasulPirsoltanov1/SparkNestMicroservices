@@ -4,12 +4,12 @@ namespace SparkNest.UI.MVC.Models.Product
 {
     public class ProductCreateVM
     {
-        [Required]
+        //[Required]
         public string Name { get; set; }
-        [Required]
+        //[Required]
         public decimal Price { get; set; }
         public string? UserId { get; set; }
-        [Required]
+        //[Required]
         public FeatureVM Feature { get; set; }
         public string CategoryId { get; set; }
         public string Description { get; set; }

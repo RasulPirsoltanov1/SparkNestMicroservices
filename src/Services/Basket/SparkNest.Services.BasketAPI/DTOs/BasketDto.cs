@@ -5,9 +5,8 @@
         public string? UserId { get; set; }
 
         public string? DiscountCode { get; set; }
-
         public int? DiscountRate { get; set; }
-        public List<BasketItemDTO>? basketItems { get; set; }
+        public List<BasketItemDTO>? basketItems { get; set; } =new List<BasketItemDTO> ();
 
         public decimal? TotalPrice
         {

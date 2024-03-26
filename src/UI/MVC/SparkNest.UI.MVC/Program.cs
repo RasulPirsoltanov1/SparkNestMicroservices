@@ -1,3 +1,4 @@
+using FluentValidation;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using SparkNest.Common.Base.Services;
@@ -7,6 +8,7 @@ using SparkNest.UI.MVC.Helpers;
 using SparkNest.UI.MVC.Models;
 using SparkNest.UI.MVC.Services.Concretes;
 using SparkNest.UI.MVC.Services.Interfaces;
+using SparkNest.UI.MVC.Validators;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -40,6 +42,7 @@ builder.Services.AddScoped<IIdentityService, IdentityService>();
 builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<ISharedIdentityService, SharedIdentityService>();
 builder.Services.AddScoped<IFileStockService, FileStockService>();
+builder.Services.AddScoped<IDiscountService, DiscountService>();
 
 
 //Http services 
@@ -57,8 +60,8 @@ builder.Services.AddAuthentication().AddCookie(CookieAuthenticationDefaults.Auth
 //Helpers 
 builder.Services.AddSingleton<FileStockHelper>();
 
-
-
+//Fluent Validation
+builder.Services.AddValidatorsFromAssemblyContaining<ProductCreateVMValidator>(); // register validators
 
 var app = builder.Build();
 
@@ -67,6 +70,8 @@ if (!app.Environment.IsDevelopment())
 {
     app.UseExceptionHandler("/Home/Error");
 }
+//app.UseExceptionHandler("/Home/Error");
+
 app.UseStaticFiles();
 
 app.UseRouting();

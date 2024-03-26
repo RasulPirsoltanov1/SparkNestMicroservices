@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using SparkNest.Common.Base.Services;
 using SparkNest.Common.ControllerBases;
+using SparkNest.Common.DTOs;
 using SparkNest.Services.BasketAPI.DTOs;
 using SparkNest.Services.BasketAPI.Services.Abstract;
 
@@ -39,5 +40,13 @@ namespace SparkNest.Services.BasketAPI.Controllers
         {
             return Ok(await _basketService.DeleteAsync(_sharedIdentityService.UserId));
         }
+
+
+        //[HttpPost]
+        //public async Task<IActionResult> Test(Exam exam)
+        //{
+        //    await Console.Out.WriteLineAsync(exam.Id);
+        //    return CreateActionResultInstance(Response<bool>.Success(true, 200));
+        //}
     }
 }

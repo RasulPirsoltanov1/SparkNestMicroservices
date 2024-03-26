@@ -1,4 +1,5 @@
 ﻿using SparkNest.Common.DTOs;
+using SparkNest.UI.MVC.Controllers;
 using SparkNest.UI.MVC.Helpers;
 using SparkNest.UI.MVC.Models;
 using SparkNest.UI.MVC.Models.Files;
@@ -77,7 +78,7 @@ namespace SparkNest.UI.MVC.Services.Concretes
                 CreatedDate = x.CreatedDate,
                 Description = x.Description,
                 Feature = x.Feature,
-                PhotoUrl =x.PhotoUrl,
+                PhotoUrl = x.PhotoUrl,
                 PhotoFileStockUrl = _fileStockHelper.GetFileStockUrl(x.PhotoUrl),
                 Price = x.Price,
                 UserId = x.UserId
@@ -120,6 +121,7 @@ namespace SparkNest.UI.MVC.Services.Concretes
 
         public async Task<bool> UpdateProductAsync(ProductUpdateVM product)
         {
+            var dbProduct =await GetByProductId(product.Id);
             if (product.Photo != null)
             {
                 PhotoVM? response = await _fileStockService.UploadPhoto(product.Photo);
@@ -132,8 +134,12 @@ namespace SparkNest.UI.MVC.Services.Concretes
                 var photoPath = prod.PhotoFileStockUrl.Replace(@"http://localhost:2002/uploads\photos\", "");
                 var RES = await _fileStockService.DeletePhoto(photoPath);
             }
+            product.PhotoUrl = dbProduct.PhotoUrl;
             var result = await _httpClient.PutAsJsonAsync<ProductUpdateVM>($"product", product);
             return result.IsSuccessStatusCode;
         }
+
+
+      
     }
 }

@@ -50,7 +50,7 @@ namespace SparkNest.UI.MVC.Controllers
         public IActionResult Error()
         {
             var httpContextFeature = HttpContext.Features.Get<IExceptionHandlerFeature>();
-            if (httpContextFeature.Error != null && httpContextFeature.Error is UnAuthorizeException)
+            if (httpContextFeature.Error != null && (httpContextFeature.Error is UnAuthorizeException) || httpContextFeature.Error is UnauthorizedAccessException)
             {
                 return RedirectToAction("SignOut", "Auth");
             }

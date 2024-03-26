@@ -9,5 +9,6 @@
         public string ProductUriPath { get; set; }
         public string FileStockUriPath { get; set; }
         public string BasketUriPath { get; set; }
+        public string DiscountPath { get; set; }
     }
 }

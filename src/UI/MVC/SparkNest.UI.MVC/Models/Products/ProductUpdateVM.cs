@@ -16,7 +16,7 @@ namespace SparkNest.UI.MVC.Models.Product
 
         public string? PhotoUrl{ get; set; }
         public string? PhotoFileStockUrl { get; set; }
-        public IFormFile Photo{ get; set; }
+        public IFormFile? Photo{ get; set; }
         public FeatureVM Feature { get; set; }
         [Required]
         public string CategoryId { get; set; }
