@@ -68,6 +68,7 @@ namespace SparkNest.UI.MVC.Services.Concretes
             }
 
             var response = await _httpClient.PostAsJsonAsync<OrderCreateVM>("orders", orderCreateVM);
+            await _basketService.Delete();
             if (response.IsSuccessStatusCode)
             {
                 var result = await response.Content.ReadFromJsonAsync<Response<OrderStatusVM>>();
