@@ -45,13 +45,6 @@ namespace SparkNest.Services.IdentityServiceAPI
 
 
 
-
-
-
-
-
-
-
                 var seed = args.Contains("/seed");
                 if (seed)
                 {

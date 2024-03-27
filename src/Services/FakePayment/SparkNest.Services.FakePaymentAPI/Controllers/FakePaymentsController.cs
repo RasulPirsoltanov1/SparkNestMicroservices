@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using SparkNest.Common.ControllerBases;
 using SparkNest.Common.DTOs;
+using SparkNest.Services.FakePaymentAPI.Models;
 
 namespace SparkNest.Services.FakePaymentAPI.Controllers
 {
@@ -10,7 +11,7 @@ namespace SparkNest.Services.FakePaymentAPI.Controllers
     public class FakePaymentsController : CustomControllerBase
     {
         [HttpPost]
-        public IActionResult ReciewePayment()
+        public IActionResult ReciewePayment(FakePaymentDto fakePaymentDto) 
         {
             return CreateActionResultInstance(Response<NoContent>.Success(200));
         }

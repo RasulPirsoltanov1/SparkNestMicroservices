@@ -42,6 +42,15 @@ namespace SparkNest.UI.MVC.Extensions
             {
                 opt.BaseAddress = new Uri(serviceApiSettings.BaseUri + serviceApiSettings.DiscountPath);
             }).AddHttpMessageHandler<ResourceOwnerPasswordTokenHandler>();
+
+            services.AddHttpClient<IPaymentService, PaymentService>(opt =>
+            {
+                opt.BaseAddress = new Uri(serviceApiSettings.BaseUri + serviceApiSettings.FakePaymentPath);
+            }).AddHttpMessageHandler<ResourceOwnerPasswordTokenHandler>();
+            services.AddHttpClient<IOrderService, OrderService>(opt =>
+            {
+                opt.BaseAddress = new Uri(serviceApiSettings.BaseUri + serviceApiSettings.OrderServicePath);
+            }).AddHttpMessageHandler<ResourceOwnerPasswordTokenHandler>();
             return services;
         }
     }

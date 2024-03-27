@@ -10,5 +10,7 @@
         public string FileStockUriPath { get; set; }
         public string BasketUriPath { get; set; }
         public string DiscountPath { get; set; }
+        public string FakePaymentPath { get; set; }
+        public string OrderServicePath { get; set; }
     }
 }
