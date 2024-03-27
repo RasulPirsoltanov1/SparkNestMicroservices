@@ -36,7 +36,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Discount", "Discount", "{AB
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SparkNest.Services.DiscountAPI", "src\Services\Discount\SparkNest.Services.DiscountAPI\SparkNest.Services.DiscountAPI.csproj", "{4828D2C6-95A1-4C3F-885D-69217E653467}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Order", "Order", "{48809177-1B29-4D5D-8CBD-AE8447BE665E}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Order (DDD)", "Order (DDD)", "{48809177-1B29-4D5D-8CBD-AE8447BE665E}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SparkNest.Services.OrderAPI", "src\Services\Order\SparkNest.Services.OrderAPI\SparkNest.Services.OrderAPI.csproj", "{916B9E44-50D1-488C-A6E7-A21B9337DCAE}"
 EndProject

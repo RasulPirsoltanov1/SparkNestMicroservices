@@ -6,6 +6,12 @@ namespace SparkNest.UI.MVC.Services.Concretes
     public class PaymentService : IPaymentService
     {
         HttpClient _httpClient;
+
+        public PaymentService(HttpClient httpClien)
+        {
+            _httpClient = httpClien;
+        }
+
         public async Task<bool> ReceivePayment(PaymentInfoVM fakePaymentVM)
         {
             var response = await _httpClient.PostAsJsonAsync<PaymentInfoVM>("FakePayments", fakePaymentVM);

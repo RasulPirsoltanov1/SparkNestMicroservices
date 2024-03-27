@@ -1,0 +1,52 @@
+[
+  {
+    "Name": "New Profile",
+    "Projects": [
+      {
+        "Name": "src\\Services\\Product\\SparkNest.Services.Product.API\\SparkNest.Services.ProductAPI.csproj",
+        "Action": "Start",
+        "DebugTarget": ""
+      },
+      {
+        "Name": "src\\Services\\IdentityService\\SparkNest.Services.IdentityServiceAPI\\SparkNest.Services.IdentityServiceAPI.csproj",
+        "Action": "Start",
+        "DebugTarget": ""
+      },
+      {
+        "Name": "src\\Services\\FileStock\\SparkNest.Services.FileStockAPI\\SparkNest.Services.FileStockAPI.csproj",
+        "Action": "Start",
+        "DebugTarget": ""
+      },
+      {
+        "Name": "src\\Gateways\\SparkNest.Gateways.GatewayMVC\\SparkNest.Gateways.GatewayMVC.csproj",
+        "Action": "Start",
+        "DebugTarget": ""
+      },
+      {
+        "Name": "src\\UI\\MVC\\SparkNest.UI.MVC\\SparkNest.UI.MVC.csproj",
+        "Action": "Start",
+        "DebugTarget": ""
+      },
+      {
+        "Name": "src\\Services\\Basket\\SparkNest.Services.BasketAPI\\SparkNest.Services.BasketAPI.csproj",
+        "Action": "Start",
+        "DebugTarget": ""
+      },
+      {
+        "Name": "src\\Services\\Discount\\SparkNest.Services.DiscountAPI\\SparkNest.Services.DiscountAPI.csproj",
+        "Action": "Start",
+        "DebugTarget": ""
+      },
+      {
+        "Name": "src\\Services\\Order\\SparkNest.Services.OrderAPI\\SparkNest.Services.OrderAPI.csproj",
+        "Action": "Start",
+        "DebugTarget": ""
+      },
+      {
+        "Name": "src\\Services\\FakePayment\\SparkNest.Services.FakePaymentAPI\\SparkNest.Services.FakePaymentAPI.csproj",
+        "Action": "Start",
+        "DebugTarget": ""
+      }
+    ]
+  }
+]

@@ -43,6 +43,7 @@ builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<ISharedIdentityService, SharedIdentityService>();
 builder.Services.AddScoped<IFileStockService, FileStockService>();
 builder.Services.AddScoped<IDiscountService, DiscountService>();
+builder.Services.AddScoped<IPaymentService, PaymentService>();
 
 
 //Http services 
