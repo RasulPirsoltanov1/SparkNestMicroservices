@@ -1,8 +1,10 @@
+using MassTransit;
 using MediatR;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc.Authorization;
 using Microsoft.EntityFrameworkCore;
+using SparkNest.Common.Base.Messages;
 using SparkNest.Common.Base.Services;
 using SparkNest.Services.OrderAPI.Application.Features.Orders.Queries;
 using SparkNest.Services.OrderAPI.Infrastructure.Data;
@@ -37,7 +39,25 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJw
     options.RequireHttpsMetadata = false;
 });
 
+//builder.Services.AddMassTransit(x =>
+//{
+//    x.AddConsumer<CreateOrderMessageCommand>();
+//    // Default Port : 5672
+//    x.UsingRabbitMq((context, cfg) =>
+//    {
+//        cfg.Host(builder.Configuration["RabbitMQUrl"], "/", host =>
+//        {
+//            host.Username("guest");
+//            host.Password("guest");
+//        });
 
+//        cfg.ReceiveEndpoint("create-order-service", e =>
+//        {
+//            e.ConfigureConsumer<CreateOrderMessageCommand>(context);
+//        });
+     
+//    });
+//});
 
 
 

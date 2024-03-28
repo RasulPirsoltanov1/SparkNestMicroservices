@@ -26,16 +26,20 @@ namespace SparkNest.UI.MVC.Controllers
         [HttpPost]
         public async Task<IActionResult> Checkout(CheckoutInfoVM checkoutInfoVM)
         {
-            var response = await _orderService.CreateOrder(checkoutInfoVM);
-
-            if (!response.IsSuccessfull)
+            //var response = await _orderService.CreateOrder(checkoutInfoVM);
+            
+            
+            //asyncron
+            var suspendStatus = await _orderService.SuspendOrder(checkoutInfoVM);
+            if (!suspendStatus.IsSuccessfull)
             {
                 var basket = await _basketService.Get();
                 ViewBag.basket = basket;
-                TempData["error"] = response.Error;
+                TempData["error"] = suspendStatus.Error;
                 return View();
             }
-            return RedirectToAction(nameof(SuccessfulCheckout), new { orderId = response.OrderId });
+            //return RedirectToAction(nameof(SuccessfulCheckout), new { orderId = response.OrderId });
+            return RedirectToAction(nameof(SuccessfulCheckout), new { orderId = new Random().Next(1,1000)});
         }
         public IActionResult SuccessfulCheckout(int orderId)
         {

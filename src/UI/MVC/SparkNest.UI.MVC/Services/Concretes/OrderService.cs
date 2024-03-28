@@ -60,8 +60,8 @@ namespace SparkNest.UI.MVC.Services.Concretes
             {
                 orderCreateVM.OrderItems.Add(new OrderItemCreateVM
                 {
-                    Price=item.GetCurrentPrice,
-                    ProductId =item.ProductId,
+                    Price = item.GetCurrentPrice,
+                    ProductId = item.ProductId,
                     ProductName = item.ProductName,
                     ProductUrl = ""
                 });
@@ -86,9 +86,52 @@ namespace SparkNest.UI.MVC.Services.Concretes
             throw new NotImplementedException();
         }
 
-        public Task SuspendOrder(CheckoutInfoVM checkoutInfoVM)
+        public async Task<OrderSuspendStatusVM> SuspendOrder(CheckoutInfoVM checkoutInfoVM)
         {
-            throw new NotImplementedException();
+            var basket = await _basketService.Get();
+            OrderCreateVM orderCreateVM = new OrderCreateVM()
+            {
+                BuyerId = _sharedIdentityService.UserId,
+                Address = new AddressCreateVM
+                {
+                    District = checkoutInfoVM.District,
+                    Line = checkoutInfoVM.Line,
+                    Province = checkoutInfoVM.Province,
+                    Street = checkoutInfoVM.Street,
+                    ZipCode = checkoutInfoVM.ZipCode,
+                },
+            };
+            foreach (var item in basket.BasketItems)
+            {
+                orderCreateVM.OrderItems.Add(new OrderItemCreateVM
+                {
+                    Price = item.GetCurrentPrice,
+                    ProductId = item.ProductId,
+                    ProductName = item.ProductName,
+                    ProductUrl = ""
+                });
+            }
+            PaymentInfoVM paymentInfoVM = new PaymentInfoVM()
+            {
+                CardName = checkoutInfoVM.CardName,
+                CardNumber = checkoutInfoVM.CardNumber,
+                CVV = checkoutInfoVM.CVV,
+                Expiration = checkoutInfoVM.Expiration,
+                TotalPrice = basket.TotalPrice,
+                Order = orderCreateVM
+            };
+            var paymentResponse = await _paymentService.ReceivePayment(paymentInfoVM);
+
+            if (!paymentResponse)
+            {
+                return new OrderSuspendStatusVM
+                {
+                    Error = "something went wrong!",
+                    IsSuccessfull = false
+                };
+            }
+            await _basketService.Delete();
+            return new OrderSuspendStatusVM();  
         }
     }
 }

@@ -15,7 +15,7 @@ namespace SparkNest.UI.MVC.Services.Interfaces
         /// </summary>
         /// <param name="checkoutInfoVM"></param>
         /// <returns></returns>
-        Task SuspendOrder(CheckoutInfoVM checkoutInfoVM);
+        Task<OrderSuspendStatusVM> SuspendOrder(CheckoutInfoVM checkoutInfoVM);
 
         Task<List<OrderVM>> GetAllOrders(); 
     }
