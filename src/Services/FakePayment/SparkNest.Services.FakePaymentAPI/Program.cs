@@ -21,38 +21,6 @@ builder.Services.AddControllers(options =>
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-//builder.Services.AddMassTransit(config =>
-//{
-//    config.UsingRabbitMq((context, cfg) =>
-//    {
-//        cfg.ReceiveEndpoint("createorderservice", ep =>
-//        {
-//            ep.ConfigureConsumer<CreateOrderMessageCommand>(context); // Configure consumer
-//        });
-//        cfg.Host(builder.Configuration["RabbitMQUrl"], "/", host =>
-//        {
-//            host.Password("guest");
-//            host.Username("guest");
-//        });
-//    });
-//});
-
-//builder.Services.AddMassTransit(busConfigurator =>
-//{
-//    busConfigurator.SetKebabCaseEndpointNameFormatter();
-//    busConfigurator.UsingRabbitMq((context, busFactoryConfigurator) =>
-//    {
-//        busFactoryConfigurator.Host(builder.Configuration["RabbitMQUrl"], "/", hostConfigurator => {
-
-//            hostConfigurator.Password("guest");
-//            hostConfigurator.Username("guest");
-//        });
-//    });
-//});
-//builder.Services.AddScoped<IPublishEndpoint>(provider => provider.GetRequiredService<IBusControl>());
-
-
-//builder.Services.AddMassTransitHostedService(); //deprecated
 
 
 
@@ -71,9 +39,6 @@ builder.Services.AddMassTransit(x =>
 });
 
 builder.Services.AddMassTransitHostedService();
-
-
-
 
 
 
