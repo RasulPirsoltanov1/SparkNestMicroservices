@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace SparkNest.Services.OrderAPI.Infrastructure.Migrations
 {
     /// <inheritdoc />
-    public partial class initial : Migration
+    public partial class addedQuantitytoOrderItem : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -15,7 +15,7 @@ namespace SparkNest.Services.OrderAPI.Infrastructure.Migrations
                 name: "ordering");
 
             migrationBuilder.CreateTable(
-                name: "OrderItems",
+                name: "Orders",
                 schema: "ordering",
                 columns: table => new
                 {
@@ -31,11 +31,12 @@ namespace SparkNest.Services.OrderAPI.Infrastructure.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_OrderItems", x => x.Id);
+                    table.PrimaryKey("PK_Orders", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
                 name: "OrderItems",
+                schema: "ordering",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -44,21 +45,23 @@ namespace SparkNest.Services.OrderAPI.Infrastructure.Migrations
                     ProductName = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     ProductUrl = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Price = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    Quantity = table.Column<int>(type: "int", nullable: true),
                     OrderId = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_OrderItems", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_OrderItems_OrderItems_OrderId",
+                        name: "FK_OrderItems_Orders_OrderId",
                         column: x => x.OrderId,
                         principalSchema: "ordering",
-                        principalTable: "OrderItems",
+                        principalTable: "Orders",
                         principalColumn: "Id");
                 });
 
             migrationBuilder.CreateIndex(
                 name: "IX_OrderItems_OrderId",
+                schema: "ordering",
                 table: "OrderItems",
                 column: "OrderId");
         }
@@ -67,10 +70,11 @@ namespace SparkNest.Services.OrderAPI.Infrastructure.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "OrderItems");
+                name: "OrderItems",
+                schema: "ordering");
 
             migrationBuilder.DropTable(
-                name: "OrderItems",
+                name: "Orders",
                 schema: "ordering");
         }
     }

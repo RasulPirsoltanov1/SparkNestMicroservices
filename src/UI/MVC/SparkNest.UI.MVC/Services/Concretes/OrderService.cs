@@ -81,9 +81,15 @@ namespace SparkNest.UI.MVC.Services.Concretes
             };
         }
 
-        public Task<List<OrderVM>> GetAllOrders()
+        public async Task<List<OrderVM>> GetAllOrders()
         {
-            throw new NotImplementedException();
+            var response = await _httpClient.GetAsync("orders");
+            if(!response.IsSuccessStatusCode)
+            {
+                return null;
+            }
+            var result =await response.Content.ReadFromJsonAsync<Response<List<OrderVM>>>();
+            return result.Data;
         }
 
         public async Task<OrderSuspendStatusVM> SuspendOrder(CheckoutInfoVM checkoutInfoVM)
@@ -108,7 +114,8 @@ namespace SparkNest.UI.MVC.Services.Concretes
                     Price = item.GetCurrentPrice,
                     ProductId = item.ProductId,
                     ProductName = item.ProductName,
-                    ProductUrl = ""
+                    ProductUrl = "",
+                    Quantity=item.Quantity
                 });
             }
             PaymentInfoVM paymentInfoVM = new PaymentInfoVM()

@@ -27,12 +27,12 @@ namespace SparkNest.Services.OrderAPI.Domain.OrderAggregate
         private readonly List<OrderItem> _orderItems;
         public IReadOnlyCollection<OrderItem> OrderItems => _orderItems;
 
-        public void AddOrderItem(string productId, string productName, string productUrl, decimal price)
+        public void AddOrderItem(string productId, string productName, string productUrl, decimal price,int quantity)
         {
             var exisItem = _orderItems.Any(x => x.ProductId == productId);
             if(!exisItem)
             {
-                _orderItems.Add(new OrderItem(productId, productName, productUrl, price));
+                _orderItems.Add(new OrderItem(productId, productName, productUrl, price,quantity));
             }
         }
 

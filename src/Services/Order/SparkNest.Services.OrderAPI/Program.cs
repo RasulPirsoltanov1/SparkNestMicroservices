@@ -7,6 +7,7 @@ using Microsoft.EntityFrameworkCore;
 using SparkNest.Common.Base.Messages;
 using SparkNest.Common.Base.Services;
 using SparkNest.Services.OrderAPI.Application.Consumers;
+using SparkNest.Services.OrderAPI.Application.EventConsumers;
 using SparkNest.Services.OrderAPI.Application.Features.Orders.Queries;
 using SparkNest.Services.OrderAPI.Infrastructure.Data;
 using System.Reflection;
@@ -45,6 +46,7 @@ builder.Services.AddMassTransit(x =>
 {
     // Default Port : 5672
     x.AddConsumer<CreateOrderMessageCommandConsumer>();
+    x.AddConsumer<ProductNameChangedEventConsumer>();
     x.UsingRabbitMq((context, cfg) =>
     {
         cfg.Host(builder.Configuration["RabbitMQUrl"], "/", host =>
@@ -56,6 +58,15 @@ builder.Services.AddMassTransit(x =>
         cfg.ReceiveEndpoint("create-order-service", e =>
         {
             e.ConfigureConsumer<CreateOrderMessageCommandConsumer>(context);
+        });
+
+        cfg.ReceiveEndpoint("create-order-service_error", e =>
+        {
+            e.ConfigureConsumer<CreateOrderMessageCommandConsumer>(context);
+        });
+        cfg.ReceiveEndpoint("product-name-changed-service", e =>
+        {
+            e.ConfigureConsumer<ProductNameChangedEventConsumer>(context);
         });
     });
     

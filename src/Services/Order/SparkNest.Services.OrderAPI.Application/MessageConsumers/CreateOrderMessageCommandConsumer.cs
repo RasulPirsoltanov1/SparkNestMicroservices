@@ -28,7 +28,7 @@ namespace SparkNest.Services.OrderAPI.Application.Consumers
 
             context.Message.OrderItems.ForEach(x =>
             {
-                order.AddOrderItem(x.ProductId, x.ProductName, x.ProductUrl, x.Price);
+                order.AddOrderItem(x.ProductId, x.ProductName, x.ProductUrl, x.Price,x.Quantity);
             });
             await _dbContext.Orders.AddAsync(order);
             await _dbContext.SaveChangesAsync();

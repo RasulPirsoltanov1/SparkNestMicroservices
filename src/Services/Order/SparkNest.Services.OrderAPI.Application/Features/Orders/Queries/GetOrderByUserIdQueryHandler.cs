@@ -18,7 +18,7 @@ namespace SparkNest.Services.OrderAPI.Application.Features.Orders.Queries
 
         public async Task<Response<List<OrderDTO>>> Handle(GetOrderByUserIdQuery request, CancellationToken cancellationToken)
         {
-            var orders = await _orderDbContext.Orders.Where(x => x.BuyerId == request.UserId).ToListAsync();
+            var orders = await _orderDbContext.Orders.Include(x=>x.OrderItems).Where(x => x.BuyerId == request.UserId).ToListAsync();
             if (orders == null || orders.Count <= 0)
             {
                 return Response<List<OrderDTO>>.Success(new List<OrderDTO>(), 200);

@@ -46,5 +46,11 @@ namespace SparkNest.UI.MVC.Controllers
             ViewBag.orderId = orderId;
             return View();
         }
+
+        public async Task<IActionResult> CheckoutHistory()
+        {
+            List<OrderVM> orders = await _orderService.GetAllOrders();
+            return View(orders);
+        }
     }
 }

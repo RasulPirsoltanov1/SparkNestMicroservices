@@ -1,6 +1,8 @@
+using MassTransit;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Mvc.Authorization;
 using Microsoft.Extensions.DependencyInjection;
+using SparkNest.Common.Base.Services;
 using SparkNest.Services.ProductAPI.Services;
 using SparkNest.Services.ProductAPI.Settings;
 using System.Reflection;
@@ -8,7 +10,6 @@ using System.Reflection;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-
 builder.Services.AddControllers(opt =>
 {
     opt.Filters.Add(new AuthorizeFilter());
@@ -38,8 +39,35 @@ builder.Services.AddSingleton<IDatabaseSettings>(x =>
     return x.GetRequiredService<DatabaseSettings>();
 });
 
+builder.Services.AddHttpContextAccessor();
 builder.Services.AddScoped<ICategoryService, CategoryService>();
 builder.Services.AddScoped<IProductService, ProductService>();
+builder.Services.AddScoped<ISharedIdentityService, SharedIdentityService>();
+
+
+
+
+
+builder.Services.AddMassTransit(x =>
+{
+    x.UsingRabbitMq((context, cfg) =>
+    {
+        cfg.Host(builder.Configuration["RabbitMQUrl"], "/", host =>
+        {
+            host.Username("guest");
+            host.Password("guest");
+        });
+    });
+});
+
+builder.Services.AddMassTransitHostedService();
+
+
+
+
+
+
+
 
 
 var app = builder.Build();

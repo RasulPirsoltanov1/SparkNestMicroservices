@@ -39,7 +39,7 @@ namespace SparkNest.Services.OrderAPI.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("OrderItems", "ordering");
+                    b.ToTable("Orders", "ordering");
                 });
 
             modelBuilder.Entity("SparkNest.Services.OrderAPI.Domain.OrderAggregate.OrderItem", b =>
@@ -68,11 +68,14 @@ namespace SparkNest.Services.OrderAPI.Infrastructure.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int?>("Quantity")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
 
                     b.HasIndex("OrderId");
 
-                    b.ToTable("OrderItems");
+                    b.ToTable("OrderItems", "ordering");
                 });
 
             modelBuilder.Entity("SparkNest.Services.OrderAPI.Domain.OrderAggregate.Order", b =>
@@ -104,7 +107,7 @@ namespace SparkNest.Services.OrderAPI.Infrastructure.Migrations
 
                             b1.HasKey("OrderId");
 
-                            b1.ToTable("OrderItems", "ordering");
+                            b1.ToTable("Orders", "ordering");
 
                             b1.WithOwner()
                                 .HasForeignKey("OrderId");

@@ -38,9 +38,15 @@ namespace SparkNest.Services.BasketAPI.Services.Concrete
             }
             return Response<BasketDto>.Success(JsonSerializer.Deserialize<BasketDto>(existingBasket), 200);
         }
+
+        public string GetUserId()
+        {
+            return _sharedIdentityService.UserId;
+        }
+
         public async Task<Response<bool>> SaveOrUpdateAsync(BasketDto basketDTO)
         {
-            var existingBasket = await GetBasketAsync(_sharedIdentityService.UserId);
+            //var existingBasket = await GetBasketAsync(_sharedIdentityService.UserId);
             //if (existingBasket.Data != null)
             //{
             //    foreach (var item in basketDTO.basketItems) // basketDTO.basketItems deki elemntlerin icleri neden null olarak geliyor?
@@ -58,7 +64,7 @@ namespace SparkNest.Services.BasketAPI.Services.Concrete
             //    basketDTO = existingBasket.Data;
             //}
 
-            var status = await _redisService.GetDb().StringSetAsync(_sharedIdentityService.UserId, JsonSerializer.Serialize(basketDTO));
+            var status = await _redisService.GetDb().StringSetAsync(_sharedIdentityService.UserId??basketDTO.UserId, JsonSerializer.Serialize(basketDTO));
 
             return status ? Response<bool>.Success(200) : Response<bool>.Fail("Basket could not be saved or updated.", 500);
         }

@@ -12,8 +12,8 @@ using SparkNest.Services.OrderAPI.Infrastructure.Data;
 namespace SparkNest.Services.OrderAPI.Infrastructure.Migrations
 {
     [DbContext(typeof(OrderDbContext))]
-    [Migration("20240312183029_initial")]
-    partial class initial
+    [Migration("20240328181600_added-Quantity-to-OrderItem")]
+    partial class addedQuantitytoOrderItem
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -42,7 +42,7 @@ namespace SparkNest.Services.OrderAPI.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("OrderItems", "ordering");
+                    b.ToTable("Orders", "ordering");
                 });
 
             modelBuilder.Entity("SparkNest.Services.OrderAPI.Domain.OrderAggregate.OrderItem", b =>
@@ -71,11 +71,14 @@ namespace SparkNest.Services.OrderAPI.Infrastructure.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int?>("Quantity")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
 
                     b.HasIndex("OrderId");
 
-                    b.ToTable("OrderItems");
+                    b.ToTable("OrderItems", "ordering");
                 });
 
             modelBuilder.Entity("SparkNest.Services.OrderAPI.Domain.OrderAggregate.Order", b =>
@@ -107,7 +110,7 @@ namespace SparkNest.Services.OrderAPI.Infrastructure.Migrations
 
                             b1.HasKey("OrderId");
 
-                            b1.ToTable("OrderItems", "ordering");
+                            b1.ToTable("Orders", "ordering");
 
                             b1.WithOwner()
                                 .HasForeignKey("OrderId");

@@ -44,7 +44,8 @@ namespace SparkNest.Services.FakePaymentAPI.Controllers
                     ProductUrl = x.ProductUrl,
                     Price = x.Price,
                     ProductId = x.ProductId,
-                    ProductName = x.ProductName
+                    ProductName = x.ProductName,
+                    Quantity=x.Quantity
                 });
             });
 

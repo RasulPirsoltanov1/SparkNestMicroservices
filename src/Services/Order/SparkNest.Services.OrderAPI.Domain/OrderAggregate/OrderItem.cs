@@ -13,21 +13,24 @@ namespace SparkNest.Services.OrderAPI.Domain.OrderAggregate
         {
             
         }
-        public OrderItem(string productId, string productName, string productUrl, decimal price)
+        public OrderItem(string productId, string productName, string productUrl, decimal price,int quantity)
         {
             ProductId = productId;
             ProductName = productName;
             ProductUrl = productUrl;
             Price = price;
+            Quantity = quantity;
         }
 
         public string ProductId { get; private set; }
         public string ProductName { get; private set; }
         public string ProductUrl { get; private set; }
         public decimal Price { get; private set; }
+        public int Quantity { get; private set; }
 
-        public void UpdateOrderItem(string productName, string productUrl, decimal price)
+        public void UpdateOrderItem(string productName, string productUrl, decimal price,int quantity)
         {
+            Quantity = quantity;
             ProductName = productName;
             ProductUrl = productUrl;
             Price = price;

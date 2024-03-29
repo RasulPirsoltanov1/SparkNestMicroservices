@@ -8,5 +8,7 @@ namespace SparkNest.Services.BasketAPI.Services.Abstract
         Task<Response<BasketDto>> GetBasketAsync(string userId);
         Task<Response<bool>> SaveOrUpdateAsync(BasketDto basketDTO);
         Task<Response<bool>> DeleteAsync(string userId);
+
+        string GetUserId();    
     }
 }
