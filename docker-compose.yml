@@ -1,0 +1,20 @@
+version: '3.8'
+services:
+  productdb:
+    image: mongo
+  basketdb:
+    image: redis
+  discountdb:
+    image: postgres
+  identitydb:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+  orderdb:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+  rabbitmq:
+    image: rabbitmq:3-management
+
+volumes:
+  productdb_volume:
+  discountdb_volume:
+  identitydb_volume:
+  orderdb_volume:
