@@ -1,7 +1,7 @@
 version: '3.8'
 services:
   productdb:
-    image: mongo
+    image: mongo:latest
   basketdb:
     image: redis
   discountdb:

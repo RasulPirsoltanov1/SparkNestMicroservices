@@ -13,7 +13,7 @@
 
                 <h5 class="card-title">Sepet</h5>
 
-                @if (Model != null && Model.BasketItems.Any())
+                @if (Model != null && Model.BasketItems is not null)
                 {
                     <table class="table table-striped">
 
