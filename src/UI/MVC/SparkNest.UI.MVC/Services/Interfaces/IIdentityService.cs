@@ -7,6 +7,7 @@ namespace SparkNest.UI.MVC.Services.Interfaces
     public interface IIdentityService
     {
         Task<Response<bool>> SignIn(SignInInput signInInput);
+        Task<Response<bool>> SignUpAsync(SignUpInput signUpInput);
         Task<TokenResponse> GetAccessTokenByRefreshToken();
         Task RevokeRefreshToken();
     }

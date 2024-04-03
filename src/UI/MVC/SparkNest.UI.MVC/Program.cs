@@ -53,6 +53,7 @@ builder.Services.AddHttpClientServices();
 builder.Services.AddAuthentication().AddCookie(CookieAuthenticationDefaults.AuthenticationScheme, opt =>
 {
     opt.LoginPath = "/Auth/SignIn";
+    opt.AccessDeniedPath = "/Auth/SignIn";
     opt.ExpireTimeSpan = TimeSpan.FromDays(10);
     opt.SlidingExpiration = true;
     opt.Cookie.Name = "SparkNest";

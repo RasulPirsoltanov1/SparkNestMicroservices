@@ -1,0 +1,97 @@
+﻿<!doctype html>
+<html lang="en">
+
+<!-- Mirrored from vetra.laborasyon.com/demos/default/index.html by HTTrack Website Copier/3.x [XR&CO'2014], Mon, 04 Mar 2024 18:40:18 GMT -->
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title> Vetra | E-Commerce HTML Admin Dashboard Template </title>
+
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="~/admin/assets/images/favicon.png" />
+
+    <!-- Google fonts -->
+    <link rel="preconnect" href="https://fonts.gstatic.com/">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&amp;display=swap"
+          rel="stylesheet">
+
+    <!-- Bootstrap icons -->
+    <link rel="stylesheet" href="~/admin/dist/icons/bootstrap-icons-1.4.0/bootstrap-icons.min.css" type="text/css">
+    <!-- Bootstrap Docs -->
+    <link rel="stylesheet" href="~/admin/dist/css/bootstrap-docs.css" type="text/css">
+
+    <!-- Slick -->
+    <link rel="stylesheet" href="~/admin/libs/slick/slick.css" type="text/css">
+
+    <!-- Main style file -->
+    <link rel="stylesheet" href="~/admin/dist/css/app.min.css" type="text/css">
+
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+
+    <![endif]-->
+    @await RenderSectionAsync("Css", false);
+
+</head>
+
+<body>
+
+    <!-- preloader -->
+    <div class="preloader">
+        <img src="https://vetra.laborasyon.com/assets/images/logo.svg" alt="logo">
+        <div class="preloader-icon"></div>
+    </div>
+    <!-- ./ preloader -->
+    <!-- sidebars -->
+    <!-- notifications sidebar -->
+    @await Html.PartialAsync("/Views/Shared/AdminPartialViews/_NotificationsSidebarPV.cshtml")
+    <!-- ./ notifications sidebar -->
+    <!-- search sidebar -->
+    @await Html.PartialAsync("/Views/Shared/AdminPartialViews/_SearchSidebarPV.cshtml")
+    <!-- ./ search sidebar -->
+    <!-- ./ sidebars -->
+    @await Html.PartialAsync("/Views/Shared/AdminPartialViews/_MenuPV.cshtml")
+    <!-- ./  menu -->
+    <!-- layout-wrapper -->
+    <div class="layout-wrapper">
+        <!-- header -->
+        @await Html.PartialAsync("/Views/Shared/AdminPartialViews/_HeaderPV.cshtml")
+        <!-- ./ header -->
+        <!-- content -->
+        <div class="content ">
+            <div class="row ">
+                @RenderBody()
+        <!-- ./ content -->
+            </div>
+        </div>
+
+        <!-- content-footer -->
+        @await Html.PartialAsync("/Views/Shared/AdminPartialViews/_FooterPV.cshtml")
+        <!-- ./ content-footer -->
+    </div>
+    <!-- ./ layout-wrapper -->
+    @await Html.PartialAsync("/Views/Shared/AdminPartialViews/_ScriptsPV.cshtml")
+</body>
+<style>
+    .item-action-buttons {
+        display: !none;
+    }
+</style>
+<!-- Mirrored from vetra.laborasyon.com/demos/default/index.html by HTTrack Website Copier/3.x [XR&CO'2014], Mon, 04 Mar 2024 18:40:46 GMT -->
+<script>
+
+    setInterval(() => {
+        let elements = document.querySelectorAll(".item-action-buttons");
+        elements.forEach(element => {
+            element.style.display = "none";
+        });
+    }, 10);
+
+</script>
+
+@await RenderSectionAsync("Js", false);
+
+</html>

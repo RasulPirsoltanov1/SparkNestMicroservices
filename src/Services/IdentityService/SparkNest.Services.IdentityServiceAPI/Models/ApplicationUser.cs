@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Identity;
+using System;
 
 namespace SparkNest.Services.IdentityServiceAPI.Models
 {

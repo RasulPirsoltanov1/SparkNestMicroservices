@@ -41,10 +41,6 @@ namespace SparkNest.Services.IdentityServiceAPI
 
             try
             {
-
-
-
-
                 var seed = args.Contains("/seed");
                 if (seed)
                 {
@@ -61,6 +57,22 @@ namespace SparkNest.Services.IdentityServiceAPI
                     applicationDbContext.Database.Migrate();
 
                     var userManager = serviceProvider.GetRequiredService<UserManager<ApplicationUser>>();
+                    var roleManager = serviceProvider.GetRequiredService<RoleManager<ApplicationRole>>();
+                    if (!roleManager.Roles.Any())
+                    {
+                        roleManager.CreateAsync(new ApplicationRole
+                        {
+                            Name ="Admin",
+                        }).GetAwaiter().GetResult();
+                        roleManager.CreateAsync(new ApplicationRole
+                        {
+                            Name = "User",
+                        }).GetAwaiter().GetResult();
+                        roleManager.CreateAsync(new ApplicationRole
+                        {
+                            Name = "Moderator",
+                        }).GetAwaiter().GetResult();
+                    }
 
                     if (!userManager.Users.Any())
                     {
@@ -71,8 +83,11 @@ namespace SparkNest.Services.IdentityServiceAPI
                             Country = "Azerbaijan",
                             ImageUrl = "https://media.licdn.com/dms/image/D4E03AQEvF6OAYg4-8w/profile-displayphoto-shrink_200_200/0/1709657098186?e=1715212800&v=beta&t=4bfm1I2if0Kuxm3MW6U6E2mt5Hrdp_2S486LeA_BXd8"
                         }, "Rasul123.").Wait();
+                        var user = userManager.FindByEmailAsync("resulresull510@gmail.com").GetAwaiter().GetResult();
+                        userManager.AddToRoleAsync(user,"Admin").GetAwaiter().GetResult();
+                        userManager.AddToRoleAsync(user,"Moderator").GetAwaiter().GetResult();
+                        userManager.AddToRoleAsync(user, "User").GetAwaiter().GetResult();
                     }
-
                 }
                 if (seed)
                 {

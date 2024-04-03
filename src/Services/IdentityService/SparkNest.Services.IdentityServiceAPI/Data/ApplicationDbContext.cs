@@ -4,7 +4,7 @@ using SparkNest.Services.IdentityServiceAPI.Models;
 
 namespace SparkNest.Services.IdentityServiceAPI.Data
 {
-    public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
+    public class ApplicationDbContext : IdentityDbContext<ApplicationUser,ApplicationRole,string>
     {
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options)

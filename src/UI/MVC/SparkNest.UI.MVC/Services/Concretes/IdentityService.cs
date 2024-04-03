@@ -113,6 +113,9 @@ namespace SparkNest.UI.MVC.Services.Concretes
             }
         }
 
+
+
+
         public async Task<TokenResponse> GetAccessTokenByRefreshToken()
         {
             var discovery = await _httpClient.GetDiscoveryDocumentAsync(new DiscoveryDocumentRequest
@@ -185,6 +188,57 @@ namespace SparkNest.UI.MVC.Services.Concretes
                 TokenTypeHint = "refresh_token"
             };
             await _httpClient.RevokeTokenAsync(tokenRevocationRequest);
+        }
+
+        public async Task<Response<bool>> SignUpAsync(SignUpInput signUpInput)
+        {
+            try
+            {
+                // Obtain a token using client credentials
+                var clientCredentialToken = await GetClientCredentialsTokenAsync();
+
+                // Use the obtained token in the request headers
+                _httpClient.SetBearerToken(clientCredentialToken.AccessToken);
+
+                // Proceed with the signup process
+                var response = await _httpClient.PostAsJsonAsync(_serviceApiSettings.IdentityBaseUri + "/api/user/signup", signUpInput);
+                var result = await response.Content.ReadFromJsonAsync<Response<bool>>();
+                return result;
+            }
+            catch (Exception ex)
+            {
+                await Console.Out.WriteLineAsync(ex.Message);
+                return null;
+            }
+        }
+
+        private async Task<TokenResponse> GetClientCredentialsTokenAsync()
+        {
+            var discovery = await _httpClient.GetDiscoveryDocumentAsync(new DiscoveryDocumentRequest
+            {
+                Address = _serviceApiSettings.IdentityBaseUri,
+                Policy = new DiscoveryPolicy { RequireHttps = false }
+            });
+
+            if (discovery.IsError)
+            {
+                throw discovery.Exception;
+            }
+
+            var clientCredentialTokenRequest = new ClientCredentialsTokenRequest
+            {
+                Address = discovery.TokenEndpoint,
+                ClientId = _clientSettings.WebClient.ClientId,
+                ClientSecret = _clientSettings.WebClient.ClientSecret,
+            };
+
+            var tokenResponse = await _httpClient.RequestClientCredentialsTokenAsync(clientCredentialTokenRequest);
+            if (tokenResponse.IsError)
+            {
+                throw new Exception($"Error while obtaining client credentials token: {tokenResponse.Error}");
+            }
+
+            return tokenResponse;
         }
 
     }

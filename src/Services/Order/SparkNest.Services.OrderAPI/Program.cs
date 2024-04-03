@@ -68,6 +68,10 @@ builder.Services.AddMassTransit(x =>
         {
             e.ConfigureConsumer<ProductNameChangedEventConsumer>(context);
         });
+        cfg.ReceiveEndpoint("product-name-changed-service_skipped", e =>
+        {
+            e.ConfigureConsumer<ProductNameChangedEventConsumer>(context);
+        });
     });
     
 });
