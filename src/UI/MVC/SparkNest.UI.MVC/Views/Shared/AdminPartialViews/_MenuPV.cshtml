@@ -1,0 +1,74 @@
+﻿@using System.Security.Claims
+@{
+    var currentController = ViewContext.RouteData.Values["controller"].ToString().ToLower();
+    var currentArea = ViewContext.RouteData.Values["area"].ToString().ToLower();
+    var currentAction = ViewContext.RouteData.Values["action"].ToString().ToLower();
+}
+<div class="menu">
+    <div class="menu-header">
+        <a asp-action ="Index" asp-area="Admin" asp-controller="Dashboard" class="menu-header-logo">
+            <img src="https://vetra.laborasyon.com/assets/images/logo.svg" alt="logo">
+        </a>
+        <a href="index.html" class="btn btn-sm menu-close-btn">
+            <i class="bi bi-x"></i>
+        </a>
+    </div>
+    <div class="menu-body">
+        <div class="dropdown">
+            <a href="#" class="d-flex align-items-center" data-bs-toggle="dropdown">
+                <div class="avatar me-3">
+                    <img src="~/admin/assets/images/user/man_avatar3.jpg" class="rounded-circle" alt="image">
+                </div>
+                <div>
+                    <div class="fw-bold">@User?.Identity?.Name</div>
+                    <small class="text-muted">@User.Claims.FirstOrDefault(x => x.Type == "role" && x.Value == "Admin" || x.Value == "Moderator")</small>
+                </div>
+            </a>
+            <div class="dropdown-menu dropdown-menu-end">
+                <a href="#" class="dropdown-item d-flex align-items-center">
+                    <i class="bi bi-person dropdown-item-icon"></i> Profile
+                </a>
+                <a href="#" class="dropdown-item d-flex align-items-center">
+                    <i class="bi bi-envelope dropdown-item-icon"></i> Inbox
+                </a>
+                <a href="#" class="dropdown-item d-flex align-items-center" data-sidebar-target="#settings">
+                    <i class="bi bi-gear dropdown-item-icon"></i> Settings
+                </a>
+                <a href="login.html" class="dropdown-item d-flex align-items-center text-danger" target="_blank">
+                    <i class="bi bi-box-arrow-right dropdown-item-icon"></i> Logout
+                </a>
+            </div>
+        </div>
+        <ul>
+            <li class="menu-divider">E-Commerce</li>
+            <li>
+                <a class="@((currentController == "dashboard" && currentArea == "admin") ? "active" : "")"
+                   asp-action="Index" asp-area="Admin" asp-controller="Dashboard">
+                    <span class="nav-link-icon">
+                        <i class="bi bi-bar-chart"></i>
+                    </span>
+                    <span>Dashboard</span>
+                </a>
+            </li>
+            <li>
+                <a class="@((currentController.ToLower() == "products" && currentAction.ToLower() == "index") ? "active" : "")"
+                   asp-action="Index" asp-area="Admin" asp-controller="Products">
+                    <span class="nav-link-icon">
+                        <i class="bi bi-list-ol"></i>
+                    </span>
+                    <span>Products</span>
+                </a>
+            </li>
+            <li>
+                <a class="@((currentController == "products" && currentArea == "admin" && currentAction == "create") ? "active" : "")"
+                   asp-action="Create" asp-area="Admin" asp-controller="Products">
+                    <span class="nav-link-icon">
+                        <i class="bi bi-plus-circle"></i>
+                    </span>
+                    <span>Create Product</span>
+                </a>
+            </li>
+        </ul>
+
+    </div>
+</div>

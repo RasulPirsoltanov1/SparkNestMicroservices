@@ -21,6 +21,18 @@ namespace SparkNest.UI.MVC.Controllers
         {
             return View();
         }
+
+        public IActionResult SignUp()
+        {
+            return View();
+        }
+        [HttpPost]
+        public async Task<IActionResult> SignUp(SignUpInput signUpInput)
+        {
+            signUpInput.Country = "AZE";
+            await _identityService.SignUpAsync(signUpInput);
+            return RedirectToAction(nameof(SignIn));
+        }
         public async Task<IActionResult> SignOut()
         {
             await _contextAccessor.HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);

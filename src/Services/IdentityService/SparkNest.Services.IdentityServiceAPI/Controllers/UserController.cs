@@ -24,11 +24,6 @@ namespace SparkNest.Services.IdentityServiceAPI.Controllers
         {
             _userManager = userManager;
         }
-        [HttpGet]
-        public IActionResult Get()
-        {
-            return Ok("Okey");
-        }
 
         [HttpPost]
         public async Task<IActionResult> SignUpAsync(SignUpDTO signUpDTO)
