@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SparkNest.Services.OrderAPI.Application.Features.Orders.Queries
+namespace SparkNest.Services.OrderAPI.Application.Features.Orders.Queries.Get
 {
     public class GetOrderByUserIdQuery : IRequest<Response<List<OrderDTO>>>
     {

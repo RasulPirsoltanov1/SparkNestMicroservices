@@ -68,6 +68,19 @@
                     <span>Create Product</span>
                 </a>
             </li>
+
+
+            <li>
+                <a class="@((currentController == "orders" && currentArea == "admin" && currentAction == "index") ? "active" : "")"
+                   asp-action="Index" asp-area="Admin" asp-controller="Orders">
+                    <span class="nav-link-icon">
+                        <i class="bi bi-cart-check"></i>
+                    </span>
+                    <span>Orders</span>
+                </a>
+            </li>
+
+
         </ul>
 
     </div>

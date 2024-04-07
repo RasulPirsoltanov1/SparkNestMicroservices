@@ -13,6 +13,7 @@ namespace SparkNest.Services.OrderAPI.Application.DTOs
         public DateTime? CreatedDate { get; set; }
         public Address Address { get; set; }
         public string BuyerId { get; set; }
+        public int Status { get; set; }
         public List<OrderItemDTO> OrderItems { get; set; }
     }
 }

@@ -8,7 +8,7 @@ using SparkNest.Common.Base.Messages;
 using SparkNest.Common.Base.Services;
 using SparkNest.Services.OrderAPI.Application.Consumers;
 using SparkNest.Services.OrderAPI.Application.EventConsumers;
-using SparkNest.Services.OrderAPI.Application.Features.Orders.Queries;
+using SparkNest.Services.OrderAPI.Application.Features.Orders.Queries.Get;
 using SparkNest.Services.OrderAPI.Infrastructure.Data;
 using System.Reflection;
 

@@ -48,5 +48,9 @@
         "DebugTarget": ""
       }
     ]
+  },
+  {
+    "Name": "New Profile (1)",
+    "Projects": []
   }
 ]

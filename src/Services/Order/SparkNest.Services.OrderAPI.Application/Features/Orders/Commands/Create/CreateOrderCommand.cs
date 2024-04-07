@@ -8,7 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SparkNest.Services.OrderAPI.Application.Features.Orders.Commands
+namespace SparkNest.Services.OrderAPI.Application.Features.Orders.Commands.Create
 {
     public class CreateOrderCommand : IRequest<Response<CreatedOrderDTO>>
     {

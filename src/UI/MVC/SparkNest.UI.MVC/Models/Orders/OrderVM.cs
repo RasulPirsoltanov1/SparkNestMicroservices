@@ -4,6 +4,7 @@
     {
         public int Id { get; set; }
         public string BuyerId { get; set; }
+        public int Status { get; set; }
         public DateTime CreatedDate { get; set; }
         public List<OrderItemVM> OrderItems { get; set; }
     }

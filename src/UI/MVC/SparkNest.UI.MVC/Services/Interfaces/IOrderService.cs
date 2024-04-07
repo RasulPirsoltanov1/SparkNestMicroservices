@@ -1,4 +1,5 @@
 ﻿using SparkNest.UI.MVC.Models.Orders;
+using SparkNest.UI.MVC.Models.Orders.StatusChange;
 
 namespace SparkNest.UI.MVC.Services.Interfaces
 {
@@ -16,6 +17,9 @@ namespace SparkNest.UI.MVC.Services.Interfaces
         /// <param name="checkoutInfoVM"></param>
         /// <returns></returns>
         Task<OrderSuspendStatusVM> SuspendOrder(CheckoutInfoVM checkoutInfoVM);
+
+        Task<bool> StatusChange(StatusChangeVM statusChangeVM);
+
 
         Task<List<OrderVM>> GetAllOrders(); 
     }

@@ -5,7 +5,7 @@ using SparkNest.Services.OrderAPI.Application.DTOs;
 using SparkNest.Services.OrderAPI.Application.Mapping;
 using SparkNest.Services.OrderAPI.Infrastructure.Data;
 
-namespace SparkNest.Services.OrderAPI.Application.Features.Orders.Queries
+namespace SparkNest.Services.OrderAPI.Application.Features.Orders.Queries.Get
 {
     public class GetOrderByUserIdQueryHandler : IRequestHandler<GetOrderByUserIdQuery, Response<List<OrderDTO>>>
     {
@@ -13,12 +13,12 @@ namespace SparkNest.Services.OrderAPI.Application.Features.Orders.Queries
 
         public GetOrderByUserIdQueryHandler(OrderDbContext orderDbContext)
         {
-            this._orderDbContext = orderDbContext;
+            _orderDbContext = orderDbContext;
         }
 
         public async Task<Response<List<OrderDTO>>> Handle(GetOrderByUserIdQuery request, CancellationToken cancellationToken)
         {
-            var orders = await _orderDbContext.Orders.Include(x=>x.OrderItems).Where(x => x.BuyerId == request.UserId).ToListAsync();
+            var orders = await _orderDbContext.Orders.Include(x => x.OrderItems).Where(x => x.BuyerId == request.UserId).ToListAsync();
             if (orders == null || orders.Count <= 0)
             {
                 return Response<List<OrderDTO>>.Success(new List<OrderDTO>(), 200);

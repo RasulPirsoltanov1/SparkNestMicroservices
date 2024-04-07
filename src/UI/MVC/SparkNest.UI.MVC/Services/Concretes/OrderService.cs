@@ -2,6 +2,7 @@
 using SparkNest.Common.DTOs;
 using SparkNest.UI.MVC.Models.FakePayment;
 using SparkNest.UI.MVC.Models.Orders;
+using SparkNest.UI.MVC.Models.Orders.StatusChange;
 using SparkNest.UI.MVC.Services.Interfaces;
 using System.Diagnostics;
 
@@ -90,6 +91,17 @@ namespace SparkNest.UI.MVC.Services.Concretes
             }
             var result =await response.Content.ReadFromJsonAsync<Response<List<OrderVM>>>();
             return result.Data;
+        }
+
+        public async Task<bool> StatusChange(StatusChangeVM statusChangeVM)
+        {
+            var response = await _httpClient.PostAsJsonAsync("orders/StatusChange", statusChangeVM);
+            if (!response.IsSuccessStatusCode)
+            {
+                return false;
+            }
+            var result = await response.Content.ReadFromJsonAsync<Response<bool>>();
+            return true;
         }
 
         public async Task<OrderSuspendStatusVM> SuspendOrder(CheckoutInfoVM checkoutInfoVM)
