@@ -7,6 +7,7 @@ using SparkNest.UI.MVC.Models.Product;
 using SparkNest.UI.MVC.Services.Interfaces;
 using System.Net.Http.Json;
 using System.Text.Json;
+using System.Text.RegularExpressions;
 
 namespace SparkNest.UI.MVC.Services.Concretes
 {
@@ -83,6 +84,13 @@ namespace SparkNest.UI.MVC.Services.Concretes
                 Price = x.Price,
                 UserId = x.UserId
             }).ToList();
+            foreach (var item in data)
+            {
+                foreach (var item1 in item.PhotoUrls)
+                {
+                    item.PhotoFileStockUrls.Add(_fileStockHelper.GetFileStockUrl(item1));
+                }
+            }
             return data;
         }
 
@@ -98,10 +106,22 @@ namespace SparkNest.UI.MVC.Services.Concretes
             var successResponse = await response.Content.ReadFromJsonAsync<Response<ProductVM>>();
             var data = successResponse.Data;
             data.PhotoFileStockUrl = _fileStockHelper.GetFileStockUrl(data.PhotoUrl);
+            foreach (var item1 in data.PhotoUrls)
+            {
+                data.PhotoFileStockUrls.Add(_fileStockHelper.GetFileStockUrl(item1));
+            }
             return data;
         }
         public async Task<bool> CreateProductAsync(ProductCreateVM product)
         {
+            if (product.Photos is not null)
+            {
+                foreach (var item in product.Photos)
+                {
+                    PhotoVM? responses = await _fileStockService.UploadPhoto(item);
+                    product.PhotoUrls.Add(responses.Url);
+                }
+            }
             PhotoVM? response = await _fileStockService.UploadPhoto(product.Photo);
             if (response == null)
             {
@@ -119,9 +139,22 @@ namespace SparkNest.UI.MVC.Services.Concretes
             return response.IsSuccessStatusCode;
         }
 
+        /// <summary>
+        /// Delete photo from gallery
+        /// </summary>
+        /// <param name="productId"> id of product </param>
+        /// <param name="photoUrl">url path of photo</param>
+        /// <returns></returns>
+        public async Task<bool> DeletePhotoAsync(string productId, string photoUrl)
+        {
+            var value = ExtractGUID(photoUrl);
+            var response = await _httpClient.DeleteAsync($"product/{productId}/{value}");
+            return response.IsSuccessStatusCode;
+        }
+
         public async Task<bool> UpdateProductAsync(ProductUpdateVM product)
         {
-            var dbProduct =await GetByProductId(product.Id);
+            var dbProduct = await GetByProductId(product.Id);
             if (product.Photo != null)
             {
                 PhotoVM? response = await _fileStockService.UploadPhoto(product.Photo);
@@ -132,6 +165,7 @@ namespace SparkNest.UI.MVC.Services.Concretes
                 product.PhotoUrl = response.Url;
                 var prod = await GetByProductId(product.Id);
                 var photoPath = prod.PhotoFileStockUrl.Replace(@"http://localhost:2002/uploads\photos\", "");
+
                 var RES = await _fileStockService.DeletePhoto(photoPath);
             }
             product.PhotoUrl = dbProduct.PhotoUrl;
@@ -140,6 +174,22 @@ namespace SparkNest.UI.MVC.Services.Concretes
         }
 
 
-      
+        static string ExtractGUID(string url)
+        {
+            // Define the pattern for finding GUID-like strings
+            string pattern = @"([a-fA-F0-9]{8}(-[a-fA-F0-9]{4}){3}-[a-fA-F0-9]{12})";
+
+            // Search for the pattern in the URL
+            Match match = Regex.Match(url, pattern);
+
+            // If a match is found, return the GUID part
+            if (match.Success)
+            {
+                return match.Value;
+            }
+
+            // Return empty string if no match is found
+            return "";
+        }
     }
 }

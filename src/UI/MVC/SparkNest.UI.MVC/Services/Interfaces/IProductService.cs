@@ -12,5 +12,6 @@ namespace SparkNest.UI.MVC.Services.Interfaces
         Task<bool> CreateProductAsync(ProductCreateVM product);
         Task<bool> UpdateProductAsync(ProductUpdateVM product);
         Task<ProductVM> GetByProductId(string productId);
+        Task<bool> DeletePhotoAsync(string productId, string photoUrl);
     }
 }

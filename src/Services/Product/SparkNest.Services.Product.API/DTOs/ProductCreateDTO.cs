@@ -1,4 +1,5 @@
 ﻿using MongoDB.Bson.Serialization.Attributes;
+using SparkNest.Services.ProductAPI.Models;
 
 namespace SparkNest.Services.ProductAPI.DTOs
 {
@@ -12,5 +13,8 @@ namespace SparkNest.Services.ProductAPI.DTOs
         [BsonRepresentation(MongoDB.Bson.BsonType.ObjectId)]
         public string CategoryId { get; set; }
         public string Description { get; set; }
+        public List<string>? PhotoUrls { get; set; } = new List<string>();
+        public double? Rating { get; set; }
+        public double? RateCount { get; set; }
     }
 }

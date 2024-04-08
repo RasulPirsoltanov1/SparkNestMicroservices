@@ -21,5 +21,9 @@ namespace SparkNest.Services.ProductAPI.Models
         [BsonIgnore]
         public Category Category { get; set; }
         public string Description { get; set; }
+        public List<string>? PhotoUrls { get; set; } = new List<string>();
+        public double? Rating { get; set; }
+        public double? RateCount { get; set; }
+        public int Views { get; set; }
     }
 }

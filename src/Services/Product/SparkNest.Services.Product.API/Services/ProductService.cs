@@ -8,6 +8,7 @@ using SparkNest.Common.DTOs;
 using SparkNest.Services.ProductAPI.DTOs;
 using SparkNest.Services.ProductAPI.Models;
 using SparkNest.Services.ProductAPI.Settings;
+using System.Text.RegularExpressions;
 
 namespace SparkNest.Services.ProductAPI.Services
 {
@@ -47,6 +48,8 @@ namespace SparkNest.Services.ProductAPI.Services
         public async Task<SparkNest.Common.DTOs.Response<ProductDTO>> GetByIdAsync(string Id)
         {
             var dbProduct = await _productCollection.Find(x => x.Id == Id).FirstOrDefaultAsync();
+            dbProduct.Views += 1;
+            var result = await _productCollection.FindOneAndReplaceAsync(x => x.Id == dbProduct.Id, dbProduct);
             if (dbProduct == null)
             {
                 return SparkNest.Common.DTOs.Response<ProductDTO>.Fail("Have not any product!", 404);
@@ -108,5 +111,43 @@ namespace SparkNest.Services.ProductAPI.Services
             }
             return SparkNest.Common.DTOs.Response<NoContent>.Success(202);
         }
+
+        public async Task<SparkNest.Common.DTOs.Response<NoContent>> DeletePhotoAsync(string productId, string photoUrl)
+        {
+            var dbProduct = await _productCollection.Find(x => x.Id == productId).FirstOrDefaultAsync();
+
+            // Check if dbProduct or dbProduct.PhotoUrls is null
+            if (dbProduct != null && dbProduct.PhotoUrls != null)
+            {
+                var url = dbProduct.PhotoUrls.FirstOrDefault(x=> ExtractGUID(x)== ExtractGUID(photoUrl));
+                await Console.Out.WriteLineAsync(url);
+                dbProduct.PhotoUrls.Remove(url); // Remove the specified photoUrl from the list
+                var result = await _productCollection.FindOneAndReplaceAsync(x => x.Id == dbProduct.Id, dbProduct);
+                return SparkNest.Common.DTOs.Response<NoContent>.Success(202);
+            }
+            else
+            {
+                // Handle the case when dbProduct or dbProduct.PhotoUrls is null
+                return SparkNest.Common.DTOs.Response<NoContent>.Fail("Product or PhotoUrls not found",404);
+            }
+        }
+        static string ExtractGUID(string url)
+        {
+            // Define the pattern for finding GUID-like strings
+            string pattern = @"([a-fA-F0-9]{8}(-[a-fA-F0-9]{4}){3}-[a-fA-F0-9]{12})";
+
+            // Search for the pattern in the URL
+            Match match = Regex.Match(url, pattern);
+
+            // If a match is found, return the GUID part
+            if (match.Success)
+            {
+                return match.Value;
+            }
+
+            // Return empty string if no match is found
+            return "";
+        }
+
     }
 }

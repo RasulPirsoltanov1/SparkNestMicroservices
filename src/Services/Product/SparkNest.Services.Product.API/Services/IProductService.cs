@@ -7,6 +7,7 @@ namespace SparkNest.Services.ProductAPI.Services
     {
         Task<Response<ProductDTO>> CreateAsync(ProductCreateDTO productCreateDTO);
         Task<Response<NoContent>> DeleteAsync(string productId);
+        Task<Response<NoContent>> DeletePhotoAsync(string productId, string photoUrl);
         Task<Response<List<ProductDTO>>> GetAllAsync();
         Task<Response<List<ProductDTO>>> GetAllByUserIdAsync(string UserId);
         Task<Response<ProductDTO>> GetByIdAsync(string Id);

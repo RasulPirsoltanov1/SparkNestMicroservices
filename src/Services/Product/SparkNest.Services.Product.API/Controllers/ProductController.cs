@@ -46,5 +46,10 @@ namespace SparkNest.Services.ProductAPI.Controllers
         {
             return CreateActionResultInstance(await _productService.DeleteAsync(productId));
         }
+        [HttpDelete("{productId}/{photoUrl}")]
+        public async Task<IActionResult> DeletePhotoAsync(string productId,string photoUrl)
+        {
+            return CreateActionResultInstance(await _productService.DeletePhotoAsync(productId,photoUrl));
+        }
     }
 }
