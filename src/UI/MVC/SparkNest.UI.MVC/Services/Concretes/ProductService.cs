@@ -3,6 +3,7 @@ using SparkNest.UI.MVC.Controllers;
 using SparkNest.UI.MVC.Helpers;
 using SparkNest.UI.MVC.Models;
 using SparkNest.UI.MVC.Models.Files;
+using SparkNest.UI.MVC.Models.Gallery;
 using SparkNest.UI.MVC.Models.Product;
 using SparkNest.UI.MVC.Services.Interfaces;
 using System.Net.Http.Json;
@@ -147,8 +148,34 @@ namespace SparkNest.UI.MVC.Services.Concretes
         /// <returns></returns>
         public async Task<bool> DeletePhotoAsync(string productId, string photoUrl)
         {
+            var dbProduct = await GetByProductId(productId);
+            if (photoUrl != null)
+            {
+               
+                var photoUrlPath = photoUrl.Replace("uploads\\photos\\", "");
+                var RES = await _fileStockService.DeletePhoto(photoUrlPath);
+            }
             var value = ExtractGUID(photoUrl);
             var response = await _httpClient.DeleteAsync($"product/{productId}/{value}");
+            return response.IsSuccessStatusCode;
+        }
+
+        public async Task<bool> AddPhotosToGalleryAsync(AddPhotosRequest addPhotosRequest)
+        {
+            List<string> photoUrls = new List<string>();
+            if (addPhotosRequest.Photos is not null)
+            {
+                foreach (var item in addPhotosRequest.Photos)
+                {
+                    PhotoVM? responses = await _fileStockService.UploadPhoto(item);
+                    photoUrls.Add(responses.Url);
+                }
+            }
+            var response = await _httpClient.PostAsJsonAsync($"product/AddPhotosToGallery", new
+            {
+                productId = addPhotosRequest.ProductId,
+                photoUrl = photoUrls
+            });
             return response.IsSuccessStatusCode;
         }
 
@@ -168,7 +195,10 @@ namespace SparkNest.UI.MVC.Services.Concretes
 
                 var RES = await _fileStockService.DeletePhoto(photoPath);
             }
-            product.PhotoUrl = dbProduct.PhotoUrl;
+            else
+            {
+                product.PhotoUrl = dbProduct.PhotoUrl;
+            }
             var result = await _httpClient.PutAsJsonAsync<ProductUpdateVM>($"product", product);
             return result.IsSuccessStatusCode;
         }

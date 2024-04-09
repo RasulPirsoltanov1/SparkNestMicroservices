@@ -51,5 +51,11 @@ namespace SparkNest.Services.ProductAPI.Controllers
         {
             return CreateActionResultInstance(await _productService.DeletePhotoAsync(productId,photoUrl));
         }
+
+        [HttpPost("[action]")]
+        public async Task<IActionResult> AddPhotosToGalleryAsync(AddPhotosToGalleryDTO addPhotosToGalleryDTO)
+        {
+            return CreateActionResultInstance(await _productService.AddPhotosToGallery(addPhotosToGalleryDTO.ProductId, addPhotosToGalleryDTO.PhotoUrl));
+        }
     }
 }

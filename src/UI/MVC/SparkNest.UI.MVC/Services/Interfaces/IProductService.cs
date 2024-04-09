@@ -1,4 +1,5 @@
 ﻿using SparkNest.UI.MVC.Controllers;
+using SparkNest.UI.MVC.Models.Gallery;
 using SparkNest.UI.MVC.Models.Product;
 
 namespace SparkNest.UI.MVC.Services.Interfaces
@@ -13,5 +14,6 @@ namespace SparkNest.UI.MVC.Services.Interfaces
         Task<bool> UpdateProductAsync(ProductUpdateVM product);
         Task<ProductVM> GetByProductId(string productId);
         Task<bool> DeletePhotoAsync(string productId, string photoUrl);
+        Task<bool> AddPhotosToGalleryAsync(AddPhotosRequest addPhotosRequest);
     }
 }

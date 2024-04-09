@@ -77,7 +77,7 @@ namespace SparkNest.Services.ProductAPI.Services
             var product = _mapper.Map<Product>(productCreateDTO);
             product.CreatedDate = DateTime.Now;
             await _productCollection.InsertOneAsync(product);
-            return SparkNest.Common.DTOs.Response<ProductDTO>.Success(_mapper.Map<ProductDTO>(product),200);
+            return SparkNest.Common.DTOs.Response<ProductDTO>.Success(_mapper.Map<ProductDTO>(product), 200);
         }
 
         public async Task<SparkNest.Common.DTOs.Response<NoContent>> UpdateAsync(ProductUpdateDTO productUpdateDTO)
@@ -95,7 +95,7 @@ namespace SparkNest.Services.ProductAPI.Services
             });
             await _publishEndpoint.Publish<ProductNameChangedBasketEvent>(new ProductNameChangedBasketEvent
             {
-                UserId= product.UserId,
+                UserId = product.UserId,
                 ProductId = product.Id,
                 UpdatedName = productUpdateDTO.Name,
             });
@@ -119,7 +119,7 @@ namespace SparkNest.Services.ProductAPI.Services
             // Check if dbProduct or dbProduct.PhotoUrls is null
             if (dbProduct != null && dbProduct.PhotoUrls != null)
             {
-                var url = dbProduct.PhotoUrls.FirstOrDefault(x=> ExtractGUID(x)== ExtractGUID(photoUrl));
+                var url = dbProduct.PhotoUrls.FirstOrDefault(x => ExtractGUID(x) == ExtractGUID(photoUrl));
                 await Console.Out.WriteLineAsync(url);
                 dbProduct.PhotoUrls.Remove(url); // Remove the specified photoUrl from the list
                 var result = await _productCollection.FindOneAndReplaceAsync(x => x.Id == dbProduct.Id, dbProduct);
@@ -128,9 +128,26 @@ namespace SparkNest.Services.ProductAPI.Services
             else
             {
                 // Handle the case when dbProduct or dbProduct.PhotoUrls is null
-                return SparkNest.Common.DTOs.Response<NoContent>.Fail("Product or PhotoUrls not found",404);
+                return SparkNest.Common.DTOs.Response<NoContent>.Fail("Product or PhotoUrls not found", 404);
             }
         }
+
+        public async Task<SparkNest.Common.DTOs.Response<NoContent>> AddPhotosToGallery(string productId, List<string> photoUrl)
+        {
+            var dbProduct = await _productCollection.Find(x => x.Id == productId).FirstOrDefaultAsync();
+            if (dbProduct != null)
+            {
+                dbProduct.PhotoUrls.AddRange(photoUrl);
+                var result = await _productCollection.FindOneAndReplaceAsync(x => x.Id == dbProduct.Id, dbProduct);
+                return SparkNest.Common.DTOs.Response<NoContent>.Success(202);
+            }
+            else
+            {
+                // Handle the case when dbProduct or dbProduct.PhotoUrls is null
+                return SparkNest.Common.DTOs.Response<NoContent>.Fail("Product or PhotoUrls not found", 404);
+            }
+        }
+
         static string ExtractGUID(string url)
         {
             // Define the pattern for finding GUID-like strings

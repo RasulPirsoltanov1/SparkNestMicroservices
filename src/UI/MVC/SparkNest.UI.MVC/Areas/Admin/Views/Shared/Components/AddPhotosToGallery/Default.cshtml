@@ -1,0 +1,16 @@
+﻿@using SparkNest.UI.MVC.Models.Gallery
+@model AddPhotosRequest
+
+<form method="post" enctype="multipart/form-data" asp-action="AddPhotosToGallery" asp-area="Admin" asp-controller="Gallery">
+    <input hidden asp-for="ProductId" value="@ViewBag.ProductId" />
+
+    <h3>Add New Photos to Gallery</h3>
+
+    <div class="mb-3">
+        <label for="photos" class="form-label">Select Photos:</label>
+        <input type="file" class="form-control" id="photos" asp-for="Photos" multiple />
+        <div class="form-text">You can select multiple photos at once.</div>
+    </div>
+
+    <button type="submit" class="btn btn-primary m-3">Add Photos</button>
+</form>

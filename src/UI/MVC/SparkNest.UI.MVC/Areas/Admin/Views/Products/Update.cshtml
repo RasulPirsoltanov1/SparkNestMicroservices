@@ -56,7 +56,11 @@
 
 
 <div class="gallery-section">
+    @await Component.InvokeAsync("AddPhotosToGallery", new { ProductId = Model.Id })
+
+    <hr></hr>
     <h3>Gallery</h3>
+
     <div class="row">
         @foreach (var photoUrl in Model.PhotoFileStockUrls)
         {
@@ -64,7 +68,7 @@
                 <div class="card h-100 position-relative">
                     <img src="@photoUrl" class="card-img-top img-fluid" alt="Photo">
                     <div class="card-body">
-                        <button type="button" class="btn btn-danger delete-button" data-photo-url="@photoUrl">Delete</button>
+                        <button type="button" class="btn btn-danger delete-button m-2" data-photo-url="@photoUrl">Delete</button>
                     </div>
                 </div>
             </div>
@@ -84,13 +88,16 @@
                     data: { id: "@Model.Id", photoUrl: photoUrl },
                     success: function () {
                         console.log("Photo deleted successfully."); // Debugging statement
-                        $(`#id${photoUrl}`).remove(); // Remove the parent gallery item
+                        const labelEmail = document.getElementById(`id${photoUrl}`);
+                        labelEmail.remove();
                     },
                     error: function (xhr, status, error) {
                         console.error(error);
                         alert("An error occurred while deleting the photo.");
                     }
                 });
+                // location.reload();
+
             });
         });
     </script>
