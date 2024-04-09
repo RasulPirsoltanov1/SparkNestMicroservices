@@ -35,12 +35,26 @@ services:
       - POSTGRES_USER=sa
       - POSTGRES_PASSWORD=Rasul123.
       - POSTGRES_DB=discountdb
+
+  commentdb:
+    container_name: commentdb
+    restart: always
+    ports:
+      - "5434:5432"
+    volumes:
+      - commentdb_volume:/var/lib/postgresql/
+    environment:
+      - POSTGRES_USER=sa
+      - POSTGRES_PASSWORD=Rasul123.
+      - POSTGRES_DB=commentdb
+
   rabbitmq:
     container_name: rabbitmq
     restart: always
     ports:
       - "15672:15672"
       - "5672:5672"
+
   orderdb:
     container_name: orderdb
     restart: always

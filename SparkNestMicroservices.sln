@@ -62,6 +62,16 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "MVC", "MVC", "{E8F03177-BA5
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SparkNest.UI.MVC", "src\UI\MVC\SparkNest.UI.MVC\SparkNest.UI.MVC.csproj", "{0E4C6333-8A27-4A3F-BE6B-D3F156446477}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Comments", "Comments", "{515B987F-803D-44E3-96A7-943045795012}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SparkNest.Services.CommentAPI", "src\Services\Comments\SparkNest.Services.CommentAPI\SparkNest.Services.CommentAPI.csproj", "{1866D7AE-1C7D-4454-B3E4-2C7E2713C64F}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SparkNest.Services.CommentAPI.Infrastructure", "src\Services\Comments\SparkNest.Services.CommentAPI.Infrastructure\SparkNest.Services.CommentAPI.Infrastructure.csproj", "{CB7FC232-DE50-42D2-BA93-87322360C797}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SparkNest.Services.CommentAPI.Application", "src\Services\Comments\SparkNest.Services.CommentAPI.Application\SparkNest.Services.CommentAPI.Application.csproj", "{3FF91DFC-819C-4CF7-9ECD-32350D20BEAC}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SparkNest.Services.CommentAPI.Domain", "src\Services\Comments\SparkNest.Services.CommentAPI.Domain\SparkNest.Services.CommentAPI.Domain.csproj", "{9C604536-20A8-4653-A5B9-DE26E729D6B4}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -124,6 +134,22 @@ Global
 		{0E4C6333-8A27-4A3F-BE6B-D3F156446477}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0E4C6333-8A27-4A3F-BE6B-D3F156446477}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0E4C6333-8A27-4A3F-BE6B-D3F156446477}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1866D7AE-1C7D-4454-B3E4-2C7E2713C64F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1866D7AE-1C7D-4454-B3E4-2C7E2713C64F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1866D7AE-1C7D-4454-B3E4-2C7E2713C64F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1866D7AE-1C7D-4454-B3E4-2C7E2713C64F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CB7FC232-DE50-42D2-BA93-87322360C797}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CB7FC232-DE50-42D2-BA93-87322360C797}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CB7FC232-DE50-42D2-BA93-87322360C797}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CB7FC232-DE50-42D2-BA93-87322360C797}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3FF91DFC-819C-4CF7-9ECD-32350D20BEAC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3FF91DFC-819C-4CF7-9ECD-32350D20BEAC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3FF91DFC-819C-4CF7-9ECD-32350D20BEAC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3FF91DFC-819C-4CF7-9ECD-32350D20BEAC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9C604536-20A8-4653-A5B9-DE26E729D6B4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9C604536-20A8-4653-A5B9-DE26E729D6B4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9C604536-20A8-4653-A5B9-DE26E729D6B4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9C604536-20A8-4653-A5B9-DE26E729D6B4}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -155,6 +181,11 @@ Global
 		{6F263FD6-4BD1-45AD-B8CC-67372B86EF1C} = {F6A35111-CDCA-4297-AAE9-44422C7BD950}
 		{E8F03177-BA5F-40F7-B9A3-2EF8BCB9ED8C} = {6F263FD6-4BD1-45AD-B8CC-67372B86EF1C}
 		{0E4C6333-8A27-4A3F-BE6B-D3F156446477} = {E8F03177-BA5F-40F7-B9A3-2EF8BCB9ED8C}
+		{515B987F-803D-44E3-96A7-943045795012} = {81349D8E-1C64-4BF0-A192-76AA7EEE3D2A}
+		{1866D7AE-1C7D-4454-B3E4-2C7E2713C64F} = {515B987F-803D-44E3-96A7-943045795012}
+		{CB7FC232-DE50-42D2-BA93-87322360C797} = {515B987F-803D-44E3-96A7-943045795012}
+		{3FF91DFC-819C-4CF7-9ECD-32350D20BEAC} = {515B987F-803D-44E3-96A7-943045795012}
+		{9C604536-20A8-4653-A5B9-DE26E729D6B4} = {515B987F-803D-44E3-96A7-943045795012}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {38840450-182B-4FB2-A535-57FC89B94029}

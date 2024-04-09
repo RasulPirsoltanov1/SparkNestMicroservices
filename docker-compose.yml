@@ -6,6 +6,8 @@ services:
     image: redis
   discountdb:
     image: postgres
+  commentdb:
+    image: postgres
   identitydb:
     image: mcr.microsoft.com/mssql/server:2022-latest
   orderdb:
@@ -18,3 +20,4 @@ volumes:
   discountdb_volume:
   identitydb_volume:
   orderdb_volume:
+  commentdb_volume:
