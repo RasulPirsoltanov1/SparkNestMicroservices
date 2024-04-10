@@ -1,34 +1,181 @@
 ﻿@using SparkNest.UI.MVC.Models.Product
-﻿@{
-    ViewData["Title"] = "Detail";
-}
-
 @model ProductVM
 
-<div class="row">
-    <div class="col-md-9">
-
-        <div class="card">
-            <img src="@Model.PhotoFileStockUrl" class="card-img-top" />
-            <div class="card-body">
-                <h5 class="card-title">@Model.Name</h5>
-                <div class="badge bg-primary">Kategori : @Model.Category.Name</div>
-                <p class="card-text"> @Model.Description</p>
-                <hr />
-                <p class="card-text">Category: @Model.Category.Name</p>
-
+@{
+    Model.PhotoFileStockUrls.Add(Model.PhotoFileStockUrl);
+    ViewData["Title"] = "Product Details";
+}
+<section class="item-details section">
+    <div class="container">
+        <div class="top-area">
+            <div class="row align-items-center">
+                <div class="col-lg-6 col-md-12 col-12">
+                    <div id="product-carousel" class="carousel slide" data-bs-ride="carousel" style="max-height:500px">
+                        <div class="carousel-inner">
+                            @foreach (var photoUrl in Model.PhotoFileStockUrls)
+                            {
+                                <div class="carousel-item @(Model.PhotoFileStockUrls.IndexOf(photoUrl) == 0 ? "active" : "")">
+                                    <img src="@photoUrl" class="d-block w-100" alt="@Model.Name" style="max-height:500px">
+                                </div>
+                            }
+                        </div>
+                        <button class="carousel-control-prev" type="button" data-bs-target="#product-carousel" data-bs-slide="prev">
+                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                            <span class="visually-hidden">Previous</span>
+                        </button>
+                        <button class="carousel-control-next" type="button" data-bs-target="#product-carousel" data-bs-slide="next">
+                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                            <span class="visually-hidden">Next</span>
+                        </button>
+                    </div>
+                </div>
+                <div class="col-lg-6 col-md-12 col-12">
+                    <div class="product-info">
+                        <h2 class="title">@Model.Name</h2>
+                        <p class="category"><i class="lni lni-tag"></i> Category: <a href="javascript:void(0)">@Model.Category.Name</a></p>
+                        <h3 class="price">@Model.Price TL</h3>
+                        <p class="info-text">@Model.ShortDescription</p>
+                        <div class="row">
+                            <div class="col-lg-4 col-md-4 col-12">
+                                <div class="form-group color-option">
+                                    <label class="title-label" for="size">Choose color</label>
+                                    <!-- Assuming your product has color options -->
+                                    <!-- You may need to handle color selection logic here -->
+                                </div>
+                            </div>
+                            <div class="col-lg-4 col-md-4 col-12">
+                                <div class="form-group">
+                                    <label for="color">Battery capacity</label>
+                                    <!-- Assuming your product has battery options -->
+                                    <!-- You may need to handle battery selection logic here -->
+                                </div>
+                            </div>
+                            <div class="col-lg-4 col-md-4 col-12">
+                                <div class="form-group quantity">
+                                    <label for="quantity">Quantity</label>
+                                    <form id="addToCartForm" asp-controller="Basket" asp-action="AddBasketItem" method="get">
+                                        <input type="hidden" name="productId" value="@Model.Id" />
+                                        <input class="form-control" type="number" id="quantity" name="quantity"/>
+                                        <button type="submit" class="btn btn-primary float-end mt-2" style="width: 100%;">Add to Cart</button>
+                                    </form>
+                                </div>
+                            </div>
+                    </div>
+                </div>
             </div>
         </div>
-    </div>
-
-    <div class="col-md-3">
-        <div class="card">
-            <div class="card-body">
-                <h4 class="card-title">Fiyat : @Model.Price TL</h4>
-                <div class="d-grid">
-                    <a asp-controller="Basket" asp-action="AddBasketItem" asp-route-productId="@Model.Id" class="btn btn-primary">Add Basket</a>
+        <div class="product-details-info">
+            <div class="single-block">
+                <div class="row">
+                    <div class="col-10">
+                        <div class="info-body custom-responsive-margin">
+                            <h4>Details</h4>
+                            <p>@Model.Description</p>
+                            <!-- You can add more details here if needed -->
+                        </div>
+                    </div>
+                    <div class="col-2">
+                        <div class="info-body">
+                            <h4>Features</h4>
+                            <ul class="features">
+                                <!-- Assuming your product has features -->
+                                @if (Model.Feature != null)
+                                {
+                                    <li>Color: @Model.Feature.Color</li>
+                                    <!-- Add more features if needed -->
+                                }
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class=" col-12">
+                    <div class="single-block give-review">
+                        <!-- Assuming you want to include reviews -->
+                        <h4>Reviews</h4>
+                        <div class=" col-12">
+                            <div class="single-block">
+                                <div class="reviews">
+                                    <h4 class="title">Latest Reviews</h4>
+                                    <!-- Start Single Review -->
+                                    <div class="single-review">
+                                        <img src="assets/images/blog/comment1.jpg" alt="#">
+                                        <div class="review-info">
+                                            <h4>
+                                                Awesome quality for the price
+                                                <span>
+                                                    Jacob Hammond
+                                                </span>
+                                            </h4>
+                                            <ul class="stars">
+                                                <li><i class="lni lni-star-filled"></i></li>
+                                                <li><i class="lni lni-star-filled"></i></li>
+                                                <li><i class="lni lni-star-filled"></i></li>
+                                                <li><i class="lni lni-star-filled"></i></li>
+                                                <li><i class="lni lni-star-filled"></i></li>
+                                            </ul>
+                                            <p>
+                                                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
+                                                tempor...
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <!-- End Single Review -->
+                                    <!-- Start Single Review -->
+                                    <div class="single-review">
+                                        <img src="assets/images/blog/comment2.jpg" alt="#">
+                                        <div class="review-info">
+                                            <h4>
+                                                My husband love his new...
+                                                <span>
+                                                    Alex Jaza
+                                                </span>
+                                            </h4>
+                                            <ul class="stars">
+                                                <li><i class="lni lni-star-filled"></i></li>
+                                                <li><i class="lni lni-star-filled"></i></li>
+                                                <li><i class="lni lni-star-filled"></i></li>
+                                                <li><i class="lni lni-star-filled"></i></li>
+                                                <li><i class="lni lni-star"></i></li>
+                                            </ul>
+                                            <p>
+                                                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
+                                                tempor...
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <!-- End Single Review -->
+                                    <!-- Start Single Review -->
+                                    <div class="single-review">
+                                        <img src="assets/images/blog/comment3.jpg" alt="#">
+                                        <div class="review-info">
+                                            <h4>
+                                                I love the built quality...
+                                                <span>
+                                                    Jacob Hammond
+                                                </span>
+                                            </h4>
+                                            <ul class="stars">
+                                                <li><i class="lni lni-star-filled"></i></li>
+                                                <li><i class="lni lni-star-filled"></i></li>
+                                                <li><i class="lni lni-star-filled"></i></li>
+                                                <li><i class="lni lni-star-filled"></i></li>
+                                                <li><i class="lni lni-star-filled"></i></li>
+                                            </ul>
+                                            <p>
+                                                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
+                                                tempor...
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <!-- End Single Review -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
+</section>

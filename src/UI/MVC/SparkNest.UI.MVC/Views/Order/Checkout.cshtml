@@ -6,124 +6,115 @@
     ViewBag.Title = "Checkout";
 }
 
-<form asp-controller="Order" asp-action="Checkout" method="post">
-<div class="row">
-        <div class="col-md-8">
-            <h4>Shipping Information</h4>
-            <hr />
-            <div class="form-group">
-                <label asp-for="Province" class="control-label col-md-2"></label>
-                <div class="col-md-10">
-                    <input asp-for="Province" class="form-control" />
-                    <span asp-validation-for="Province" class="text-danger"></span>
-                </div>
-            </div>
 
-            <div class="form-group">
-                <label asp-for="Street" class="control-label col-md-2"></label>
-                <div class="col-md-10">
-                    <input asp-for="Street" class="form-control" />
-                    <span asp-validation-for="Street" class="text-danger"></span>
-                </div>
-            </div>
 
-            <div class="form-group">
-                <label asp-for="District" class="control-label col-md-2"></label>
-                <div class="col-md-10">
-                    <input asp-for="District" class="form-control" />
-                    <span asp-validation-for="District" class="text-danger"></span>
-                </div>
-            </div>
 
-            <div class="form-group">
-                <label asp-for="Line" class="control-label col-md-2"></label>
-                <div class="col-md-10">
-                    <input asp-for="Line" class="form-control" />
-                    <span asp-validation-for="Line" class="text-danger"></span>
-                </div>
-            </div>
 
-            <div class="form-group">
-                <label asp-for="ZipCode" class="control-label col-md-2"></label>
-                <div class="col-md-10">
-                    <input asp-for="ZipCode" class="form-control" />
-                    <span asp-validation-for="ZipCode" class="text-danger"></span>
-                </div>
-            </div>
 
-            <h4>Payment Information</h4>
-            <hr />
-            <div class="form-group">
-                <label asp-for="CardName" class="control-label col-md-2"></label>
-                <div class="col-md-10">
-                    <input asp-for="CardName" class="form-control" />
-                    <span asp-validation-for="CardName" class="text-danger"></span>
-                </div>
-            </div>
 
-            <div class="form-group">
-                <label asp-for="CardNumber" class="control-label col-md-2"></label>
-                <div class="col-md-10">
-                    <input asp-for="CardNumber" class="form-control" />
-                    <span asp-validation-for="CardNumber" class="text-danger"></span>
-                </div>
-            </div>
 
-            <div class="form-group">
-                <label asp-for="Expiration" class="control-label col-md-2"></label>
-                <div class="col-md-10">
-                    <input asp-for="Expiration" class="form-control" />
-                    <span asp-validation-for="Expiration" class="text-danger"></span>
-                </div>
-            </div>
 
-            <div class="form-group">
-                <label asp-for="CVV" class="control-label col-md-2"></label>
-                <div class="col-md-10">
-                    <input asp-for="CVV" class="form-control" />
-                    <span asp-validation-for="CVV" class="text-danger"></span>
-                </div>
-            </div>
+<section class="checkout-wrapper section">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-11">
+                <form asp-controller="Order" asp-action="Checkout" method="post">
+                    <div class="row">
+                        <div class="col-md-8">
+                            <h4>Shipping Information</h4>
+                            <hr />
+                            <div class="form-group">
+                                <label asp-for="Province" class="control-label"></label>
+                                <input asp-for="Province" class="form-control" />
+                                <span asp-validation-for="Province" class="text-danger"></span>
+                            </div>
 
-            <div class="form-group">
-                <div class="col-md-offset-2 col-md-10">
-                    <button type="submit" class="btn btn-default">Checkout</button>
+                            <div class="form-group">
+                                <label asp-for="Street" class="control-label"></label>
+                                <input asp-for="Street" class="form-control" />
+                                <span asp-validation-for="Street" class="text-danger"></span>
+                            </div>
+
+                            <div class="form-group">
+                                <label asp-for="District" class="control-label"></label>
+                                <input asp-for="District" class="form-control" />
+                                <span asp-validation-for="District" class="text-danger"></span>
+                            </div>
+
+                            <div class="form-group">
+                                <label asp-for="Line" class="control-label"></label>
+                                <input asp-for="Line" class="form-control" />
+                                <span asp-validation-for="Line" class="text-danger"></span>
+                            </div>
+
+                            <div class="form-group">
+                                <label asp-for="ZipCode" class="control-label"></label>
+                                <input asp-for="ZipCode" class="form-control" />
+                                <span asp-validation-for="ZipCode" class="text-danger"></span>
+                            </div>
+
+                            <h4>Payment Information</h4>
+                            <hr />
+                            <div class="form-group">
+                                <label asp-for="CardName" class="control-label"></label>
+                                <input asp-for="CardName" class="form-control" />
+                                <span asp-validation-for="CardName" class="text-danger"></span>
+                            </div>
+
+                            <div class="form-group">
+                                <label asp-for="CardNumber" class="control-label"></label>
+                                <input asp-for="CardNumber" class="form-control" />
+                                <span asp-validation-for="CardNumber" class="text-danger"></span>
+                            </div>
+
+                            <div class="form-group">
+                                <label asp-for="Expiration" class="control-label"></label>
+                                <input asp-for="Expiration" class="form-control" />
+                                <span asp-validation-for="Expiration" class="text-danger"></span>
+                            </div>
+
+                            <div class="form-group">
+                                <label asp-for="CVV" class="control-label"></label>
+                                <input asp-for="CVV" class="form-control" />
+                                <span asp-validation-for="CVV" class="text-danger"></span>
+                            </div>
+
+                            <div class="form-group">
+                                <button type="submit" class="btn btn-default">Checkout</button>
+                            </div>
+                        </div>
+
+                        <div class="col-md-4">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h5 class="card-title">Payment Summary</h5>
+                                    <table class="table table-striped">
+                                        @foreach (var item in ViewBag.basket.BasketItems as List<BasketItemVM>)
+                                        {
+                                            <tr>
+                                                <td>@item.ProductName</td>
+                                                <td>@item.Price</td>
+                                            </tr>
+                                        }
+
+                                        <tr>
+                                            <td>@(ViewBag.basket.HasDiscount ? "Discounted Total Price" : "Total Price")</td>
+                                            <td>@ViewBag.basket.TotalPrice TL</td>
+                                        </tr>
+                                    </table>
+
+                                    <button type="submit" class="btn btn-success">Complete Payment</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+
+                <div>
+                    <a asp-action="Index" asp-controller="Home">Return to Shopping</a>
                 </div>
+
             </div>
         </div>
-        <div class="col-md-4">
-            <div class="card">
-                <div class="card-body">
-                    <h5 class="card-title">Ödeme özet</h5>
-                    <table class="table table-striped">
-                        @foreach (var item in ViewBag.basket.BasketItems as List<BasketItemVM>)
-                        {
-                            <tr>
-                                <td>@item.ProductName</td>
-                                <td>@item.Price</td>
-                            </tr>
-                        }
-
-                        <tr>
-                            <td>@(ViewBag.basket.HasDiscount ? "indirimli toplam fiyat" : "toplam fiyat")</td>
-                            <td>@ViewBag.basket.TotalPrice TL</td>
-                        </tr>
-                    </table>
-
-                    <button type="submit" class="btn btn-success">Ödemeyi tamamla</button>
-                </div>
-            </div>
         </div>
-</div>
-</form>
-
-<div>
-    <a asp-action="Index" asp-controller="Home">Back to Shopping</a>
-</div>
-
-@section Scripts {
-    @{
-        await Html.RenderPartialAsync("_ValidationScriptsPartial");
-    }
-}
-
+</section>

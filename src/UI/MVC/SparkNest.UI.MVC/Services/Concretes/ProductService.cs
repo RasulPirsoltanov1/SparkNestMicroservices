@@ -193,6 +193,7 @@ namespace SparkNest.UI.MVC.Services.Concretes
         public async Task<bool> UpdateProductAsync(ProductUpdateVM product)
         {
             var dbProduct = await GetByProductId(product.Id);
+            product.PhotoUrls = dbProduct.PhotoUrls;
             if (product.Photo != null)
             {
                 PhotoVM? response = await _fileStockService.UploadPhoto(product.Photo);

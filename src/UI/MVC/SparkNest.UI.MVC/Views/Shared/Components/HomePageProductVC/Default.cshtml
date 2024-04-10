@@ -26,7 +26,7 @@
                         <div class="product-image">
                             <img src="@product.PhotoFileStockUrl" alt="#">
                             <div class="button">
-                                <a href="product-details.html" class="btn"><i class="lni lni-cart"></i> Add to Cart</a>
+                                <a asp-controller="Home" asp-action="Detail" class="btn btn-success" asp-route-id="@product.Id" class="btn"><i class="lni lni-cart"></i> Add to Cart</a>
                             </div>
                         </div>
                         <div class="product-info">

@@ -1,27 +1,23 @@
-﻿﻿@{
+﻿@{
     ViewData["Title"] = "Index";
 }
 
 @model BasketVM
 
 <div class="row">
-
     <div class="col-md-8 offset-md-2">
-
         <div class="card">
             <div class="card-body">
-
-                <h5 class="card-title">Sepet</h5>
+                <h5 class="card-title">Basket</h5>
 
                 @if (Model != null && Model.BasketItems is not null)
                 {
                     <table class="table table-striped">
-
                         <tr>
-                            <th>Product isim</th>
-                            <th>Product fiyat</th>
-                            <th>Product sayi</th>
-                            <th>İşlemler</th>
+                            <th>Product Name</th>
+                            <th>Product Price</th>
+                            <th>Product Quantity</th>
+                            <th>Actions</th>
                         </tr>
 
                         @foreach (var item in Model.BasketItems)
@@ -29,7 +25,7 @@
                             <tr>
                                 <td>@item.ProductName</td>
                                 <td>
-                                    @item.GetCurrentPrice TL @(Model.HasDiscount ? $"(%{Model.DiscountRate.Value} uygulandı)" : "") 
+                                    @item.GetCurrentPrice TL @(Model.HasDiscount ? $"(%{Model.DiscountRate.Value} applied)" : "")
                                 </td>
                                 <td>@item.Quantity</td>
                                 <td>
@@ -40,16 +36,14 @@
 
                         @if (Model.HasDiscount)
                         {
-
                             <tr>
-                                <td>Indirim oranı</td>
+                                <td>Discount Rate</td>
                                 <th colspan="2"> % @Model.DiscountRate.Value</th>
                             </tr>
-
                         }
 
                         <tr>
-                            <td>@(Model.HasDiscount ? "İndirimli fiyat" : "Toplam fiyat")</td>
+                            <td>@(Model.HasDiscount ? "Discounted Price" : "Total Price")</td>
                             <th colspan="3">@Model.TotalPrice TL</th>
                         </tr>
                     </table>
@@ -58,10 +52,9 @@
                         @if (Model.HasDiscount)
                         {
                             <div class="alert alert-success">
-                                "@Model.DiscountCode"indirim kodu uygulandı
-                                <a asp-controller="Basket" asp-action="CancellApplyDiscount"> (iptal et)</a>
+                                "@Model.DiscountCode" discount code applied
+                                <a asp-controller="Basket" asp-action="CancellApplyDiscount"> (cancel)</a>
                             </div>
-
                         }
 
                         <div class="input-group mb-3">
@@ -71,19 +64,19 @@
 
                         @if (TempData["discountStatus"] != null && (bool)TempData["discountStatus"] == false)
                         {
-                            <div class="text-danger">indirim kodu geçersiz</div>
+                            <div class="text-danger">Invalid discount code</div>
                         }
                         @if (TempData["discountError"] != null)
                         {
                             <div class="text-danger">@TempData["discountError"]</div>
                         }
                     </form>
-                    <a class="btn btn-success" asp-controller="Order" asp-action="Checkout">Ödeme bilgileri</a>
-                    <a class="btn btn-warning" asp-controller="Home" asp-action="Index">Product arı incelemeye devam et</a>
+                    <a class="btn btn-success" asp-controller="Order" asp-action="Checkout">Payment Information</a>
+                    <a class="btn btn-warning" asp-controller="Home" asp-action="Index">Continue Shopping</a>
                 }
                 else
                 {
-                    <div class="alert alert-info">Sepet boş</div>
+                    <div class="alert alert-info">Basket is empty</div>
                 }
             </div>
         </div>

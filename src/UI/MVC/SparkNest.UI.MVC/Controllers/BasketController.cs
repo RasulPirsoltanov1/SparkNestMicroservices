@@ -21,10 +21,10 @@ namespace SparkNest.UI.MVC.Controllers
         {
             return View(await _basketService.Get());
         }
-        public async Task<IActionResult> AddBasketItem(string productId, int quantiy = 1)
+        public async Task<IActionResult> AddBasketItem(string productId, int quantity)
         {
             var product = await _productService.GetByProductId(productId);
-            var basketItem = new BasketItemVM { ProductId = productId, Price = product.Price, ProductName = product.Name, Quantity = quantiy};
+            var basketItem = new BasketItemVM { ProductId = productId, Price = product.Price, ProductName = product.Name, Quantity = quantity };
             await _basketService.AddBasketItem(basketItem);
             return RedirectToAction(nameof(Index));   
         }

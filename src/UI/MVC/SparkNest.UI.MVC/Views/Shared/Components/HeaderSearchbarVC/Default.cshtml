@@ -3,7 +3,7 @@
         <div class="row align-items-center">
             <div class="col-lg-3 col-md-3 col-7">
                 <!-- Start Header Logo -->
-                <a class="navbar-brand" href="index-2.html">
+                <a class="navbar-brand" asp-action="Index" asp-controller="HomePage">
                     <img src="~/shopgrids/assets/images/logo/logo.png" alt="Logo">
                 </a>
                 <!-- End Header Logo -->
@@ -35,23 +35,20 @@
                     </div>
                     <div class="navbar-cart">
                         <div class="wishlist">
-                            <a href="javascript:void(0)">
+                            <a asp-action="SignIn" asp-controller="Auth">
                                 <i class="lni lni-user"></i>
                             </a>
                         </div>
-                        <div class="cart-items">
-                            <a href="javascript:void(0)" class="main-btn">
-                                <i class="lni lni-cart"></i>
-                                <span class="total-items">2</span>
+                        <div class="wishlist">
+                            <a asp-action="Checkouthistory" asp-controller="Order">
+                                <i class="lni lni-checkmark-circle"></i>
                             </a>
-                            <!-- Shopping Item -->
-                            <div class="shopping-item">
-                                <div class="dropdown-cart-header">
-                                    <span>2 Items</span>
-                                    <a href="cart.html">View Cart</a>
-                                </div>
-                            </div>
-                            <!--/ End Shopping Item -->
+                        </div>
+                        <div class="cart-items">
+                            <a asp-action="Index" asp-controller="Basket" class="main-btn">
+                                <i class="lni lni-cart"></i>
+                                @* <span class="total-items">2</span> *@
+                            </a>
                         </div>
                     </div>
                 </div>
