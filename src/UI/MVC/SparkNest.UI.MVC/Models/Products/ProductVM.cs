@@ -11,10 +11,10 @@
         public List<string>? PhotoUrls { get; set; } = new List<string>();
         public List<string>? PhotoFileStockUrls { get; set; } = new List<string>();
         public DateTime CreatedDate { get; set; }
-        public FeatureVM Feature { get; set; }
-        public string CategoryId { get; set; }
-        public CategoryVM Category { get; set; }
-        public string Description { get; set; }
+        public FeatureVM? Feature { get; set; }
+        public string? CategoryId { get; set; }
+        public CategoryVM? Category { get; set; }
+        public string? Description { get; set; }
         public string? ShortDescription
         {
             get

@@ -39,5 +39,11 @@ namespace SparkNest.Services.ProductAPI.Controllers
             return Ok(await _categoryService.CreateAsync(categoryDTO));
         }
 
+        [HttpDelete("{categoryId}")]
+        public async Task<IActionResult> DeleteAsync(string categoryId)
+        {
+            return Ok(await _categoryService.DelteAsync(categoryId));
+        }
+
     }
 }

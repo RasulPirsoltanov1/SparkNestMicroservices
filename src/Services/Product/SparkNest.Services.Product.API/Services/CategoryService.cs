@@ -31,6 +31,11 @@ namespace SparkNest.Services.ProductAPI.Services
             await _categoryCollection.InsertOneAsync(_mapper.Map<Category>(categoryDTO));
             return Response<CategoryDTO>.Success(categoryDTO, 202);
         }
+        public async Task<Response<bool>> DelteAsync(string categoryId)
+        {
+            await _categoryCollection.FindOneAndDeleteAsync(x=>x.Id==categoryId);
+            return Response<bool>.Success(true, 202);
+        }
         public async Task<Response<CategoryDTO>> GetByIdAsync(string Id)
         {
             var category = await _categoryCollection.Find<Category>(x => x.Id == Id).FirstOrDefaultAsync();

@@ -89,7 +89,7 @@ namespace SparkNest.Services.IdentityServiceAPI
                     AllowOfflineAccess =true,
                     ClientSecrets = {new Secret("secret".Sha256()) },
                     AllowedGrantTypes= GrantTypes.ResourceOwnerPassword,
-                    AllowedScopes = { "discount_full_permission", "order_full_permission","basket_full_permission", "fakepayment_full_permission", "gatewaymvc_full_permission", IdentityServerConstants.StandardScopes.Email, IdentityServerConstants.StandardScopes.OpenId, IdentityServerConstants.StandardScopes.Profile, IdentityServerConstants.StandardScopes.OfflineAccess ,
+                    AllowedScopes = { "discount_full_permission", "order_full_permission","basket_full_permission", "fakepayment_full_permission", "gatewaymvc_full_permission","product_full_permission", IdentityServerConstants.StandardScopes.Email, IdentityServerConstants.StandardScopes.OpenId, IdentityServerConstants.StandardScopes.Profile, IdentityServerConstants.StandardScopes.OfflineAccess ,
                      "roles",
                         IdentityServerConstants.LocalApi.ScopeName },
                     AccessTokenLifetime = 1*60*600,

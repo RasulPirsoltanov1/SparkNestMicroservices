@@ -68,6 +68,24 @@
                     <span>Create Product</span>
                 </a>
             </li>
+            <li>
+                <a class="@((currentController.ToLower() == "category" && currentAction.ToLower() == "index") ? "active" : "")"
+                   asp-action="Index" asp-area="Admin" asp-controller="Category">
+                    <span class="nav-link-icon">
+                        <i class="bi bi-bookmark"></i>
+                    </span>
+                    <span>Categories</span>
+                </a>
+            </li>
+            <li>
+                <a class="@((currentController == "category" && currentArea == "admin" && currentAction == "create") ? "active" : "")"
+                   asp-action="Create" asp-area="Admin" asp-controller="Category">
+                    <span class="nav-link-icon">
+                        <i class="bi bi-file-plus"></i>
+                    </span>
+                    <span>Create Category</span>
+                </a>
+            </li>
 
 
             <li>

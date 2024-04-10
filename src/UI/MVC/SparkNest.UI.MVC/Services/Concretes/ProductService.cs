@@ -19,6 +19,8 @@ namespace SparkNest.UI.MVC.Services.Concretes
         FileStockHelper _fileStockHelper;
         ServiceApiSettings _serviceApiSettings;
 
+        public object? Id { get; private set; }
+
         public ProductService(HttpClient httpClient, IFileStockService fileStockService, FileStockHelper fileStockHelper, ServiceApiSettings serviceApiSettings)
         {
             _httpClient = httpClient;
@@ -36,7 +38,7 @@ namespace SparkNest.UI.MVC.Services.Concretes
             var successResponse = await response.Content.ReadFromJsonAsync<Response<List<ProductVM>>>();
             var data = successResponse.Data.Select(x => new ProductVM
             {
-                Category = x.Category,
+                Category = x.Category?? new CategoryVM(),
                 Id = x.Id,
                 Name = x.Name,
                 CategoryId = x.CategoryId,
@@ -59,7 +61,16 @@ namespace SparkNest.UI.MVC.Services.Concretes
                 return null;
             }
             var successResponse = await response.Content.ReadFromJsonAsync<Response<List<CategoryVM>>>();
-            return successResponse.Data;
+            var result = successResponse.Data.Select(x => new CategoryVM
+            {
+                Id = x.Id,
+                PhotoUrl = _fileStockHelper.GetFileStockUrl(x.PhotoUrl),
+                Description = x.Description,
+                SubCategoryId = x.SubCategoryId,
+                Name = x.Name
+            }
+            ).ToList();
+            return result;
         }
 
 
@@ -151,7 +162,7 @@ namespace SparkNest.UI.MVC.Services.Concretes
             var dbProduct = await GetByProductId(productId);
             if (photoUrl != null)
             {
-               
+
                 var photoUrlPath = photoUrl.Replace("uploads\\photos\\", "");
                 var RES = await _fileStockService.DeletePhoto(photoUrlPath);
             }
@@ -204,6 +215,29 @@ namespace SparkNest.UI.MVC.Services.Concretes
         }
 
 
+
+        public async Task<bool> CreateCategoryAsync(CategoryVM categoryVM)
+        {
+            if (categoryVM.Photo is not null)
+            {
+                PhotoVM? responses = await _fileStockService.UploadPhoto(categoryVM.Photo);
+                categoryVM.PhotoUrl = responses.Url;
+            }
+            var response = await _httpClient.PostAsJsonAsync("Categories", new CategoryCreateDTO(
+                null,
+                categoryVM.Name,
+                categoryVM.Description,
+                categoryVM.SubCategoryId,
+                categoryVM.PhotoUrl
+            ));
+            return response.IsSuccessStatusCode;
+        }
+
+        public async Task<bool> DeleteCategoryAsync(string categoryId)
+        {
+            var response = await _httpClient.DeleteAsync($"Categories/{categoryId}");
+            return response.IsSuccessStatusCode;
+        }
         static string ExtractGUID(string url)
         {
             // Define the pattern for finding GUID-like strings
