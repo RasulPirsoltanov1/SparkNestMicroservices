@@ -238,6 +238,32 @@ namespace SparkNest.UI.MVC.Services.Concretes
             var response = await _httpClient.DeleteAsync($"Categories/{categoryId}");
             return response.IsSuccessStatusCode;
         }
+
+
+        public async Task<bool> UpdateCategoryAsync(CategoryVM categoryVM)
+        {
+            var categories = await GetAllCateegoryAsync();
+            var dbCategory = categories.FirstOrDefault(x => x.Id == categoryVM.Id);
+            if (categoryVM.Photo is not null)
+            {
+                PhotoVM? responses = await _fileStockService.UploadPhoto(categoryVM.Photo);
+                categoryVM.PhotoUrl = responses.Url;
+            }
+            else
+            {
+                categoryVM.PhotoUrl = dbCategory.PhotoUrl.Replace(@"http://localhost:2002/", "");
+            }
+            var response = await _httpClient.PutAsJsonAsync("Categories", new CategoryCreateDTO(
+                categoryVM.Id,
+                categoryVM.Name,
+                categoryVM.Description,
+                categoryVM.SubCategoryId,
+                categoryVM.PhotoUrl
+            ));
+            return response.IsSuccessStatusCode;
+        }
+
+
         static string ExtractGUID(string url)
         {
             // Define the pattern for finding GUID-like strings

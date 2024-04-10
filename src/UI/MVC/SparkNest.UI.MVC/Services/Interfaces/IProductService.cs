@@ -17,5 +17,6 @@ namespace SparkNest.UI.MVC.Services.Interfaces
         Task<bool> AddPhotosToGalleryAsync(AddPhotosRequest addPhotosRequest);
         Task<bool> CreateCategoryAsync(CategoryVM categoryVM);
         Task<bool> DeleteCategoryAsync(string categoryId);
+        Task<bool> UpdateCategoryAsync(CategoryVM categoryVM);
     }
 }

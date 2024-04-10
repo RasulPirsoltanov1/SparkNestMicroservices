@@ -42,8 +42,7 @@
                 </td>
                 <td>@item.Description</td>
                 <td>
-                    <a asp-area="Admin" class="btn btn-primary" asp-action="Edit" asp-route-id="@item.Id">Edit</a>
-                    <a asp-area="Admin" class="btn btn-info" asp-action="Details" asp-route-id="@item.Id">Details</a>
+                    <a asp-area="Admin" class="btn btn-info" asp-action="Update" asp-route-id="@item.Id">Edit</a>
                     <button class="btn btn-danger deleteBtn" data-id="@item.Id">Delete</button>
                 </td>
             </tr>
