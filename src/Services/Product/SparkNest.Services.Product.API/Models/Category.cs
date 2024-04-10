@@ -10,5 +10,8 @@ namespace SparkNest.Services.ProductAPI.Models
         [BsonRepresentation(BsonType.ObjectId)]
         public string Id { get; set; }
         public string Name{ get; set; }
+        [BsonId]
+        [BsonRepresentation(BsonType.ObjectId)]
+        public string? SubCategoryId { get; set; }
     }
 }
