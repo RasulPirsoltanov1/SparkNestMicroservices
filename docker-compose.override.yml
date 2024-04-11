@@ -66,3 +66,15 @@ services:
     environment:
       - ACCEPT_EULA=Y
       - SA_PASSWORD=Rasul123.
+
+  messagedb:
+    container_name: messagedb
+    user: root
+    restart: always
+    ports:
+      - "1436:1433"
+    volumes:
+      - messagedb_volume:/var/opt/mssql/data
+    environment:
+      - ACCEPT_EULA=Y
+      - SA_PASSWORD=Rasul123.

@@ -1,0 +1,108 @@
+﻿@page
+<div class="container">
+    <div class="row p-1">
+        <div class="col-1">Connection Id</div>
+        <div class="col-5"><span type="text" id="connectionId" /></div>
+    </div>
+    <input hidden id="clientConnectionId" />
+    <div class="row p-1">
+        <div class="col-1">Receiver Id</div>
+        <div class="col-5"><input type="text" id="receiverId" /></div>
+    </div>
+    <div class="row p-1">
+        <div class="col-1">User</div>
+        <div class="col-5"><input type="text" id="userInput" /></div>
+    </div>
+    <div class="row p-1">
+        <div class="col-1">Message</div>
+        <div class="col-5"><input type="text" class="w-100" id="messageInput" /></div>
+    </div>
+    <div class="row p-1">
+        <div class="col-6 text-end">
+            <input type="button" id="sendToUser" value="Send To User Message" />&nbsp;&nbsp;
+            <input type="button" id="sendButton" value="Send To All Message" />
+            <input type="button" id="oneToOneButton" value="One To One Button Message" />
+        </div>
+    </div>
+    <div class="row p-1">
+        <div class="col-6">
+            <hr />
+        </div>
+    </div>
+    <div class="row p-1">
+        <div class="col-6">
+            <ul id="messagesList"></ul>
+        </div>
+    </div>
+</div>
+
+<div id="container">
+    <ul id="requestList"></ul>
+</div>
+
+
+
+<script src="~/lib/signalr/dist/browser/signalr.js"></script>
+
+@* <script src="~/js/chat.js"></script> *@
+
+<script>
+    "use strict";
+
+    var connection = new signalR.HubConnectionBuilder().withUrl("/chatHub").build();
+
+    //Disable the send button until connection is established.
+    document.getElementById("sendButton").disabled = true;
+
+    var clientConnId;
+    connection.on("SendToAdminMessage", function (user, clientConnectionId, message) {
+        var li = document.createElement("li");
+        clientConnId = clientConnectionId;
+        document.getElementById("clientConnectionId").value = clientConnectionId;
+        document.getElementById("messagesList").appendChild(li);
+        li.textContent = `$
+                ${clientConnectionId}
+                <hr/>
+                ${user}  says => ${message}`;
+
+        var li2 = document.createElement("li");
+        document.getElementById("requestList").appendChild(li2);
+        // li.innerHTML = `<a class="btn btn-info" style="width:100%" href="http://localhost:2007/Admin/Helpcenter/Answer/${clientConnectionId}/${message}/${user}">${user} Sent request</a>`;
+
+
+        li.innerHTML = `<form class="answerForm" action="http://localhost:2007/Admin/Helpcenter/Answer" method="post">
+            <input type="hidden" name="clientConnectionId" id="clientConnectionIdInput" value="${clientConnectionId}" />
+        <input type="hidden" name="message" id="messageInput" value="${message}" />
+        <input type="hidden" name="userName" id="userNameInput" value="${user}" />
+        <button type="submit" class="btn btn-info" style="width:100%">Send Answer</button>
+    </form>`;
+    });
+
+
+    var myConnectionId;
+    connection.start().then(function () {
+        document.getElementById("sendButton").disabled = false;
+        connection.invoke("GetConnectionId").then(function (id) {
+            myConnectionId = id;
+            console.log("id===" + id)
+            document.getElementById("connectionId").innerText = id;
+        })
+    }).catch(function (err) {
+        return console.error(err.toString());
+    });
+
+    document.getElementById("sendButton").addEventListener("click", function (event) {
+        var user = document.getElementById("userInput").value;
+        var message = document.getElementById("messageInput").value;
+        var li = document.createElement("li");
+        li.textContent = `${user}  says => ${message}`;
+        document.getElementById("messagesList").appendChild(li);
+        connection.invoke("SendToClient", user, clientConnId, message).catch(function (err) {
+            return console.error(err.toString());
+        });
+        event.preventDefault();  //neden li add olunmuyor?
+    });
+
+
+
+</script>

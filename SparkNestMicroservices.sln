@@ -72,6 +72,12 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SparkNest.Services.CommentA
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SparkNest.Services.CommentAPI.Domain", "src\Services\Comments\SparkNest.Services.CommentAPI.Domain\SparkNest.Services.CommentAPI.Domain.csproj", "{9C604536-20A8-4653-A5B9-DE26E729D6B4}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SparkNest.UI.MVC.Domain", "src\UI\MVC\SparkNest.UI.MVC.Domain\SparkNest.UI.MVC.Domain.csproj", "{6D274669-9205-411C-869E-770AD8BCF46A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SparkNest.UI.MVC.Application", "src\UI\MVC\SparkNest.UI.MVC.Application\SparkNest.UI.MVC.Application.csproj", "{4185C6DB-6EC6-458F-94B0-731B8E61324C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SparkNest.UI.MVC.Infrastructure", "src\UI\MVC\SparkNest.UI.MVC.Infrastructure\SparkNest.UI.MVC.Infrastructure.csproj", "{7C1358F4-2B6E-40DC-95AB-0C977E2D7F14}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -150,6 +156,18 @@ Global
 		{9C604536-20A8-4653-A5B9-DE26E729D6B4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9C604536-20A8-4653-A5B9-DE26E729D6B4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9C604536-20A8-4653-A5B9-DE26E729D6B4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6D274669-9205-411C-869E-770AD8BCF46A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6D274669-9205-411C-869E-770AD8BCF46A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6D274669-9205-411C-869E-770AD8BCF46A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6D274669-9205-411C-869E-770AD8BCF46A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4185C6DB-6EC6-458F-94B0-731B8E61324C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4185C6DB-6EC6-458F-94B0-731B8E61324C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4185C6DB-6EC6-458F-94B0-731B8E61324C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4185C6DB-6EC6-458F-94B0-731B8E61324C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7C1358F4-2B6E-40DC-95AB-0C977E2D7F14}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7C1358F4-2B6E-40DC-95AB-0C977E2D7F14}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7C1358F4-2B6E-40DC-95AB-0C977E2D7F14}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7C1358F4-2B6E-40DC-95AB-0C977E2D7F14}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -186,6 +204,9 @@ Global
 		{CB7FC232-DE50-42D2-BA93-87322360C797} = {515B987F-803D-44E3-96A7-943045795012}
 		{3FF91DFC-819C-4CF7-9ECD-32350D20BEAC} = {515B987F-803D-44E3-96A7-943045795012}
 		{9C604536-20A8-4653-A5B9-DE26E729D6B4} = {515B987F-803D-44E3-96A7-943045795012}
+		{6D274669-9205-411C-869E-770AD8BCF46A} = {E8F03177-BA5F-40F7-B9A3-2EF8BCB9ED8C}
+		{4185C6DB-6EC6-458F-94B0-731B8E61324C} = {E8F03177-BA5F-40F7-B9A3-2EF8BCB9ED8C}
+		{7C1358F4-2B6E-40DC-95AB-0C977E2D7F14} = {E8F03177-BA5F-40F7-B9A3-2EF8BCB9ED8C}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {38840450-182B-4FB2-A535-57FC89B94029}

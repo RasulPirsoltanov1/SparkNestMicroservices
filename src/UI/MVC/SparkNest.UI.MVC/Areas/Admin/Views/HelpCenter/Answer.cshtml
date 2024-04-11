@@ -1,0 +1,107 @@
+﻿@page
+<div class="container">
+    <hr></hr>
+
+    <h3>@ViewBag.UserName Messages</h3>
+    <h3>@ViewBag.ClientConnectionId Messages</h3>
+    <h3>@ViewBag.Message Messages</h3>
+    <hr></hr>
+    <div class="row p-1">
+        <div class="col-1">Connection Id</div>
+        <div class="col-5"><span type="text" id="connectionId" /></div>
+    </div>
+    <input hidden id="clientConnectionId" />
+    <div class="row p-1">
+        <div class="col-1">Receiver Id</div>
+        <div class="col-5"><input type="text" id="receiverId" /></div>
+    </div>
+    <div hidden class="row p-1">
+        <div class="col-1">User</div>
+        <div class="col-5"><input type="text" id="userInput" /></div>
+    </div>
+    <div class="row p-1">
+        <div class="col-1">Message</div>
+        <div class="col-5"><input type="text" class="w-100" id="messageInput" /></div>
+    </div>
+    <div class="row p-1">
+        <div class="col-6 text-end">
+            <input type="button" id="sendButton" value="Send to Client" />
+        </div>
+    </div>
+    <div class="row p-1">
+        <div class="col-6">
+            <hr />
+        </div>
+    </div>
+    <div class="row p-1">
+        <div class="col-6">
+            <ul id="messagesList"></ul>
+        </div>
+    </div>
+</div>
+
+<div id="container">
+    <ul id="requestList"></ul>
+</div>
+
+
+
+<script src="~/lib/signalr/dist/browser/signalr.js"></script>
+
+@* <script src="~/js/chat.js"></script> *@
+
+<script>
+    "use strict";
+
+    var connection = new signalR.HubConnectionBuilder().withUrl("/chatHub").build();
+    var clientConnectionIdFromAction = "@ViewBag.ClientConnectionId";
+
+    //Disable the send button until connection is established.
+    document.getElementById("sendButton").disabled = true;
+
+    var clientConnId;
+    connection.on("SendToAdminMessage", function (user, clientConnectionId, message) {
+        debugger;
+        var li = document.createElement("li");
+        clientConnId = clientConnectionId;
+        document.getElementById("clientConnectionId").value = clientConnectionId;
+        document.getElementById("messagesList").appendChild(li);
+        li.textContent = `$
+                    ${clientConnectionId}
+                    <hr/>
+                    ${user}  says => ${message}`;
+
+        var li2 = document.createElement("li");
+        document.getElementById("requestList").appendChild(li2);
+        li.innerHTML = `<a class="btn btn-info" style="width:100%" href="http://localhost:2007/Admin/Helpcenter/${clientConnectionId}/${message}/${user}">${user} Sent request</a>`;
+    });
+
+
+    var myConnectionId;
+    connection.start().then(function () {
+        document.getElementById("sendButton").disabled = false;
+        connection.invoke("GetConnectionId").then(function (id) {
+            myConnectionId = id;
+            console.log("id===" + id)
+            document.getElementById("connectionId").innerText = id;
+        })
+    }).catch(function (err) {
+        return console.error(err.toString());
+    });
+
+    document.getElementById("sendButton").addEventListener("click", function (event) {
+        debugger;
+        var user = document.getElementById("userInput").value;
+        var message = document.getElementById("messageInput").value;
+        var li = document.createElement("li");
+        li.textContent = `${user}  says => ${message}`;
+        document.getElementById("messagesList").appendChild(li);
+        connection.invoke("SendToClient", user, clientConnectionIdFromAction, message).catch(function (err) {
+            return console.error(err.toString());
+        });
+        event.preventDefault();  //neden li add olunmuyor?
+    });
+
+
+
+</script>

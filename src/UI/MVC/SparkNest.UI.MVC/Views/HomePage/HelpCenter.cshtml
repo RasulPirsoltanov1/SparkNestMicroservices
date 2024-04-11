@@ -1,0 +1,110 @@
+﻿@page
+<section class="blog-section section">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="container">
+                    <div hidden class="row py-2">
+                        <div class="col-2 fw-bold">Connection Id:</div>
+                        <div class="col-10">
+                            <span type="text" id="connectionId"></span>
+                        </div>
+                    </div>
+                    <div class="row py-2">
+                        <div class="col-2 fw-bold">Name and Surname:</div>
+                        <div class="col-10">
+                            <input type="text" id="userInput" class="form-control" placeholder="Enter your name">
+                        </div>
+                    </div>
+                    <div class="row py-2">
+                        <div class="col-2 fw-bold">Email:</div>
+                        <div class="col-10">
+                            <input type="text" id="emailInput" class="form-control" placeholder="Enter your Email">
+                        </div>
+                    </div>
+                    <div class="row py-2">
+                        <div class="col-2 fw-bold">Phone:</div>
+                        <div class="col-10">
+                            <input type="text" id="phoneInput" class="form-control" placeholder="Enter your Phone Number">
+                        </div>
+                    </div>
+                    <div class="row py-2">
+                        <div class="col-2 fw-bold">Message:</div>
+                        <div class="col-10">
+                            <textarea type="text" id="messageInput" class="form-control" placeholder="Type your message"></textarea>
+                        </div>
+                    </div>
+                    <div class="row py-2">
+                        <div class="col-12 text-end">
+                            <button type="button" id="sendButton" class="btn btn-primary">Send</button>
+                        </div>
+                    </div>
+                    <div class="row py-2">
+                        <div class="col-12">
+                            <hr>
+                        </div>
+                    </div>
+                    <div class="row py-2">
+                        <div class="col-12">
+                            <ul id="messagesList" class="list-group"></ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
+
+
+
+
+<script src="~/lib/signalr/dist/browser/signalr.js"></script>
+@* <script src="~/js/chat.js"></script> *@
+
+<script>
+    "use strict";
+    var connection = new signalR.HubConnectionBuilder().withUrl("/chatHub").build();
+
+    //Disable the send button until connection is established.
+    document.getElementById("sendButton").disabled = true;
+
+    connection.on("SendToClientMessage", function (user, clientConnectionId, message) {
+        debugger;
+        var li = document.createElement("li");
+        document.getElementById("messagesList").appendChild(li);
+
+        li.textContent = `${user} says ${message}`;
+    });
+
+
+    var myConnectionId;
+    connection.start().then(function () {
+        debugger;
+        document.getElementById("sendButton").disabled = false;
+        connection.invoke("GetConnectionId").then(function (id) {
+            myConnectionId = id;
+            document.getElementById("connectionId").innerText = id;
+        })
+    }).catch(function (err) {
+        return console.error(err.toString());
+    });
+
+    document.getElementById("sendButton").addEventListener("click", function (event) {
+        let email = document.getElementById("emailInput").value;
+        let phone = document.getElementById("phoneInput").value;
+        var user = document.getElementById("userInput").value;
+        var message = document.getElementById("messageInput").value;
+        connection.invoke("SendToAdmin", user, myConnectionId, message,phone,email).catch(function (err) {
+            console.error("error: ", err.toString());
+        });
+        var li = document.createElement("li");
+        document.getElementById("messagesList").appendChild(li);
+
+        li.innerHTML = `<b class="float-end">${message}</b>`;
+        event.preventDefault();
+    });
+
+</script>

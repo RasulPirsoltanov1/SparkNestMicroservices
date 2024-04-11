@@ -5,10 +5,13 @@ using SparkNest.Common.Base.Services;
 using SparkNest.UI.MVC.Extensions;
 using SparkNest.UI.MVC.Handlers;
 using SparkNest.UI.MVC.Helpers;
+using SparkNest.UI.MVC.Hubs;
+using SparkNest.UI.MVC.Infrastructure;
 using SparkNest.UI.MVC.Models;
 using SparkNest.UI.MVC.Services.Concretes;
 using SparkNest.UI.MVC.Services.Interfaces;
 using SparkNest.UI.MVC.Validators;
+using SparkNest.UI.MVC.Application.Features.Messages.Queries.GetAllMessages;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -46,6 +49,9 @@ builder.Services.AddScoped<IDiscountService, DiscountService>();
 builder.Services.AddScoped<IPaymentService, PaymentService>();
 
 
+//MVC infrastructure Layer Registration
+builder.Services.AddMvcInfrastructure();
+
 //Http services 
 builder.Services.AddHttpClientServices();
 
@@ -65,6 +71,17 @@ builder.Services.AddSingleton<FileStockHelper>();
 //Fluent Validation
 builder.Services.AddValidatorsFromAssemblyContaining<ProductCreateVMValidator>(); // register validators
 
+
+builder.Services.AddSignalR();
+
+builder.Services.AddMediatR(options =>
+{
+    options.RegisterServicesFromAssemblyContaining<GetAllMessagesQueryRequestHandler>();
+});
+
+
+
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -81,6 +98,7 @@ app.UseRouting();
 app.UseAuthentication();
 app.UseAuthorization();
 
+app.MapHub<ChatHub>("/chathub");
 
 app.MapControllerRoute(
       name: "areas",
