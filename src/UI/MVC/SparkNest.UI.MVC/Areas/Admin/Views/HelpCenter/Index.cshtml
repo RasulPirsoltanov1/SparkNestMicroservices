@@ -1,27 +1,41 @@
-﻿@page
-<div class="container">
+﻿@using SparkNest.UI.MVC.Domain.Entities
+@model List<ChatMessage>
+
+<div class="container " >
+    <h2 class="m-auto">Chat Page</h2>
     <div class="row p-1">
         <div class="col-1">Connection Id</div>
         <div class="col-5"><span type="text" id="connectionId" /></div>
     </div>
     <input hidden id="clientConnectionId" />
-    <div class="row p-1">
+    <div hidden class="row p-1">
         <div class="col-1">Receiver Id</div>
         <div class="col-5"><input type="text" id="receiverId" /></div>
     </div>
-    <div class="row p-1">
+    <div hidden class="row p-1">
         <div class="col-1">User</div>
         <div class="col-5"><input type="text" id="userInput" /></div>
     </div>
-    <div class="row p-1">
+
+
+
+
+
+
+
+
+
+
+
+
+    <div hidden class="row p-1">
         <div class="col-1">Message</div>
         <div class="col-5"><input type="text" class="w-100" id="messageInput" /></div>
     </div>
-    <div class="row p-1">
+    <div hidden class="row p-1">
         <div class="col-6 text-end">
             <input type="button" id="sendToUser" value="Send To User Message" />&nbsp;&nbsp;
             <input type="button" id="sendButton" value="Send To All Message" />
-            <input type="button" id="oneToOneButton" value="One To One Button Message" />
         </div>
     </div>
     <div class="row p-1">
@@ -29,7 +43,7 @@
             <hr />
         </div>
     </div>
-    <div class="row p-1">
+    <div hidden class="row p-1">
         <div class="col-6">
             <ul id="messagesList"></ul>
         </div>
@@ -37,7 +51,17 @@
 </div>
 
 <div id="container">
-    <ul id="requestList"></ul>
+    <ul id="requestList" style="list-style:none;">
+        @foreach (var req in Model)
+        {
+            <form class="answerForm m-3" action="http://localhost:2007/Admin/Helpcenter/Answer" method="post">
+                <input type="hidden" name="clientConnectionId" id="clientConnectionIdInput" value="${clientConnectionId}" />
+                <input type="hidden" name="message" id="messageInput" value="@req.Message" />
+                <input type="hidden" name="userName" id="userNameInput" value="@req.UserName" />
+                <button type="submit" class="btn btn-warning" style="width:100%">@req.UserName => @req.Message  Send Answer</button>
+            </form>
+        }
+    </ul>
 </div>
 
 
@@ -70,11 +94,11 @@
         // li.innerHTML = `<a class="btn btn-info" style="width:100%" href="http://localhost:2007/Admin/Helpcenter/Answer/${clientConnectionId}/${message}/${user}">${user} Sent request</a>`;
 
 
-        li.innerHTML = `<form class="answerForm" action="http://localhost:2007/Admin/Helpcenter/Answer" method="post">
+        li2.innerHTML = `<form class="answerForm m-3" action="http://localhost:2007/Admin/Helpcenter/Answer" method="post">
             <input type="hidden" name="clientConnectionId" id="clientConnectionIdInput" value="${clientConnectionId}" />
         <input type="hidden" name="message" id="messageInput" value="${message}" />
         <input type="hidden" name="userName" id="userNameInput" value="${user}" />
-        <button type="submit" class="btn btn-info" style="width:100%">Send Answer</button>
+        <button type="submit" class="btn btn-warning" style="width:100%">${user} => ${message}  Send Answer</button>
     </form>`;
     });
 
@@ -100,9 +124,8 @@
         connection.invoke("SendToClient", user, clientConnId, message).catch(function (err) {
             return console.error(err.toString());
         });
-        event.preventDefault();  //neden li add olunmuyor?
+        event.preventDefault();  
     });
-
 
 
 </script>

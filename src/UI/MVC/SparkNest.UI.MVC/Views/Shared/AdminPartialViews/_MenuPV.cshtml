@@ -98,7 +98,15 @@
                 </a>
             </li>
 
-
+            <li>
+                <a class="@((currentController == "helpcenter" && currentArea == "admin" && currentAction == "index") ? "active" : "")"
+                   asp-action="Index" asp-area="Admin" asp-controller="HelpCenter">
+                    <span class="nav-link-icon">
+                        <i class="bi bi-chat-left-dots"></i>
+                    </span>
+                    <span>Help Center Messages</span>
+                </a>
+            </li>
         </ul>
 
     </div>

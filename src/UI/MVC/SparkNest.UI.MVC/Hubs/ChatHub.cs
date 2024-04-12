@@ -30,7 +30,8 @@ namespace SparkNest.UI.MVC.Hubs
                 ClientConnectionId = clientConnectionId,
                 Message = message,
                 Phone = phone,
-                Email = email
+                Email = email,
+                UserName=userName
             });
             await Clients.All.SendAsync("SendToAdminMessage", userName, clientConnectionId, message);
         }

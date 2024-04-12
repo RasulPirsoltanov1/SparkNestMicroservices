@@ -1,0 +1,54 @@
+﻿@using SparkNest.UI.MVC.Models.Comment
+@model List<CommentVM>
+
+<div class="row">
+    <div class=" col-6">
+        <div class="single-block give-review">
+            <!-- Assuming you want to include reviews -->
+            <h4>Reviews</h4>
+            <div class=" col-12">
+                <div class="single-block">
+                    <div class="reviews">
+                        <h4 class="title">Latest Reviews</h4>
+                        <!-- Start Single Review -->
+                        @foreach (var comment in Model)
+                        {
+                            <div class="single-review">
+                                <img src="@(comment.PhotoUrl??"assets/images/blog/comment1.jpg")" alt="#">
+                                <div class="review-info">
+                                    <h4>
+                                        <span>
+                                            @comment.UserName
+                                        </span>
+                                    </h4>
+                                    <p>
+                                        @comment.Content
+                                    </p>
+                                </div>
+                            </div>
+                        }
+                        <!-- End Single Review -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-6">
+            <div class="row justify-content-center">
+                <div class="">
+                    <form id="commentForm" class="p-4 border rounded">
+                        <h2 class="text-center mb-4">Leave a Comment</h2>
+                        <div class="mb-3">
+                            <label for="nameInput" class="form-label">Name:</label>
+                            <input type="text" class="form-control" id="nameInput" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="commentInput" class="form-label">Comment:</label>
+                            <textarea class="form-control" id="commentInput" rows="3" required></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                    </form>
+                </div>
+        </div>
+    </div>
+</div>

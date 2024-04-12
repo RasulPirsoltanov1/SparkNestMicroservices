@@ -9,7 +9,7 @@ namespace SparkNest.UI.MVC.Application.Features.Messages.Commands.SetIsAnswered
 {
     public class SetIsAnsweredCommandRequest : IRequest<bool>
     {
-        public int Id { get; set; }
+        public string ClientId { get; set; }
         public bool IsAnswered { get; set; }
     }
 }

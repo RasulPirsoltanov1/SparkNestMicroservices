@@ -46,7 +46,7 @@
                     </div>
                     <div class="row py-2">
                         <div class="col-12">
-                            <ul id="messagesList" class="list-group"></ul>
+                            <ul id="messagesList" class="list-group" style="list-style:none;"></ul>
                         </div>
                     </div>
                 </div>
@@ -76,7 +76,11 @@
         var li = document.createElement("li");
         document.getElementById("messagesList").appendChild(li);
 
-        li.textContent = `${user} says ${message}`;
+        li.innerHTML = `
+
+                <li class="alert alert-info float-start" role="alert">
+                <i class="bi bi-info-circle-fill"></i> ${message}
+            </li>`;
     });
 
 
@@ -103,7 +107,10 @@
         var li = document.createElement("li");
         document.getElementById("messagesList").appendChild(li);
 
-        li.innerHTML = `<b class="float-end">${message}</b>`;
+        li.innerHTML = `
+                <li class="alert alert-info float-end" role="alert">
+                <i class="bi bi-info-circle-fill"></i> ${message}
+            </li>`;
         event.preventDefault();
     });
 

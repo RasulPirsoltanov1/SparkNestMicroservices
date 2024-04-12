@@ -1,4 +1,5 @@
 ﻿using MediatR;
+using Microsoft.EntityFrameworkCore;
 using SparkNest.UI.MVC.Infrastructure.Data;
 
 namespace SparkNest.UI.MVC.Application.Features.Messages.Commands.SetIsAnswered
@@ -16,11 +17,14 @@ namespace SparkNest.UI.MVC.Application.Features.Messages.Commands.SetIsAnswered
         {
             try
             {
-                var message = await _appDbContext.ChatMessages.FindAsync(request.Id);
+                var message = await _appDbContext.ChatMessages.Where(x=>x.ClientConnectionId==request.ClientId).ToListAsync();
                 if (message == null)
                     return false;
-                message.IsAnswered = true;
-                _appDbContext.ChatMessages.Update(message);
+                message.ForEach(x =>
+                {
+                    x.IsAnswered = true;
+                });
+                _appDbContext.ChatMessages.UpdateRange(message);
                 await _appDbContext.SaveChangesAsync();
                 return true;
             }

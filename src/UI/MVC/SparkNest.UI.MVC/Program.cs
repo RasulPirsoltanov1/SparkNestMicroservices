@@ -12,6 +12,8 @@ using SparkNest.UI.MVC.Services.Concretes;
 using SparkNest.UI.MVC.Services.Interfaces;
 using SparkNest.UI.MVC.Validators;
 using SparkNest.UI.MVC.Application.Features.Messages.Queries.GetAllMessages;
+using SparkNest.UI.MVC.Application.Abstractions;
+using SparkNest.UI.MVC.Infrastructure.Concretes;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -47,6 +49,9 @@ builder.Services.AddScoped<ISharedIdentityService, SharedIdentityService>();
 builder.Services.AddScoped<IFileStockService, FileStockService>();
 builder.Services.AddScoped<IDiscountService, DiscountService>();
 builder.Services.AddScoped<IPaymentService, PaymentService>();
+
+
+builder.Services.AddScoped<ICommentService, CommentService>();
 
 
 //MVC infrastructure Layer Registration

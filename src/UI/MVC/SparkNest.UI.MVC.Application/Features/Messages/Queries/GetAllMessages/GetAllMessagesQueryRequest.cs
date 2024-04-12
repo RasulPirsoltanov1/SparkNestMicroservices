@@ -26,7 +26,11 @@ namespace SparkNest.UI.MVC.Application.Features.Messages.Queries.GetAllMessages
         {
             try
             {
-                var messages = await _appDbContext.ChatMessages.ToListAsync();
+                var twentyFiveSecondsAgo = DateTime.Now.AddSeconds(-120);
+
+                var messages = await _appDbContext.ChatMessages
+                    .Where(x => x.IsAnswered == false && x.CreateDate >= twentyFiveSecondsAgo)
+                    .ToListAsync();
                 return messages;
             }
             catch (Exception ex)
