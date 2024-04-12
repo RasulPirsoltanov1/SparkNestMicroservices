@@ -34,21 +34,20 @@
         </div>
     </div>
     <div class="col-6">
-            <div class="row justify-content-center">
-                <div class="">
-                    <form id="commentForm" class="p-4 border rounded">
-                        <h2 class="text-center mb-4">Leave a Comment</h2>
-                        <div class="mb-3">
-                            <label for="nameInput" class="form-label">Name:</label>
-                            <input type="text" class="form-control" id="nameInput" required>
-                        </div>
-                        <div class="mb-3">
-                            <label for="commentInput" class="form-label">Comment:</label>
-                            <textarea class="form-control" id="commentInput" rows="3" required></textarea>
-                        </div>
-                        <button type="submit" class="btn btn-primary">Submit</button>
-                    </form>
-                </div>
+        <div class="row justify-content-center">
+            <div class="">
+                @if (User.Identity.IsAuthenticated)
+                {
+                    @await Component.InvokeAsync("ProductCommentPostVC", new
+                        {
+                            ProductId = ViewBag.PId
+                        })
+                }
+                else
+                {
+                    <div class="alert alert-danger">If you want to leave a comment, please sign in.</div>
+                }
+            </div>
         </div>
     </div>
 </div>

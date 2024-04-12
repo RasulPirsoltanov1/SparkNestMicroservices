@@ -15,6 +15,7 @@ namespace SparkNest.UI.MVC.ViewComponents.UI
 
         public async Task<IViewComponentResult> InvokeAsync(string productId)
         {
+            ViewBag.PId = productId;
             return View((await _commentService.GetAllByProductId(productId)).Select(x=>new CommentVM
             {
                 ProductId = productId,

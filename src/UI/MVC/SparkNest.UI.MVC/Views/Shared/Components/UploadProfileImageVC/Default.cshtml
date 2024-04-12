@@ -1,0 +1,10 @@
+﻿@using SparkNest.UI.MVC.Application.DTOs
+@model UploadProfileImageDTO
+
+<form asp-action="UploadPhoto" asp-controller="User" method="post" enctype="multipart/form-data">
+    <div class="mb-3">
+        <label for="imageInput" class="form-label">Profile Image:</label>
+        <input type="file" class="form-control" id="imageInput" asp-for="Image" accept="image/*" required>
+    </div>
+    <button type="submit" class="btn btn-primary">Upload</button>
+</form>
