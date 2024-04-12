@@ -10,6 +10,7 @@ namespace SparkNest.UI.MVC.Application.Abstractions
     public interface ICommentService
     {
         Task<bool> Create(CreateCommentDTO createCommentDTO);
+        Task<bool> DeleteAsync(int Id);
         Task<List<CreateCommentDTO>> GetAll();
         Task<List<CreateCommentDTO>> GetAllByProductId(string productId);
     }

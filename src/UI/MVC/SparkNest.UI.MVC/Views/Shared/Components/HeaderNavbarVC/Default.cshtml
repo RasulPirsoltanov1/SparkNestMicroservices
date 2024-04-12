@@ -15,13 +15,13 @@
                             {
                                 @if (cat.SubCategoryId is null)
                                 {
-                                    <a href="product-grids.html">@cat.Name<i class="lni lni-chevron-right"></i></a>
+                                    <a asp-controller="Category" asp-action="GetProductsByCategory" asp-route-Id="@cat.Id">@cat.Name<i class="lni lni-chevron-right"></i></a>
                                     @foreach (var cat2 in Model)
                                     {
                                         <ul class="inner-sub-category">
                                             @if (cat2.SubCategoryId == cat.Id)
                                             {
-                                                <li><a href="product-grids.html">@cat2.Name</a></li>
+                                                <li><a asp-controller="Category" asp-action="GetProductsByCategory" asp-route-Id="@cat2.Id">@cat2.Name</a></li>
                                             }
                                         </ul>
                                     }

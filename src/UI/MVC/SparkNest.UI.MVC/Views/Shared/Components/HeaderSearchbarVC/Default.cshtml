@@ -10,18 +10,20 @@
             </div>
             <div class="col-lg-5 col-md-7 d-xs-none">
                 <!-- Start Main Menu Search -->
-                <div class="main-menu-search">
-                    <!-- navbar search start -->
-                    <div class="navbar-search search-style-5">
-                        <div class="search-input">
-                            <input type="text" placeholder="Search">
+                <form method="post" asp-action="Search" asp-controller="Search">
+                    <div class="main-menu-search">
+                        <!-- navbar search start -->
+                        <div class="navbar-search search-style-5">
+                            <div class="search-input">
+                                <input type="text" name="key" placeholder="Search">
+                            </div>
+                            <div class="search-btn">
+                                <button type="submit"><i class="lni lni-search-alt"></i></button>
+                            </div>
                         </div>
-                        <div class="search-btn">
-                            <button><i class="lni lni-search-alt"></i></button>
-                        </div>
+                        <!-- navbar search Ends -->
                     </div>
-                    <!-- navbar search Ends -->
-                </div>
+                </form>
                 <!-- End Main Menu Search -->
             </div>
             <div class="col-lg-4 col-md-2 col-5">

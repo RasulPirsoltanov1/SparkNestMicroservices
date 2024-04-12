@@ -9,6 +9,7 @@ namespace SparkNest.UI.MVC.Application.DTOs
 {
     public class CreateCommentDTO
     {
+        public int? Id{ get; set; }
         public string ProductId { get; set; }
         public string? UserId { get; set; }
         public string? UserName { get; set; }

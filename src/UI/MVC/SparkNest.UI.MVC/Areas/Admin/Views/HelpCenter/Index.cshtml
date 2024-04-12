@@ -55,7 +55,7 @@
         @foreach (var req in Model)
         {
             <form class="answerForm m-3" action="http://localhost:2007/Admin/Helpcenter/Answer" method="post">
-                <input type="hidden" name="clientConnectionId" id="clientConnectionIdInput" value="${clientConnectionId}" />
+                <input type="hidden" name="clientConnectionId" id="clientConnectionIdInput" value="@req.ClientConnectionId" />
                 <input type="hidden" name="message" id="messageInput" value="@req.Message" />
                 <input type="hidden" name="userName" id="userNameInput" value="@req.UserName" />
                 <button type="submit" class="btn btn-warning" style="width:100%">@req.UserName => @req.Message  Send Answer</button>

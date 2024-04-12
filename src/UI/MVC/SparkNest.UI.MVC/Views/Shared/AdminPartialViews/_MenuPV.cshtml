@@ -107,6 +107,16 @@
                     <span>Help Center Messages</span>
                 </a>
             </li>
+
+            <li>
+                <a class="@((currentController == "comment" && currentArea == "admin" && currentAction == "index") ? "active" : "")"
+                   asp-action="Index" asp-area="Admin" asp-controller="Comment">
+                    <span class="nav-link-icon">
+                        <i class="bi bi-chat-quote"></i>
+                    </span>
+                    <span>Product Comments</span>
+                </a>
+            </li>
         </ul>
 
     </div>

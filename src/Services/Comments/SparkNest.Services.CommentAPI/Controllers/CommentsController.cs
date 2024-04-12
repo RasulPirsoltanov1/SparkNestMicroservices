@@ -29,5 +29,14 @@ namespace SparkNest.Services.CommentAPI.Controllers
             var result = await _mediator.Send(createCommentRequest);
             return CreateActionResultInstance(result);
         }
+        [HttpDelete("{Id}")]
+        public async Task<IActionResult> Delete(int Id)
+        {
+            var result = await _mediator.Send(new DeleteCommentRequest
+            {
+                Id=Id
+            });
+            return CreateActionResultInstance(result);
+        }
     }
 }

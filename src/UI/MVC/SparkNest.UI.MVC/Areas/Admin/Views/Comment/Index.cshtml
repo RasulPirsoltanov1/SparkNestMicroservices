@@ -1,0 +1,39 @@
+﻿@using SparkNest.UI.MVC.Models.Comment
+@model List<CommentVM>
+
+@{
+    int count = 0;
+}
+
+<div class="container mt-5">
+    <h1>Comment List</h1>
+    <table class="table mt-4">
+        <thead>
+            <tr>
+                <th>User image</th>
+                <th>Id</th>
+                <th>User Name</th>
+                <th>Content</th>
+                <th></th> <!-- Sil düğmesi için boş bir başlık sütunu -->
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var comment in Model)
+            {
+                count++;
+                <tr>
+                    <td><img src="@comment.PhotoUrl" alt="User Photo" style="max-width: 70px;"></td>
+                    <td>@count</td>
+                    <td>@comment.UserName</td>
+                    <td>@comment.Content</td>
+                    <td>
+                        <form asp-action="Delete" asp-controller="Comment" method="post">
+                            <input type="hidden" name="id" value="@comment.Id" />
+                            <button type="submit" class="btn btn-danger">Sil</button>
+                        </form>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

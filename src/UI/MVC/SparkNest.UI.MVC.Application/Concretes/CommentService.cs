@@ -21,8 +21,8 @@ namespace SparkNest.UI.MVC.Infrastructure.Concretes
 
         public async Task<bool> Create(CreateCommentDTO createCommentDTO)
         {
-            var responseMessage=await _httpClient.PostAsJsonAsync("comments",createCommentDTO);
-            if(responseMessage.IsSuccessStatusCode)
+            var responseMessage = await _httpClient.PostAsJsonAsync("comments", createCommentDTO);
+            if (responseMessage.IsSuccessStatusCode)
             {
                 return true;
             }
@@ -53,6 +53,19 @@ namespace SparkNest.UI.MVC.Infrastructure.Concretes
             catch (Exception)
             {
                 return new List<CreateCommentDTO>();
+            }
+        }
+
+        public async Task<bool> DeleteAsync(int Id)
+        {
+            try
+            {
+                var result = await _httpClient.DeleteAsync($"comments/{Id}");
+                return result.IsSuccessStatusCode;
+            }
+            catch (Exception)
+            {
+                return false;
             }
         }
     }
