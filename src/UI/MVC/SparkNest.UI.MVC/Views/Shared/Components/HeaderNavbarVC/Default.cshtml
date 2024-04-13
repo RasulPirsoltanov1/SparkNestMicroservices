@@ -6,29 +6,59 @@
     <div class="row align-items-center">
         <div class="col-lg-8 col-md-6 col-12">
             <div class="nav-inner">
+              @*   <!-- Start Mega Category Menu -->
+                <div class="mega-category-menu">
+
+                    <span class="cat-button"><i class="lni lni-menu"></i>All Categories</span>
+                    <ul class="list-group sub-category">
+                        @foreach (var cat in Model)
+                        {
+                            if (cat.SubCategoryId is null)
+                            {
+                                <li class="list-group-item">
+                                    <a asp-controller="Category" asp-action="GetProductsByCategory" asp-route-Id="@cat.Id">@cat.Name @if (Model.Any(c => c.SubCategoryId == cat.Id))
+                                        {
+                                            <i class="lni lni-chevron-right"></i>
+                                        }</a> <!-- sadece subcategorisi olan kategorilerin bu <i> si olsun istiyorum! -->
+                                    <ul class="list-group subcategory-list">
+                                        @foreach (var cat2 in Model.Where(c => c.SubCategoryId == cat.Id))
+                                        {
+                                            <li class="list-group-item"><a asp-controller="Category" asp-action="GetProductsByCategory" asp-route-Id="@cat2.Id">@cat2.Name</a></li>
+                                        }
+                                    </ul>
+                                </li>
+                            }
+                        }
+                    </ul>
+                </div>
+                <!-- End Mega Category Menu --> *@
+
+
                 <!-- Start Mega Category Menu -->
                 <div class="mega-category-menu">
                     <span class="cat-button"><i class="lni lni-menu"></i>All Categories</span>
                     <ul class="sub-category">
-                        <li>
-                            @foreach (var cat in Model)
+                        @foreach (var cat in Model)
+                        {
+                            if (cat.SubCategoryId is null)
                             {
-                                @if (cat.SubCategoryId is null)
-                                {
-                                    <a asp-controller="Category" asp-action="GetProductsByCategory" asp-route-Id="@cat.Id">@cat.Name<i class="lni lni-chevron-right"></i></a>
-                                    @foreach (var cat2 in Model)
+                            <li>
+                                <a href="product-grids.html">
+                                    @cat.Name @if (Model.Any(c => c.SubCategoryId == cat.Id))
                                     {
-                                        <ul class="inner-sub-category">
-                                            @if (cat2.SubCategoryId == cat.Id)
-                                            {
-                                                <li><a asp-controller="Category" asp-action="GetProductsByCategory" asp-route-Id="@cat2.Id">@cat2.Name</a></li>
-                                            }
-                                        </ul>
+                                        <i class="lni lni-chevron-right"></i>
                                     }
-                                }
-                            }
-                        </li>
+                                </a>
 
+                                    <ul class="inner-sub-category">
+                                    @foreach (var cat2 in Model.Where(c => c.SubCategoryId == cat.Id))
+                                    {
+                                        <li class="list-group-item"><a asp-controller="Category" asp-action="GetProductsByCategory" asp-route-Id="@cat2.Id">@cat2.Name</a></li>
+                                    }
+                                </ul>
+                            </li>
+                            }
+                        }
                     </ul>
                 </div>
                 <!-- End Mega Category Menu -->
@@ -44,7 +74,7 @@
                     <div class="collapse navbar-collapse sub-menu-bar" id="navbarSupportedContent">
                         <ul id="nav" class="navbar-nav ms-auto">
                             <li class="nav-item">
-                                <a asp-area="" asp-controller="HomePage" asp-action="Index"  class="active" aria-label="Toggle navigation">Home</a>
+                                <a asp-area="" asp-controller="HomePage" asp-action="Index" class="active" aria-label="Toggle navigation">Home</a>
                             </li>
                             <li class="nav-item">
                                 <a asp-area="" asp-controller="HomePage" asp-action="HelpCenter" class="" aria-label="Toggle navigation">Help Center</a>
@@ -57,22 +87,23 @@
         </div>
         <div class="col-lg-4 col-md-6 col-12">
             <!-- Start Nav Social -->
-            <div class="nav-social">
-                <h5 class="title">Follow Us:</h5>
-                <ul>
-                    <li>
-                        <a href="javascript:void(0)"><i class="lni lni-facebook-filled"></i></a>
-                    </li>
-                    <li>
-                        <a href="javascript:void(0)"><i class="lni lni-twitter-original"></i></a>
-                    </li>
-                    <li>
-                        <a href="javascript:void(0)"><i class="lni lni-instagram"></i></a>
-                    </li>
-                    <li>
-                        <a href="javascript:void(0)"><i class="lni lni-skype"></i></a>
-                    </li>
-                </ul>
+            <div class="navbar-cart">
+                <div class="wishlist">
+                    <a asp-action="Index" asp-controller="User">
+                        <i class="lni lni-user"></i>
+                    </a>
+                </div>
+                <div class="wishlist">
+                    <a asp-action="Checkouthistory" asp-controller="Order">
+                        <i class="lni lni-checkmark-circle"></i>
+                    </a>
+                </div>
+                <div class="cart-items">
+                    <a asp-action="Index" asp-controller="Basket" class="main-btn">
+                        <i class="lni lni-cart"></i>
+                        @* <span class="total-items">2</span> *@
+                    </a>
+                </div>
             </div>
             <!-- End Nav Social -->
         </div>

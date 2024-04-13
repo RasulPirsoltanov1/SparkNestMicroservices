@@ -81,6 +81,11 @@
     var clientConnId;
     connection.on("SendToAdminMessage", function (user, clientConnectionId, message) {
         var li = document.createElement("li");
+        var previousId = localStorage.getItem("previousId");
+        if (previousId == clientConnectionId) {
+            return;
+        }
+        localStorage.setItem("previousId", clientConnectionId);
         clientConnId = clientConnectionId;
         document.getElementById("clientConnectionId").value = clientConnectionId;
         document.getElementById("messagesList").appendChild(li);
