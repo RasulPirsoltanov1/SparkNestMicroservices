@@ -20,15 +20,20 @@
                         <!-- navbar search start -->
                         <div class="navbar-search search-style-5">
                             <div class="search-input">
-                                <input type="text" name="key" placeholder="Search">
+                                <input type="text" name="key" id="searchKey" onblur="clearResults()" oninput="getResults(this.value)" placeholder="Search">
                             </div>
                             <div class="search-btn">
                                 <button type="submit"><i class="lni lni-search-alt"></i></button>
                             </div>
                         </div>
+                        <div class="navbar-search search-style-5">
+                            <ul id="searchResults" style="width:90%; position:absolute; z-index:10;">
+                            </ul>
+                        </div>
                         <!-- navbar search Ends -->
                     </div>
                 </form>
+              
                 <!-- End Main Menu Search -->
             </div>
             <div class="col-lg-4 col-md-2 col-5">
@@ -58,22 +63,22 @@
                     </a>
                     </div>
                     </div> *@
-              <style>
-                        .navbar-cart{
+                    <style>
+                        .navbar-cart {
                             justify-content: center;
                             align-items: center;
-                            display:flex;
+                            display: flex;
                         }
-                  .navbar-cart ul{
 
-                      justify-content:center;
-                      align-items:center;
-                      font-size:10px;
-                  }
-              </style>
+                            .navbar-cart ul {
+                                justify-content: center;
+                                align-items: center;
+                                font-size: 10px;
+                            }
+                    </style>
                     <div class="navbar-cart">
                         <div class="user d-flex">
-                           
+
                             @if (User.Identity.IsAuthenticated)
                             {
                                 <i class="lni lni-user me-1" style="padding-top:5px"></i>
@@ -81,7 +86,7 @@
                             }
                             else
                             {
-                                <i class="lni lni-user me-1" ></i>
+                                <i class="lni lni-user me-1"></i>
 
                                 <span></span>
                             }

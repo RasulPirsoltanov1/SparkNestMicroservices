@@ -83,7 +83,7 @@ namespace SparkNest.UI.MVC.Services.Concretes
                 var existingBasketItem = basket.BasketItems.FirstOrDefault(x => x.ProductId == basketItemVM.ProductId);
                 if (existingBasketItem != null)
                 {
-                    existingBasketItem.Quantity += 1;
+                    existingBasketItem.Quantity += basketItemVM?.Quantity!=null||basketItemVM.Quantity<=0?basketItemVM.Quantity:1;
                 }
                 else
                 {

@@ -19,7 +19,37 @@ namespace SparkNest.UI.MVC.Controllers
             try
             {
                 ViewBag.Key = key;
-                var products = (await _productService.GetAllProductsAsync()).Where(x => x.Name.Contains(key) || x.Description.Contains(key) || x.Feature.Color.Contains(key)).ToList();
+                var products = (await _productService.GetAllProductsAsync()).Where(x => x.Name.ToLower().Contains(key.ToLower()) || x.Description.Contains(key) || x.Feature.Color.Contains(key)).ToList();
+                return View(products);
+            }
+            catch (Exception ex)
+            {
+                return View(new List<ProductVM>());
+            }
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> SearchResultForAjax(string key)
+        {
+            try
+            {
+                ViewBag.Key = key;
+                List<ProductVM>? products = (await _productService.GetAllProductsAsync()).Where(x => x.Name.ToLower().Contains(key.ToLower()) || x.Description.Contains(key) || x.Feature.Color.Contains(key)).ToList();
+                return Ok(products);
+            }
+            catch (Exception ex)
+            {
+                return Ok(new List<ProductVM>());
+            }
+        }
+
+        [HttpGet("[controller]/[action]")]
+        public async Task<IActionResult> SearchFromAjax([FromQuery]string key)
+        {
+            try
+            {
+                ViewBag.Key = key;
+                var products = (await _productService.GetAllProductsAsync()).Where(x => x.Name.ToLower().Contains(key.ToLower()) || x.Description.Contains(key) || x.Feature.Color.Contains(key)).ToList();
                 return View(products);
             }
             catch (Exception ex)

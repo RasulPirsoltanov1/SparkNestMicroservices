@@ -52,8 +52,41 @@
 
     <!-- ========================= JS here ========================= -->
     @await Html.PartialAsync("/Views/Shared/UIPartialViews/_JsPV.cshtml")
+    <script src="~/lib/jquery/dist/jquery.js"></script>
+    @await RenderSectionAsync("Js", false);
+    <script>
+        var searchKey = document.getElementById("searchKey");
+        var searchResults = document.getElementById("searchResults");
+        var routes = "";
+        function getResults(e) {
+            console.log(e);
 
-
+            $.ajax({
+                type: 'GET',
+                url: '/Search/SearchResultForAjax?key=' + encodeURIComponent(e),
+                success: function (response) {
+                    for (var i = 0; i < response.length; i++) {
+                        routes += `
+                                                <a href="http://localhost:2007/Search/SearchFromAjax?key=${response[i].name}" onclick="redirectTo('${response[i].name}')" class="btn w-100 mt-1" style="background:white; width:fit-content; border:1px solid black;">${response[i].name}</a>`
+                    }
+                    searchResults.innerHTML = routes;
+                    routes = "";
+                },
+                error: function (xhr, status, error) {
+                    console.error(error);
+                }
+            });
+        }
+        function clearResults() {
+            setInterval(() => {
+                searchResults.innerHTML = "";
+            },200)
+        }
+        function redirectTo(name) {
+            debugger;
+            window.location.href = "http://localhost:2007/Search/SearchFromAjax?key=" + encodeURIComponent(name);
+        }
+    </script>
 </body>
 
 

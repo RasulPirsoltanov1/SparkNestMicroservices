@@ -43,19 +43,22 @@
                             if (cat.SubCategoryId is null)
                             {
                             <li>
-                                <a href="product-grids.html">
+                                    <a asp-controller="Category" asp-action="GetProductsByCategory" asp-route-Id="@cat.Id">
                                     @cat.Name @if (Model.Any(c => c.SubCategoryId == cat.Id))
                                     {
                                         <i class="lni lni-chevron-right"></i>
                                     }
                                 </a>
-
-                                    <ul class="inner-sub-category">
-                                    @foreach (var cat2 in Model.Where(c => c.SubCategoryId == cat.Id))
+                                    @if (Model.Any(c => c.SubCategoryId == cat.Id))
                                     {
-                                        <li class="list-group-item"><a asp-controller="Category" asp-action="GetProductsByCategory" asp-route-Id="@cat2.Id">@cat2.Name</a></li>
+                                        <ul class="inner-sub-category">
+                                            @foreach (var cat2 in Model.Where(c => c.SubCategoryId == cat.Id))
+                                            {
+                                                <li class="list-group-item"><a asp-controller="Category" asp-action="GetProductsByCategory" asp-route-Id="@cat2.Id">@cat2.Name</a></li>
+                                            }
+                                        </ul>
                                     }
-                                </ul>
+                                
                             </li>
                             }
                         }

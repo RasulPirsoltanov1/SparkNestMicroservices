@@ -36,7 +36,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Discount", "Discount", "{AB
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SparkNest.Services.DiscountAPI", "src\Services\Discount\SparkNest.Services.DiscountAPI\SparkNest.Services.DiscountAPI.csproj", "{4828D2C6-95A1-4C3F-885D-69217E653467}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Order (DDD)", "Order (DDD)", "{48809177-1B29-4D5D-8CBD-AE8447BE665E}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Order", "Order", "{48809177-1B29-4D5D-8CBD-AE8447BE665E}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SparkNest.Services.OrderAPI", "src\Services\Order\SparkNest.Services.OrderAPI\SparkNest.Services.OrderAPI.csproj", "{916B9E44-50D1-488C-A6E7-A21B9337DCAE}"
 EndProject
@@ -79,6 +79,8 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SparkNest.UI.MVC.Infrastructure", "src\UI\MVC\SparkNest.UI.MVC.Infrastructure\SparkNest.UI.MVC.Infrastructure.csproj", "{7C1358F4-2B6E-40DC-95AB-0C977E2D7F14}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "MailService", "MailService", "{928DE8D6-AB0B-4DFA-B8DF-8877ED25894E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SparkNest.Services.MailServiceAPI", "src\Services\MailService\SparkNest.Services.MailServiceAPI\SparkNest.Services.MailServiceAPI.csproj", "{DB46CDC6-30BD-428B-B6D4-1DE8143C1870}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -170,6 +172,10 @@ Global
 		{7C1358F4-2B6E-40DC-95AB-0C977E2D7F14}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7C1358F4-2B6E-40DC-95AB-0C977E2D7F14}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7C1358F4-2B6E-40DC-95AB-0C977E2D7F14}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DB46CDC6-30BD-428B-B6D4-1DE8143C1870}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DB46CDC6-30BD-428B-B6D4-1DE8143C1870}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DB46CDC6-30BD-428B-B6D4-1DE8143C1870}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DB46CDC6-30BD-428B-B6D4-1DE8143C1870}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -210,6 +216,7 @@ Global
 		{4185C6DB-6EC6-458F-94B0-731B8E61324C} = {E8F03177-BA5F-40F7-B9A3-2EF8BCB9ED8C}
 		{7C1358F4-2B6E-40DC-95AB-0C977E2D7F14} = {E8F03177-BA5F-40F7-B9A3-2EF8BCB9ED8C}
 		{928DE8D6-AB0B-4DFA-B8DF-8877ED25894E} = {81349D8E-1C64-4BF0-A192-76AA7EEE3D2A}
+		{DB46CDC6-30BD-428B-B6D4-1DE8143C1870} = {928DE8D6-AB0B-4DFA-B8DF-8877ED25894E}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {38840450-182B-4FB2-A535-57FC89B94029}
