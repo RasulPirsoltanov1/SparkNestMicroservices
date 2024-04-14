@@ -17,7 +17,9 @@ namespace SparkNest.Common.Base.Messages
         public string District { get; set; }
         public string Line { get; set; }
         public string ZipCode { get; set; }
-      
+        public string? UserName { get; set; }
+        public string? Email { get; set; }
+
 
     }
     public class OrderItem

@@ -2,6 +2,8 @@
 {
     public class FakePaymentDto
     {
+        public string? UserName { get; set; }
+        public string? Email { get; set; }
         public string CardName { get; set; }
         public string CardNumber { get; set; }
         public string Expiration { get; set; }

@@ -1,7 +1,7 @@
-﻿namespace SparkNest.Services.OrderAPI.Domain.Core
-{
-    public interface IAggregateRoot
-    {
+﻿//namespace SparkNest.Services.OrderAPI.Domain.Core
+//{
+//    public interface IAggregateRoot
+//    {
 
-    }
-}
+//    }
+//}

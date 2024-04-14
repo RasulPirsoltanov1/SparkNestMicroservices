@@ -13,8 +13,10 @@ namespace SparkNest.Services.OrderAPI.Domain.OrderAggregate
         {
 
         }
-        public Order(string buyerId, Address address)
+        public Order(string buyerId, string userName, string email, Address address)
         {
+            UserName = userName;
+            Email = email;
             BuyerId = buyerId;
             Address = address;
             _orderItems = new List<OrderItem>();
@@ -22,6 +24,8 @@ namespace SparkNest.Services.OrderAPI.Domain.OrderAggregate
         }
         public DateTime? CreatedDate { get; set; }
         public Address Address { get; set; }
+        public string? UserName { get; set; }
+        public string? Email { get; set; }
         public string BuyerId { get; set; }
         public int Status { get; set; }
 

@@ -7,7 +7,8 @@
         <thead class="thead-light">
             <tr>
                 <th scope="col">Order ID</th>
-                <th scope="col">Buyer ID</th>
+                <th scope="col">Buyer Name</th>
+                <th scope="col">Email</th>
                 <th scope="col">Created Date</th>
                 <th scope="col">Set Status</th>
                 <th scope="col">Order Items</th>
@@ -18,7 +19,8 @@
             {
                 <tr>
                     <td>@order.Id</td>
-                    <td>@order.BuyerId</td>
+                    <td>@order.UserName</td>
+                    <td>@order.Email</td>
                     <td>@order.CreatedDate.ToString("yyyy-MM-dd")</td>
                     <td>
                         <select class="status-select" data-buyer-id="@order.BuyerId">

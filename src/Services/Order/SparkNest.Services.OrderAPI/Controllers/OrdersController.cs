@@ -7,6 +7,7 @@ using SparkNest.Services.OrderAPI.Application.Features.Orders.Commands.Create;
 using SparkNest.Services.OrderAPI.Application.Features.Orders.Commands.StatusChange;
 using SparkNest.Services.OrderAPI.Application.Features.Orders.Queries;
 using SparkNest.Services.OrderAPI.Application.Features.Orders.Queries.Get;
+using SparkNest.Services.OrderAPI.Application.Features.Orders.Queries.GetAll;
 
 namespace SparkNest.Services.OrderAPI.Controllers
 {
@@ -20,6 +21,13 @@ namespace SparkNest.Services.OrderAPI.Controllers
         {
             _mediator = mediator;
             _sharedIdentityService = sharedIdentityService;
+        }
+
+
+        [HttpGet("[action]")]
+        public async Task<IActionResult> GetAll()
+        {
+            return CreateActionResultInstance(await _mediator.Send(new GetAllOrdersQuery()));
         }
 
         [HttpGet]

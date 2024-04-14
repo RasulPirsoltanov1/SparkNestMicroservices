@@ -13,6 +13,8 @@ namespace SparkNest.Services.OrderAPI.Application.Features.Orders.Commands.Creat
     public class CreateOrderCommand : IRequest<Response<CreatedOrderDTO>>
     {
         public string BuyerId { get; set; }
+        public string? UserName { get; set; }
+        public string? Email { get; set; }
         public List<OrderItemDTO> OrderItems { get; set; }
         public AddressDTO Address { get; set; }
     }

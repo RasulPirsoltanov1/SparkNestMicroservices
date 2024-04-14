@@ -21,6 +21,7 @@ namespace SparkNest.UI.MVC.Services.Interfaces
         Task<bool> StatusChange(StatusChangeVM statusChangeVM);
 
 
-        Task<List<OrderVM>> GetAllOrders(); 
+        Task<List<OrderVM>> GetAllOrders();
+        Task<List<OrderVM>> GetAll();
     }
 }

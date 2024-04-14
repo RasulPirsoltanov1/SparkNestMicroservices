@@ -19,11 +19,13 @@ namespace SparkNest.Services.OrderAPI.Application.Features.Orders.Commands.Creat
         public async Task<Response<CreatedOrderDTO>> Handle(CreateOrderCommand request, CancellationToken cancellationToken)
         {
 
-            Order order = new Order(request.BuyerId, new Address(request.Address.Province, request.Address.Street, request.Address.District, request.Address.Line, request.Address.ZipCode));
+            Order order = new Order(request.BuyerId,request.UserName,request.Email, new Address(request.Address.Province, request.Address.Street, request.Address.District, request.Address.Line, request.Address.ZipCode));
             request.OrderItems.ForEach(x =>
             {
                 order.AddOrderItem(x.ProductId, x.ProductName, x.ProductUrl, x.Price, x.Quantity);
             });
+            order.UserName = request.UserName;
+            order.Email = request.Email;
             await _dbContext.Orders.AddAsync(order);
             await _dbContext.SaveChangesAsync();
 

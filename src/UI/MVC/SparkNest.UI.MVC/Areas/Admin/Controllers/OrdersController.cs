@@ -20,7 +20,7 @@ namespace SparkNest.UI.MVC.Areas.Admin.Controllers
 
         public async Task<IActionResult> Index()
         {
-            List<OrderVM> orders = await _orderService.GetAllOrders();
+            List<OrderVM> orders = await _orderService.GetAll();
             return View(orders);
         }
         [HttpPost]
