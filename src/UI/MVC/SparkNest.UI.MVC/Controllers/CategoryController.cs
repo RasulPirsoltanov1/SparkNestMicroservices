@@ -14,7 +14,7 @@ namespace SparkNest.UI.MVC.Controllers
 
         public async Task<IActionResult> GetProductsByCategory(string Id)
         {
-            var products = (await _productService.GetAllProductsAsync()).Where(x => x.CategoryId == Id).ToList();
+            var products = (await _productService.GetAllProductsAsync()).Where(x => x.CategoryId == Id||x.Category?.SubCategoryId==Id).ToList();
             return View(products);
         }
     }
