@@ -23,7 +23,7 @@ namespace SparkNest.Services.MailServiceAPI.Services
                 mySmtpClient.Credentials = basicAuthenticationInfo;
 
                 // add from, to mail addresses
-                MailAddress from = new MailAddress("rrtt28440@gmail.com", "LogService");
+                MailAddress from = new MailAddress("rrtt28440@gmail.com", "SparkNest E-Commerce");
                 MailAddress _to = new MailAddress(to);
                 MailMessage myMail = new MailMessage(from, _to);
 
@@ -394,7 +394,7 @@ namespace SparkNest.Services.MailServiceAPI.Services
               <!-- START MAIN CONTENT AREA -->
               <tr>
                 <td class=""wrapper"">
-                  <p>SerilogExample Mail Service</p>
+                  <p>SparkNest Mail Service</p>
                   <p>{body}</p>
                   <table role=""presentation"" border=""0"" cellpadding=""0"" cellspacing=""0"" class=""btn btn-primary"">
                     <tbody>

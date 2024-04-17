@@ -30,7 +30,6 @@ namespace SparkNest.Services.ProductAPI.Services
             _publishEndpoint = publishEndpoint;
         }
 
-
         public async Task<SparkNest.Common.DTOs.Response<List<ProductDTO>>> GetAllAsync()
         {
             var products = await _productCollection.Find(x => true).ToListAsync();
@@ -153,7 +152,7 @@ namespace SparkNest.Services.ProductAPI.Services
             // Define the pattern for finding GUID-like strings
             string pattern = @"([a-fA-F0-9]{8}(-[a-fA-F0-9]{4}){3}-[a-fA-F0-9]{12})";
 
-            // Search for the pattern in the URL
+            // Search for the pattern in the URLs
             Match match = Regex.Match(url, pattern);
 
             // If a match is found, return the GUID part

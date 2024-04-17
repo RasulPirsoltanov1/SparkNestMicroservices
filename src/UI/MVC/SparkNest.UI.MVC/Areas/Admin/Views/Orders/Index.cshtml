@@ -1,15 +1,17 @@
 ﻿@using SparkNest.UI.MVC.Models.Orders
 @model List<OrderVM>
-
+@{
+    int count = 0;
+}
 <div class="container mt-5">
     <h2>Order List</h2>
     <table class="table">
         <thead class="thead-light">
             <tr>
-                <th scope="col">Order ID</th>
-                <th scope="col">Buyer Name</th>
+                <th scope="col">#</th>
+                <th scope="col">Customer Name</th>
                 <th scope="col">Email</th>
-                <th scope="col">Created Date</th>
+                <th scope="col">Order Date</th>
                 <th scope="col">Set Status</th>
                 <th scope="col">Order Items</th>
             </tr>
@@ -17,13 +19,14 @@
         <tbody>
             @foreach (var order in Model)
             {
+                count++;
                 <tr>
                     <td>@order.Id</td>
                     <td>@order.UserName</td>
                     <td>@order.Email</td>
                     <td>@order.CreatedDate.ToString("yyyy-MM-dd")</td>
                     <td>
-                        <select class="status-select" data-buyer-id="@order.BuyerId">
+                        <select class="form-select status-select" data-buyer-id="@order.BuyerId">
                             <option value="0" selected="@(order.Status == 0 ? true : false)">Checking</option>
                             <option value="1" selected="@(order.Status == 1 ? true : false)">Ready to ship</option>
                             <option value="2" selected="@(order.Status == 2 ? true : false)">Successful Shipped</option>
