@@ -84,6 +84,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "FakePayment", "FakePayment"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SparkNest.Services.FakePaymentAPI", "src\Services\FakePayment\SparkNest.Services.FakePaymentAPI\SparkNest.Services.FakePaymentAPI.csproj", "{57335D6D-1279-4920-BA16-BEBEC038276A}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SparkNest.Services.ProductAPI.Application", "src\Services\Product\SparkNest.Services.ProductAPI.Application\SparkNest.Services.ProductAPI.Application.csproj", "{8436FBC3-C4AE-4C8E-AEA2-EA1BC309233A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -178,6 +180,10 @@ Global
 		{57335D6D-1279-4920-BA16-BEBEC038276A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{57335D6D-1279-4920-BA16-BEBEC038276A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{57335D6D-1279-4920-BA16-BEBEC038276A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8436FBC3-C4AE-4C8E-AEA2-EA1BC309233A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8436FBC3-C4AE-4C8E-AEA2-EA1BC309233A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8436FBC3-C4AE-4C8E-AEA2-EA1BC309233A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8436FBC3-C4AE-4C8E-AEA2-EA1BC309233A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -220,6 +226,7 @@ Global
 		{3EF91238-499E-4217-AC72-41927AED6699} = {8AF25361-B569-49C7-86E4-69DDF165E26C}
 		{0340AEB1-DA4C-4440-99D1-9597D2C8CB29} = {81349D8E-1C64-4BF0-A192-76AA7EEE3D2A}
 		{57335D6D-1279-4920-BA16-BEBEC038276A} = {0340AEB1-DA4C-4440-99D1-9597D2C8CB29}
+		{8436FBC3-C4AE-4C8E-AEA2-EA1BC309233A} = {28991EA0-2D24-46E8-8D3D-029C266EC638}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {38840450-182B-4FB2-A535-57FC89B94029}

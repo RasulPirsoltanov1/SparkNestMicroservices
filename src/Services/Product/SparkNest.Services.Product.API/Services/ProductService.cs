@@ -165,5 +165,40 @@ namespace SparkNest.Services.ProductAPI.Services
             return "";
         }
 
+        public async Task<Common.DTOs.Response<NoContent>> RateProductAsync(ProductRateDTO productRateDTO)
+        {
+            var dbProduct = await _productCollection.Find(x => x.Id == productRateDTO.ProductId).FirstOrDefaultAsync();
+            if (dbProduct != null)
+            {
+                if (dbProduct.RatedUsers.FirstOrDefault(x => x == productRateDTO.UserId) is not null)
+                {
+                    return SparkNest.Common.DTOs.Response<NoContent>.Success(200);
+                }
+                if (dbProduct.Rating == null)
+                {
+                    dbProduct.Rating = productRateDTO.Rating;
+                }
+                else
+                {
+                    dbProduct.Rating += productRateDTO.Rating;
+                }
+                if (dbProduct.RateCount == null)
+                {
+                    dbProduct.RateCount = 1;
+                }
+                else
+                {
+                    dbProduct.RateCount += 1;
+                }
+                dbProduct.RatedUsers.Add(productRateDTO.UserId);
+                var result = await _productCollection.FindOneAndReplaceAsync(x => x.Id == dbProduct.Id, dbProduct);
+                return SparkNest.Common.DTOs.Response<NoContent>.Success(202);
+            }
+            else
+            {
+                // Handle the case when dbProduct or dbProduct.PhotoUrls is null
+                return SparkNest.Common.DTOs.Response<NoContent>.Fail("Not found", 404);
+            }
+        }
     }
 }

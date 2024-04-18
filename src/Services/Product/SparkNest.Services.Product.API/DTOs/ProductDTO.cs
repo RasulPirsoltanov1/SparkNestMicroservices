@@ -19,7 +19,7 @@
         {
             get
             {
-                if (RateCount > 0)
+                if (RateCount != null && Rating > 0)
                     return Rating / RateCount;
                 return 0;
             }

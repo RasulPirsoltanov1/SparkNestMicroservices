@@ -13,5 +13,6 @@ namespace SparkNest.Services.ProductAPI.Services
         Task<Response<List<ProductDTO>>> GetAllByUserIdAsync(string UserId);
         Task<Response<ProductDTO>> GetByIdAsync(string Id);
         Task<Response<NoContent>> UpdateAsync(ProductUpdateDTO productUpdateDTO);
+        Task<Response<NoContent>> RateProductAsync(ProductRateDTO productRateDTO);
     }
 }

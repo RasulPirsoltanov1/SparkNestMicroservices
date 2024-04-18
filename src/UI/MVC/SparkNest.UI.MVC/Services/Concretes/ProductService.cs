@@ -1,4 +1,5 @@
 ﻿using SparkNest.Common.DTOs;
+using SparkNest.UI.MVC.Application.DTOs.Produtcs;
 using SparkNest.UI.MVC.Controllers;
 using SparkNest.UI.MVC.Helpers;
 using SparkNest.UI.MVC.Models;
@@ -38,7 +39,7 @@ namespace SparkNest.UI.MVC.Services.Concretes
             var successResponse = await response.Content.ReadFromJsonAsync<Response<List<ProductVM>>>();
             var data = successResponse.Data.Select(x => new ProductVM
             {
-                Category = x.Category?? new CategoryVM(),
+                Category = x.Category ?? new CategoryVM(),
                 Id = x.Id,
                 Name = x.Name,
                 CategoryId = x.CategoryId,
@@ -49,8 +50,11 @@ namespace SparkNest.UI.MVC.Services.Concretes
                 PhotoFileStockUrl = _fileStockHelper.GetFileStockUrl(x.PhotoUrl),
                 Price = x.Price,
                 UserId = x.UserId,
-                PriceDiscount=x.PriceDiscount,
-                DiscountPercentage=x.DiscountPercentage,
+                PriceDiscount = x.PriceDiscount,
+                DiscountPercentage = x.DiscountPercentage,
+                RateCount = x.RateCount,
+                Rating = x.Rating,
+                RatingCommon=x.RatingCommon== 0 || x.RatingCommon ==null?5:x.RatingCommon
             }).ToList();
             return data;
         }
@@ -96,7 +100,10 @@ namespace SparkNest.UI.MVC.Services.Concretes
                 PhotoUrl = x.PhotoUrl,
                 PhotoFileStockUrl = _fileStockHelper.GetFileStockUrl(x.PhotoUrl),
                 Price = x.Price,
-                UserId = x.UserId
+                UserId = x.UserId,
+                RateCount = x.RateCount,
+                Rating = x.Rating
+
             }).ToList();
             foreach (var item in data)
             {
@@ -263,6 +270,18 @@ namespace SparkNest.UI.MVC.Services.Concretes
                 categoryVM.SubCategoryId,
                 categoryVM.PhotoUrl
             ));
+            return response.IsSuccessStatusCode;
+        }
+
+
+        public async Task<bool> RateAsync(ProductRateDTO productRateDTO)
+        {
+            var response = await _httpClient.PostAsJsonAsync($"rating", new ProductRateDTO
+            {
+                ProductId = productRateDTO.ProductId,
+                Rating = productRateDTO.Rating,
+                UserId=productRateDTO.UserId
+            });
             return response.IsSuccessStatusCode;
         }
 

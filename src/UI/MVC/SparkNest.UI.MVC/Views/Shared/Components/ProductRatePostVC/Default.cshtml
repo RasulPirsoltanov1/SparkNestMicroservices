@@ -1,0 +1,21 @@
+﻿@using SparkNest.UI.MVC.Application.DTOs.Produtcs
+@model ProductRateDTO
+<form method="post" asp-action="RateProduct" asp-controller="Rating">
+    @* <label for="userRating" class="col-sm-3 col-form-label"> </label> *@
+    <input hidden value="@ViewBag.ProductId" asp-for="ProductId" />
+    <input hidden value="@User?.Identity?.Name" asp-for="UserId" />
+    <br></br>
+    <select class="form-control" asp-for="Rating">
+        <option selected disabled>Rate this product:</option>
+        <option value="1">1 star ⭐</option>
+        <option value="2">2 star ⭐</option>
+        <option value="3">3 star ⭐</option>
+        <option value="4">4 star ⭐</option>
+        <option value="5">5 star ⭐</option>
+    </select>
+    <div class="form-group row mt-2">
+        <div class="offset-sm-3 col-sm-9">
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </div>
+    </div>
+</form>

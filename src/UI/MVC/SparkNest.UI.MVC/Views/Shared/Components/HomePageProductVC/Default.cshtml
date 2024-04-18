@@ -35,10 +35,11 @@
                                 <a href="product-grids.html">@product.Name</a>
                             </h4>
                             <ul class="review">
-                                <li><i class="lni lni-star-filled"></i></li>
-                                <li><i class="lni lni-star-filled"></i></li>
-                                <li><i class="lni lni-star"></i></li>
-                                <li><span>4.0 Review(s)</span></li>
+                                @for (var i = 0; i < product.RatingCommon; i++)
+                                {
+                                    <lki><i class="lni lni-star-filled" style="color:yellow;"></i></lki>
+                                }
+                                <li><span>@product.RateCount Review(s) </span></li>
                             </ul>
                             <div class="price">
                                 <span>$@(product.PriceDiscount == null ? product.Price : product.PriceDiscount)</span>

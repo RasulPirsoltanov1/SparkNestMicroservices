@@ -2,7 +2,7 @@
 @model List<CommentVM>
 
 <div class="row">
-    <div class=" col-6">
+    <div class=" col-5">
         <div class="single-block give-review">
             <!-- Assuming you want to include reviews -->
             <h4>Reviews</h4>
@@ -33,7 +33,7 @@
             </div>
         </div>
     </div>
-    <div class="col-6">
+    <div class="col-5">
         <div class="row justify-content-center">
             <div class="">
                 @if (User.Identity.IsAuthenticated)
@@ -48,6 +48,14 @@
                     <div class="alert alert-danger">If you want to leave a comment, please sign in.</div>
                 }
             </div>
+        </div>
+    </div>
+    <div class="col-2">
+        <div class="row justify-content-center">
+            @await Component.InvokeAsync("ProductRatePostVC", new
+                {
+                    ProductId = ViewBag.PId
+                })
         </div>
     </div>
 </div>

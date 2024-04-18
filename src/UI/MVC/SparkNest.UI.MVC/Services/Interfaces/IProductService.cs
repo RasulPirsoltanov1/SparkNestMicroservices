@@ -1,4 +1,5 @@
-﻿using SparkNest.UI.MVC.Controllers;
+﻿using SparkNest.UI.MVC.Application.DTOs.Produtcs;
+using SparkNest.UI.MVC.Controllers;
 using SparkNest.UI.MVC.Models.Gallery;
 using SparkNest.UI.MVC.Models.Product;
 
@@ -18,5 +19,6 @@ namespace SparkNest.UI.MVC.Services.Interfaces
         Task<bool> CreateCategoryAsync(CategoryVM categoryVM);
         Task<bool> DeleteCategoryAsync(string categoryId);
         Task<bool> UpdateCategoryAsync(CategoryVM categoryVM);
+        Task<bool> RateAsync(ProductRateDTO productRateDTO);
     }
 }

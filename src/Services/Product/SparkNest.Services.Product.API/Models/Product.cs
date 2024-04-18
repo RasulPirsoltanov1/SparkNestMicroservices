@@ -10,12 +10,12 @@ namespace SparkNest.Services.ProductAPI.Models
         public string Id { get; set; }
         public string Name { get; set; }
         [BsonRepresentation(BsonType.Decimal128)]
-        public decimal Price{ get; set; }
-        public string UserId{ get; set; }
+        public decimal Price { get; set; }
+        public string UserId { get; set; }
         public string PhotoUrl { get; set; }
         [BsonRepresentation(BsonType.DateTime)]
-        public DateTime CreatedDate{ get; set; }
-        public Feature Feature{ get; set; }
+        public DateTime CreatedDate { get; set; }
+        public Feature Feature { get; set; }
         [BsonRepresentation(BsonType.ObjectId)]
         public string CategoryId { get; set; }
         [BsonIgnore]
@@ -24,8 +24,9 @@ namespace SparkNest.Services.ProductAPI.Models
         public List<string>? PhotoUrls { get; set; } = new List<string>();
         public double? Rating { get; set; }
         public double? RateCount { get; set; }
+        public List<string> RatedUsers { get; set; } = new List<string>();
         public int Views { get; set; }
-        public double? DiscountPercentage{ get; set; }
-        public double? PriceDiscount{ get; set; }
+        public double? DiscountPercentage { get; set; }
+        public double? PriceDiscount { get; set; }
     }
 }
