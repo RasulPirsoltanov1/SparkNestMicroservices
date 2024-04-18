@@ -48,7 +48,9 @@ namespace SparkNest.UI.MVC.Services.Concretes
                 PhotoUrl = x.PhotoUrl,
                 PhotoFileStockUrl = _fileStockHelper.GetFileStockUrl(x.PhotoUrl),
                 Price = x.Price,
-                UserId = x.UserId
+                UserId = x.UserId,
+                PriceDiscount=x.PriceDiscount,
+                DiscountPercentage=x.DiscountPercentage,
             }).ToList();
             return data;
         }

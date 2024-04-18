@@ -18,7 +18,7 @@
         <div class="row">
 
 
-            @foreach(var product in Model)
+            @foreach (var product in Model)
             {
                 <div class="col-lg-3 col-md-6 col-12">
                     <!-- Start Single Product -->
@@ -41,7 +41,11 @@
                                 <li><span>4.0 Review(s)</span></li>
                             </ul>
                             <div class="price">
-                                <span>$@product.Price</span>
+                                <span>$@(product.PriceDiscount == null ? product.Price : product.PriceDiscount)</span>
+                                @if (product.PriceDiscount is not null)
+                                {
+                                    <span class="discount-price">$@product.Price</span>
+                                }
                             </div>
                         </div>
                     </div>

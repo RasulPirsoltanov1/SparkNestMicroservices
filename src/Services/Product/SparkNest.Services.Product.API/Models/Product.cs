@@ -25,5 +25,7 @@ namespace SparkNest.Services.ProductAPI.Models
         public double? Rating { get; set; }
         public double? RateCount { get; set; }
         public int Views { get; set; }
+        public double? DiscountPercentage{ get; set; }
+        public double? PriceDiscount{ get; set; }
     }
 }

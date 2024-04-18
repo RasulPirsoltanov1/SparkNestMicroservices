@@ -22,5 +22,7 @@
                 return Description.Length > 100 ? Description.Substring(0, 100) : Description;
             }
         }
+        public double? DiscountPercentage { get; set; }
+        public double? PriceDiscount { get; set; }
     }
 }

@@ -33,8 +33,15 @@
                     <div class="product-info">
                         <h2 class="title">@Model.Name</h2>
                         <p class="category"><i class="lni lni-tag"></i> Category: <a href="javascript:void(0)">@Model.Category.Name</a></p>
-                        <h3 class="price">@Model.Price TL</h3>
-                        <p class="info-text">@Model.ShortDescription</p>
+                        <h3 class="price">
+                            $@(Model.PriceDiscount == null ? Model.Price : Model.PriceDiscount)
+                            @if (Model.PriceDiscount is not null)
+                            {
+                                <span>$@Model.Price</span>
+                            }
+                        </h3>
+
+                        <p class="info-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit id, tellus ad libero.Lorem ipsum dolor sit amet, consectetur adipiscing elit id, tellus ad libero.</p>
                         <div class="row">
                             <div class="col-8">
                                 <div class="info-body">
@@ -54,7 +61,7 @@
                                     <label for="quantity">Quantity</label>
                                     <form id="addToCartForm" asp-controller="Basket" asp-action="AddBasketItem" method="get">
                                         <input type="hidden" name="productId" value="@Model.Id" />
-                                        <input class="form-control" type="number" id="quantity" name="quantity" />
+                                        <input class="form-control" type="number" id="quantity" value="1" name="quantity" />
                                         <button type="submit" class="btn btn-primary float-end mt-2" style="width: 100%;">Add to Cart</button>
                                     </form>
                                 </div>
@@ -68,12 +75,12 @@
                     <div class="row">
                         <div class="col-12">
                             <div class="info-body custom-responsive-margin">
-                                <h4>Details</h4>
-                                <p>@Model.Description</p>
+                                <h3><b>Details</b></h3>
+                                <p>@Html.Raw(Model.Description)</p>
                                 <!-- You can add more details here if needed -->
                             </div>
                         </div>
-                       
+
                     </div>
                 </div>
                 @await Component.InvokeAsync("ProductCommentsVC", new

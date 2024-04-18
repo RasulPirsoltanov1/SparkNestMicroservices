@@ -59,7 +59,9 @@ namespace SparkNest.UI.MVC.Areas.Admin.Controllers
                 Price = product.Price,
                 UserId = product.UserId,
                 PhotoFileStockUrls = product.PhotoFileStockUrls,
-            });
+                PriceDiscount = product.PriceDiscount,
+                DiscountPercentage = product.DiscountPercentage
+            }) ;
         }
         [HttpPost]
         public async Task<IActionResult> Update(ProductUpdateVM productUpdateVM)

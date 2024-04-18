@@ -22,6 +22,8 @@ namespace SparkNest.UI.MVC.Models.Product
         public FeatureVM Feature { get; set; }
         [Required]
         public string CategoryId { get; set; }
+        public double? DiscountPercentage { get; set; }
+        public double? PriceDiscount { get; set; }
 
     }
 }

@@ -33,6 +33,10 @@ namespace SparkNest.UI.MVC.Controllers
         {
             try
             {
+                if (key == null)
+                {
+                    return Ok(new List<ProductVM>());
+                }
                 ViewBag.Key = key;
                 List<ProductVM>? products = (await _productService.GetAllProductsAsync()).Where(x => x.Name.ToLower().Contains(key.ToLower())).ToList();
                 return Ok(products);

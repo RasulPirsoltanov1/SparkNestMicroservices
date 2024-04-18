@@ -25,5 +25,7 @@
             }
         }
         public int Views { get; set; }
+        public double? DiscountPercentage { get; set; }
+        public double? PriceDiscount { get; set; }
     }
 }
