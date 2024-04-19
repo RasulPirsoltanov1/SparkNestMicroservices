@@ -54,7 +54,8 @@ namespace SparkNest.UI.MVC.Services.Concretes
                 DiscountPercentage = x.DiscountPercentage,
                 RateCount = x.RateCount,
                 Rating = x.Rating,
-                RatingCommon=x.RatingCommon== 0 || x.RatingCommon ==null?5:x.RatingCommon
+                RatingCommon=x.RatingCommon== 0 || x.RatingCommon ==null?5:x.RatingCommon,
+                Views=x.Views
             }).ToList();
             return data;
         }
@@ -102,7 +103,8 @@ namespace SparkNest.UI.MVC.Services.Concretes
                 Price = x.Price,
                 UserId = x.UserId,
                 RateCount = x.RateCount,
-                Rating = x.Rating
+                Rating = x.Rating,
+                Views = x.Views
 
             }).ToList();
             foreach (var item in data)

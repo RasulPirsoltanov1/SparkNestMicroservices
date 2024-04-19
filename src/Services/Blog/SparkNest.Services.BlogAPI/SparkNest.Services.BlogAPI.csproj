@@ -1,0 +1,21 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+	<PropertyGroup>
+		<TargetFramework>net8.0</TargetFramework>
+		<Nullable>enable</Nullable>
+		<ImplicitUsings>enable</ImplicitUsings>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<PackageReference Include="Swashbuckle.AspNetCore" Version="6.4.0" />
+		<PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="12.0.0" />
+		<PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="8.0.2" />
+		<PackageReference Include="MongoDB.Driver" Version="2.24.0" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <ProjectReference Include="..\SparkNest.Services.BlogAPI.Application\SparkNest.Services.BlogAPI.Application.csproj" />
+	  <ProjectReference Include="..\SparkNest.Services.BlogAPI.Infrastructure\SparkNest.Services.BlogAPI.Infrastructure.csproj" />
+	</ItemGroup>
+
+</Project>

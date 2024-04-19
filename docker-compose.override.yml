@@ -78,3 +78,11 @@ services:
     environment:
       - ACCEPT_EULA=Y
       - SA_PASSWORD=Rasul123.
+
+  blogdb:
+    container_name: blogdb
+    restart: always
+    ports:
+      - "27019:27017"
+    volumes:
+      - blogdb_volume:/data/db/

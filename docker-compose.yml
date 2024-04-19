@@ -16,6 +16,8 @@ services:
     image: rabbitmq:3-management
   messagedb:
     image: mcr.microsoft.com/mssql/server:2022-latest
+  blogdb:
+    image: mongo:latest
 
 volumes:
   productdb_volume:
@@ -24,3 +26,4 @@ volumes:
   orderdb_volume:
   commentdb_volume:
   messagedb_volume:
+  blogdb_volume:

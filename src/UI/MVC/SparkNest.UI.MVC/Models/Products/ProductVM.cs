@@ -27,6 +27,8 @@
         public double? Rating { get; set; }
         public double? RateCount { get; set; }
         public double? RatingCommon { get; set; }
+        public int Views { get; set; } = 0;
+
 
     }
 }
