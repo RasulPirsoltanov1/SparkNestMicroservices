@@ -19,7 +19,7 @@ namespace SparkNest.UI.MVC.Controllers
             try
             {
                 ViewBag.Key = key;
-                var products = (await _productService.GetAllProductsAsync()).Where(x => x.Name.ToLower().Contains(key.ToLower()) || x.Description.Contains(key) || x.Feature.Color.Contains(key)).ToList();
+                var products = (await _productService.GetAllProductsAsync()).Where(x => x.Name.ToLower().Contains(key.ToLower()) || x.Description.Contains(key) || x.Feature.Color.Contains(key)).Take(5).ToList();
                 return View(products);
             }
             catch (Exception ex)

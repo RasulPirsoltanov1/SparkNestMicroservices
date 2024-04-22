@@ -1,7 +1,11 @@
 ﻿@using SparkNest.UI.MVC.Models.Product
 
 @model List<CategoryVM>
-
+@{
+    var currentController = ViewContext.RouteData.Values["controller"]?.ToString()?.ToLower();
+    var currentArea = ViewContext.RouteData.Values["area"]?.ToString()?.ToLower();
+    var currentAction = ViewContext.RouteData.Values["action"]?.ToString()?.ToLower();
+}
 <div class="container">
     <div class="row align-items-center">
         <div class="col-lg-8 col-md-6 col-12">
@@ -76,13 +80,13 @@
                     <div class="collapse navbar-collapse sub-menu-bar row justify-content-center" id="navbarSupportedContent">
                         <ul id="nav" class="navbar-nav ms-auto">
                             <li class="nav-item">
-                                <a asp-area="" asp-controller="HomePage" asp-action="Index" class="active" aria-label="Toggle navigation">Home</a>
+                                <a asp-area="" asp-controller="HomePage" asp-action="Index" class="@((currentController.ToLower() == "homepage" && currentAction.ToLower() == "index") ? "active" : "")" aria-label="Toggle navigation">Home</a>
                             </li>
                             <li class="nav-item">
-                                <a asp-area="" asp-controller="HomePage" asp-action="HelpCenter" class="" aria-label="Toggle navigation">Help Center</a>
+                                <a asp-area="" asp-controller="HomePage" asp-action="HelpCenter" class="@((currentController.ToLower() == "homepage" && currentAction.ToLower() == "helpcenter") ? "active" : "")" aria-label="Toggle navigation">Help Center</a>
                             </li>
                             <li class="nav-item">
-                                <a asp-area="" asp-controller="ProductsFilter" asp-action="Index" class="" aria-label="Toggle navigation">Products</a>
+                                <a asp-area="" asp-controller="ProductsFilter" asp-action="Index" class="@((currentController.ToLower() == "productsfilter" && currentAction.ToLower() == "index") ? "active" : "")" aria-label="Toggle navigation">Products</a>
                             </li>
                         </ul>
                     </div> <!-- navbar collapse -->
