@@ -23,7 +23,7 @@
                     <div class="single-category">
                         <h3 class="heading">@category.Name</h3>
                         <ul>
-                            <li><a href="product-grids.html" style="width:100px">@category.Description</a></li>
+                            <li><a asp-action="GetProductsByCategory" asp-controller="Category" asp-route-Id="@category.Id" style="width:100px">@category.Description</a></li>
                         </ul>
                         <div class="images">
                             <img src="@category.PhotoUrl" alt="#">

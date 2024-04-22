@@ -17,6 +17,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Features\BlogCategory\Queries\" />
     <Folder Include="Features\Comments\" />
   </ItemGroup>
 

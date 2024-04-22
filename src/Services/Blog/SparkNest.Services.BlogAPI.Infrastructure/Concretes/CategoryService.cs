@@ -47,7 +47,8 @@ namespace SparkNest.Services.BlogAPI.Infrastructure.Concretes
         {
             try
             {
-                await _categories.FindOneAndDeleteAsync(categoryId);
+                var deleteFilter = Builders<Category>.Filter.Eq(x => x.Id, categoryId);
+                await _categories.DeleteOneAsync(deleteFilter);
                 return Response<bool>.Success(true, 200);
             }
             catch (Exception ex)

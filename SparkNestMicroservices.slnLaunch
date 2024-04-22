@@ -48,12 +48,17 @@
         "DebugTarget": ""
       },
       {
-        "Name": "src\\UI\\MVC\\SparkNest.UI.MVC\\SparkNest.UI.MVC.csproj",
+        "Name": "src\\Services\\Blog\\SparkNest.Services.BlogAPI\\SparkNest.Services.BlogAPI.csproj",
         "Action": "Start",
         "DebugTarget": ""
       },
       {
         "Name": "src\\Services\\MailService\\SparkNest.Services.MailServiceAPI\\SparkNest.Services.MailServiceAPI.csproj",
+        "Action": "Start",
+        "DebugTarget": ""
+      },
+      {
+        "Name": "src\\UI\\MVC\\SparkNest.UI.MVC\\SparkNest.UI.MVC.csproj",
         "Action": "Start",
         "DebugTarget": ""
       }

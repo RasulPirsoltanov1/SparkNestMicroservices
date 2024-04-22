@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using SparkNest.Common.ControllerBases;
 using SparkNest.Services.BlogAPI.Application.Features.Categorys.Commands.Create;
+using SparkNest.Services.BlogAPI.Application.Features.Categorys.Commands.Delete;
 using SparkNest.Services.BlogAPI.Application.Features.Categorys.Queries.GetAll;
 
 namespace SparkNest.Services.BlogAPI.Controllers
@@ -31,5 +32,14 @@ namespace SparkNest.Services.BlogAPI.Controllers
             return CreateActionResultInstance(result);
         }
 
+        [HttpDelete("{categoryId}")]
+        public async Task<IActionResult> Delete(string categoryId)
+        {
+            var result = await _mediator.Send(new CategoryDeleteCommandRequest
+            {
+                CategoryId = categoryId
+            });
+            return CreateActionResultInstance(result);
+        }
     }
 }

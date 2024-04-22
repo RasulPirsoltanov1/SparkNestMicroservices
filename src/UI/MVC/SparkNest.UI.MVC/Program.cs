@@ -14,6 +14,7 @@ using SparkNest.UI.MVC.Validators;
 using SparkNest.UI.MVC.Application.Features.Messages.Queries.GetAllMessages;
 using SparkNest.UI.MVC.Application.Abstractions;
 using SparkNest.UI.MVC.Infrastructure.Concretes;
+using SparkNest.UI.MVC.Application.Concretes;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -52,6 +53,7 @@ builder.Services.AddScoped<IPaymentService, PaymentService>();
 
 
 builder.Services.AddScoped<ICommentService, CommentService>();
+builder.Services.AddScoped<IBlogService, BlogService>();
 
 
 //MVC infrastructure Layer Registration
@@ -68,6 +70,7 @@ builder.Services.AddAuthentication().AddCookie(CookieAuthenticationDefaults.Auth
     opt.ExpireTimeSpan = TimeSpan.FromDays(1);
     opt.SlidingExpiration = true;
     opt.Cookie.Name = "SparkNest";
+
 });
 
 //Helpers 

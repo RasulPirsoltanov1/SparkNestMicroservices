@@ -33,24 +33,24 @@ namespace SparkNest.UI.MVC.Controllers
             await _basketService.RemoveBasketItem(productId);
             return RedirectToAction(nameof(Index));
         }
-        public async Task<IActionResult> ApplyDiscount(DiscountApplyVM discountApplyVM) 
-        {
-          var discountStatus=  await _basketService.ApplyDicount(discountApplyVM.Code);
-            TempData["discountStatus"] = discountStatus;
-            return RedirectToAction(nameof(Index));
-         }
-        public async Task<IActionResult> CancellApplyDiscount()
-        {
-            var discountStatus = await _basketService.CancelApplyDicount();
-            TempData["discountStatus"] = discountStatus;
-            return RedirectToAction(nameof(Index));
-        }
-        public async Task<IActionResult> Test(TestBasket testBasket)
-        {
-            testBasket.Id = 12;
-            await _basketService.TestSend(testBasket);
-            return Ok();
-        }
+        //public async Task<IActionResult> ApplyDiscount(DiscountApplyVM discountApplyVM) 
+        //{
+        //  var discountStatus=  await _basketService.ApplyDicount(discountApplyVM.Code);
+        //    TempData["discountStatus"] = discountStatus;
+        //    return RedirectToAction(nameof(Index));
+        // }
+        //public async Task<IActionResult> CancellApplyDiscount()
+        //{
+        //    var discountStatus = await _basketService.CancelApplyDicount();
+        //    TempData["discountStatus"] = discountStatus;
+        //    return RedirectToAction(nameof(Index));
+        //}
+        //public async Task<IActionResult> Test(TestBasket testBasket)
+        //{
+        //    testBasket.Id = 12;
+        //    await _basketService.TestSend(testBasket);
+        //    return Ok();
+        //}
 
     }
 }

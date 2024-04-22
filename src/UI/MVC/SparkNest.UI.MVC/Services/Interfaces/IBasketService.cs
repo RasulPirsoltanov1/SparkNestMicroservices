@@ -10,8 +10,8 @@ namespace SparkNest.UI.MVC.Services.Interfaces
         Task<bool> Delete();
         Task AddBasketItem(BasketItemVM basketItemVM);    
         Task<bool> RemoveBasketItem(string productId);
-        Task<bool> ApplyDicount(string discountCode);
-        Task<bool> CancelApplyDicount();
+        //Task<bool> ApplyDicount(string discountCode);
+        //Task<bool> CancelApplyDicount();
         Task<bool> TestSend(TestBasket testBasket);
     }
 }

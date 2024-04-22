@@ -57,10 +57,10 @@
                             </div>
                         }
 
-                        <div class="input-group mb-3">
+                     @*    <div class="input-group mb-3">
                             <input type="text" class="form-control" name="DiscountApplyVM.Code">
                             <button class="btn btn-outline-secondary" type="submit">Apply</button>
-                        </div>
+                        </div> *@
 
                         @if (TempData["discountStatus"] != null && (bool)TempData["discountStatus"] == false)
                         {
@@ -71,8 +71,8 @@
                             <div class="text-danger">@TempData["discountError"]</div>
                         }
                     </form>
-                    <a class="btn btn-success" asp-controller="Order" asp-action="Checkout">Payment Information</a>
-                    <a class="btn btn-warning" asp-controller="Home" asp-action="Index">Continue Shopping</a>
+                    <a class="btn btn-success" asp-controller="Order" asp-action="Checkout">Go to Checkout</a>
+                    <a class="btn btn-warning" asp-controller="HomePage" asp-action="Index">Continue Shopping</a>
                 }
                 else
                 {

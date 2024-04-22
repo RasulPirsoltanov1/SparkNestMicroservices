@@ -15,7 +15,7 @@ namespace SparkNest.Services.BlogAPI.Application.Interfaces
         Task<Response<bool>> DeleteAsync(string blogId);
         Task<Response<bool>> DeletePhotoAsync(string blogId, string photoUrl);
         Task<Response<List<BlogDTO>>> GetAllAsync();
-        Task<Response<BlogUpdateDTO>> GetByIdAsync(string blogId);
+        Task<Response<BlogDTO>> GetByIdAsync(string blogId);
         Task<Response<NoContent>> UpdateAsync(BlogUpdateDTO blogUpdateDTO);
     }
 }

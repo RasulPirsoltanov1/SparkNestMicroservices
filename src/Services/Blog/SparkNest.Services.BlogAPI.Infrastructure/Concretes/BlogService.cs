@@ -68,7 +68,7 @@ namespace SparkNest.Services.BlogAPI.Infrastructure.Concretes
                     Title = blog.Title,
                     Content = blog.Content,
                     CategoryId = blog.CategoryId,
-                    CreateDate = DateTime.Now,
+                    CreateDate = blog.CreateDate,
                     PhotoUrl = blog.PhotoUrl,
                     Views = blog.Views,
                     UpdateDate = blog.UpdateDate
@@ -85,7 +85,7 @@ namespace SparkNest.Services.BlogAPI.Infrastructure.Concretes
             }
         }
 
-        public async Task<Response<BlogUpdateDTO>> GetByIdAsync(string blogId)
+        public async Task<Response<BlogDTO>> GetByIdAsync(string blogId)
         {
             try
             {
@@ -93,9 +93,16 @@ namespace SparkNest.Services.BlogAPI.Infrastructure.Concretes
                 var blog = await _blogCollection.Find(filter).FirstOrDefaultAsync();
 
                 if (blog == null)
-                    return Response<BlogUpdateDTO>.Fail("Blog not found", 404);
-
-                var blogUpdateDTO = new BlogUpdateDTO
+                    return Response<BlogDTO>.Fail("Blog not found", 404);
+                if (blog.Views is null)
+                {
+                    blog.Views = 1;
+                }
+                else
+                {
+                    blog.Views += 1;
+                }
+                var blogUpdateDTO = new BlogDTO
                 {
 
                     Id = blog.Id,
@@ -105,15 +112,15 @@ namespace SparkNest.Services.BlogAPI.Infrastructure.Concretes
                     CategoryId = blog.CategoryId,
                     CreateDate = DateTime.Now,
                     PhotoUrl = blog.PhotoUrl,
+                    UpdateDate = blog.UpdateDate,
                     Views = blog.Views,
-                    UpdateDate = blog.UpdateDate
                 };
 
-                return Response<BlogUpdateDTO>.Success(blogUpdateDTO, 200);
+                return Response<BlogDTO>.Success(blogUpdateDTO, 200);
             }
             catch (Exception ex)
             {
-                return Response<BlogUpdateDTO>.Fail(ex.Message, 500);
+                return Response<BlogDTO>.Fail(ex.Message, 500);
             }
         }
 
@@ -134,9 +141,9 @@ namespace SparkNest.Services.BlogAPI.Infrastructure.Concretes
                 // Güncelleme DTO'sundan gelen verileri mevcut blog nesnesine aktar
                 existingBlog.Title = blogUpdateDTO.Title;
                 existingBlog.Content = blogUpdateDTO.Content;
-                existingBlog.UpdateDate= blogUpdateDTO.UpdateDate;
-                existingBlog.CategoryId=blogUpdateDTO.CategoryId;
-                existingBlog.PhotoUrl = blogUpdateDTO.PhotoUrl;
+                existingBlog.UpdateDate = blogUpdateDTO.UpdateDate;
+                existingBlog.CategoryId = blogUpdateDTO.CategoryId;
+                existingBlog.PhotoUrl = blogUpdateDTO.PhotoUrl ?? existingBlog.PhotoUrl;
                 // Diğer özellikleri de buraya ekleyin
 
                 // Blogu güncelle

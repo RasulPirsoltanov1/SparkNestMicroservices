@@ -1,0 +1,66 @@
+﻿@using SparkNest.UI.MVC.Application.DTOs.Blog
+@using SparkNest.UI.MVC.Application.Features.Blogs.Commands.Update
+@model BlogUpdateCommandRequest
+
+@{
+    ViewData["Title"] = "Update Blog";
+}
+
+<h1>Update Blog</h1>
+
+<img src="@Model.PhotoFileStockUrl" style="width:200px;" />
+<form asp-action="Update" asp-area="Admin" asp-controller="Blog" enctype="multipart/form-data" method="post">
+    <input hidden asp-for="Id" />
+    <div class="form-group">
+        <label asp-for="Title"></label>
+        <input asp-for="Title" class="form-control" />
+        <span asp-validation-for="Title" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Photo"></label>
+        <input asp-for="Photo" class="form-control" />
+        <span asp-validation-for="Photo" class="text-danger"></span>
+    </div>
+    @if (ViewBag.Categories is not null)
+    {
+        <div class="form-group">
+            <label asp-for="CategoryId" class="control-label"></label>
+            <select asp-for="CategoryId" class="form-control" asp-items="@(new SelectList((List<BlogCategoryDTO>)ViewBag.Categories, "Id", "Name"))">
+                <option value="">Select Category</option>
+            </select>
+            <span asp-validation-for="CategoryId" class="text-danger"></span>
+        </div>
+    }
+    <!-- #region Summernote description -->
+
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+    <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
+    <div class="form-group">
+        <label asp-for="Content" class="control-label"></label>
+        <textarea id="summernote" asp-for="Content"></textarea>
+        <span asp-validation-for="Content" class="text-danger"></span>
+    </div>
+
+    <script>
+        $('#summernote').summernote({
+            placeholder: 'Hello stand alone ui',
+            tabsize: 2,
+            height: 120,
+            toolbar: [
+                ['style', ['style']],
+                ['font', ['bold', 'underline', 'clear']],
+                ['color', ['color']],
+                ['para', ['ul', 'ol', 'paragraph']],
+                ['table', ['table']],
+                ['insert', ['link', 'picture', 'video']],
+                ['view', ['fullscreen', 'codeview', 'help']]
+            ]
+        });
+    </script>
+
+    <!-- #endregion -->
+
+    <button type="submit" class="btn btn-primary mt-2">Update</button>
+</form>
