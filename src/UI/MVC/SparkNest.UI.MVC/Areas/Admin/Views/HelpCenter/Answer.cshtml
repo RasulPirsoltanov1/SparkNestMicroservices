@@ -24,7 +24,7 @@
             <h3>Name: <b><i>@ViewBag.UserName</i></b></h3>
             <div class="col-12 col-md-6">
                 <label for="messageInput" class="form-label">Message</label>
-                <input type="text" class="form-control" id="messageInput" placeholder="Enter your message">
+                <input type="text" class="form-control" id="messageInput" required placeholder="Enter your message">
             </div>
             <div class="col-12 col-md-6 d-flex align-items-end justify-content-md-end">
                 <button type="button" id="sendButton" class="btn btn-primary">Send to Client</button>
@@ -70,8 +70,8 @@
             // document.getElementById("clientConnectionId").value = clientConnectionId;
             document.getElementById("messagesList").appendChild(li);
             li.innerHTML = `
-                <li class="alert alert-info float-start" role="alert">
-                <i class="bi bi-info-circle-fill"></i> ${message}
+                <li class="alert alert-primary float-start" role="alert">
+                <i class="bi bi-primary-circle-fill"></i> ${message}
             </li>`;
         }
       
@@ -97,6 +97,10 @@
     document.getElementById("sendButton").addEventListener("click", function (event) {
         debugger;
         var message = document.getElementById("messageInput").value;
+        if (message == "") {
+            alert("please fill message section!");
+            return;
+        }
         var li = document.createElement("li");
         li.innerHTML = `
 
@@ -109,7 +113,10 @@
         connection.invoke("SendToClient", "", clientConnectionIdFromAction, message).catch(function (err) {
             return console.error(err.toString());
         });
-        event.preventDefault();  //neden li add olunmuyor?
+        event.preventDefault();
+        document.getElementById("messageInput").value = "";
+
+        //neden li add olunmuyor?
     });
 
 
