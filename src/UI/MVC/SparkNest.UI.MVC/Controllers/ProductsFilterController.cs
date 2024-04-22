@@ -37,7 +37,7 @@ namespace SparkNest.UI.MVC.Controllers
                 case 3:
                     return View(products.OrderByDescending(x => x.Price).ToList());
                 case 4:
-                    return View(products.OrderBy(x => x.RatingCommon).ToList());
+                    return View(products.OrderByDescending(x => x.RatingCommon).ToList());
                 case 5:
                     return View(products.OrderBy(x => x.Name).ToList());
                 case 6:

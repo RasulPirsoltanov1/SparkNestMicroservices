@@ -31,7 +31,8 @@
                                 <a href="blog-single-sidebar.html">@blog.Title</a>
                             </h4>
                             <p>
-                                @(blog.Content.Length > 150 ? blog.Content.Substring(0, 150) : blog.Content)
+                                @* @(blog.Content.Length > 150 ? blog.Content.Substring(0, 150) : blog.Content) *@
+                                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt.
                             </p>
                             <div class="button">
                                 <a asp-action="Detail" asp-controller="Blog" asp-route-Id="@blog.Id" class="btn">Read More</a>

@@ -20,19 +20,24 @@
 
             @foreach (var product in Model)
             {
-                <div class="col-lg-3 col-md-6 col-12">
+
+                <div class="col-lg-4 col-md-6 col-12">
                     <!-- Start Single Product -->
                     <div class="single-product">
                         <div class="product-image">
                             <img src="@product.PhotoFileStockUrl" alt="#">
+                            @if (product.DiscountPercentage is not null)
+                            {
+                                <span class="sale-tag">-@product.DiscountPercentage%</span>
+                            }
                             <div class="button">
                                 <a asp-controller="Home" asp-action="Detail" class="btn btn-success" asp-route-id="@product.Id" class="btn"><i class="lni lni-cart"></i> Add to Cart</a>
                             </div>
                         </div>
                         <div class="product-info">
-                            <span class="category">@product.Category.Name</span>
+                            <span class="category">@product?.Category?.Name</span>
                             <h4 class="title">
-                                <a href="product-grids.html">@product.Name</a>
+                                <a href="product-grids.html">@product?.Name</a>
                             </h4>
                             <ul class="review">
                                 @for (var i = 0; i < product.RatingCommon; i++)

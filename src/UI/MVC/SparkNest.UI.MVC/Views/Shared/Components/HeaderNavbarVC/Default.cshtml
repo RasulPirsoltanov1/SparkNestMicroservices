@@ -88,6 +88,11 @@
                             <li class="nav-item">
                                 <a asp-area="" asp-controller="ProductsFilter" asp-action="Index" class="@((currentController.ToLower() == "productsfilter" && currentAction.ToLower() == "index") ? "active" : "")" aria-label="Toggle navigation">Products</a>
                             </li>
+
+                            <li class="nav-item">
+                                <a asp-area="" asp-controller="Blog" asp-action="Index" class="@((currentController.ToLower() == "blog" && currentAction.ToLower() == "index") ? "active" : "")" aria-label="Toggle navigation">News</a>
+                            </li>
+
                         </ul>
                     </div> <!-- navbar collapse -->
                 </nav>

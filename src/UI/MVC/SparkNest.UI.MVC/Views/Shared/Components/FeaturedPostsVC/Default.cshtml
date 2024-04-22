@@ -1,0 +1,24 @@
+﻿@using SparkNest.UI.MVC.Application.DTOs.Blog
+@model List<BlogDTO>
+
+<div class="widget popular-feeds">
+    <h5 class="widget-title">Featured Posts</h5>
+    <div class="popular-feed-loop">
+        @foreach (var blog in Model)
+        {
+            <div class="single-popular-feed">
+                <div class="feed-desc">
+                    <a class="feed-img" href="blog-single-sidebar.html">
+                        <img src="@blog.PhotoFileStockUrl" alt="#">
+                    </a>
+                    <h6 class="post-title">
+                        <a href="blog-single-sidebar.html">
+                            @blog.Title
+                        </a>
+                    </h6>
+                    <span class="time"><i class="lni lni-calendar"></i> @blog.CreateDate</span>
+                </div>
+            </div>
+        }
+    </div>
+</div>

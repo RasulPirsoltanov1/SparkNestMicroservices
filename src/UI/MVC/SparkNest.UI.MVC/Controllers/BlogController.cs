@@ -19,5 +19,13 @@ namespace SparkNest.UI.MVC.Controllers
             var blogs = await _mediator.Send(new BlogsGetAllQueryRequest());
             return View(blogs);
         }
+        public async Task<IActionResult> Detail(string Id)
+        {
+            var blog = await _mediator.Send(new BlogGetByIdQueryRequest()
+            {
+                BlogId=Id,
+            });
+            return View(blog);
+        }
     }
 }
