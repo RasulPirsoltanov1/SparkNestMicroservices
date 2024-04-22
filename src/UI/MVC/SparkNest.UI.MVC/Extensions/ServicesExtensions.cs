@@ -59,7 +59,7 @@ namespace SparkNest.UI.MVC.Extensions
             {
                 opt.BaseAddress = new Uri(serviceApiSettings.BaseUri + serviceApiSettings.CommentServicePath);
 
-            }).AddHttpMessageHandler<ResourceOwnerPasswordTokenHandler>();
+            }).AddHttpMessageHandler<ClientCredentialTokenHandler>();
 
 
             services.AddHttpClient<IBlogService,BlogService>(opt =>
