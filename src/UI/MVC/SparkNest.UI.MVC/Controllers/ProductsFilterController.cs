@@ -65,19 +65,20 @@ namespace SparkNest.UI.MVC.Controllers
                 ).ToList();
 
 
-                // Eğer kategori filtresi de varsa
-                if (CategoryIds?.Any() == true)
-                {
-                    // Seçilen kategorilere göre filtrele
-                    products = products.Where(p => CategoryIds.Contains(p.CategoryId)).ToList();
-                }
+               
 
                 return View(products);
             }
             else
             {
-                // Minimum fiyat belirtilmemişse, tüm ürünleri getir
                 var allProducts = await _productService.GetAllProductsAsync();
+                // Eğer kategori filtresi de varsa
+                if (CategoryIds?.Any() == true)
+                {
+                    // Seçilen kategorilere göre filtrele
+                    allProducts = allProducts.Where(p => CategoryIds.Contains(p.CategoryId)).ToList();
+                }
+                // Minimum fiyat belirtilmemişse, tüm ürünleri getir
                 return View(allProducts);
             }
         }
