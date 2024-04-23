@@ -1,3 +1,4 @@
+using MassTransit;
 using Microsoft.Extensions.DependencyInjection;
 using MongoDB.Driver;
 using SparkNest.Services.BlogAPI.Application.Features.Blogs.Commands.Create;
@@ -20,12 +21,14 @@ builder.Services.AddSingleton<DatabaseSettings>(x =>
     var configs = builder?.Configuration?.GetSection("DatabaseSettings").Get<DatabaseSettings>();
     return configs;
 });
+
+
 //mongo configs
 builder.Services.AddScoped<IMongoDatabase>(x =>
 {
     var configs = builder?.Configuration?.GetSection("DatabaseSettings").Get<DatabaseSettings>();
-    var mongoClient = new MongoClient(configs.ConnectionString);
-    var database = mongoClient.GetDatabase(configs.DatabaseName);
+    var mongoClient = new MongoClient(configs?.ConnectionString);
+    var database = mongoClient.GetDatabase(configs?.DatabaseName);
     return database;
 });
 
@@ -39,6 +42,24 @@ builder.Services.AddMediatR(x =>
 //services
 builder.Services.AddScoped<IBlogService, BlogService>();
 builder.Services.AddScoped<ICategoryService, CategoryService>();
+builder.Services.AddScoped<ISubscriberService, SubscriberService>();
+
+
+
+builder.Services.AddMassTransit(options =>
+{
+    options.UsingRabbitMq((context, cfg) =>
+    {
+        cfg.Host(builder.Configuration["RabbitMQUrl"], opt =>
+        {
+            opt.Username("guest");
+            opt.Password("guest");
+        });
+    });
+});
+
+
+builder.Services.AddMassTransitHostedService();
 
 
 

@@ -7,11 +7,13 @@ services:
       - "27018:27017"
     volumes:
       - productdb_volume:/data/db/
+
   basketdb:
     container_name: basketdb
     restart: always
     ports:
       - "6379:6379"
+
   identitydb:
     container_name: identitydb
     user: root
@@ -86,3 +88,11 @@ services:
       - "27019:27017"
     volumes:
       - blogdb_volume:/data/db/
+
+  subscriberdb:
+    container_name: subscriberdb
+    restart: always
+    ports:
+      - "27020:27017"
+    volumes:
+      - subscriberdb_volume:/data/db/

@@ -88,13 +88,17 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SparkNest.Services.ProductA
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Blog", "Blog", "{D14B9C38-A8BA-4944-A702-3BC259E1C17C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SparkNest.Services.BlogAPI", "src\Services\Blog\SparkNest.Services.BlogAPI\SparkNest.Services.BlogAPI.csproj", "{1F316143-6A21-4580-B53E-865A6C23B2A3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SparkNest.Services.BlogAPI", "src\Services\Blog\SparkNest.Services.BlogAPI\SparkNest.Services.BlogAPI.csproj", "{1F316143-6A21-4580-B53E-865A6C23B2A3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SparkNest.Services.BlogAPI.Domain", "src\Services\Blog\SparkNest.Services.BlogAPI.Domain\SparkNest.Services.BlogAPI.Domain.csproj", "{5E043EC5-F821-49DB-9448-09D17E82C329}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SparkNest.Services.BlogAPI.Domain", "src\Services\Blog\SparkNest.Services.BlogAPI.Domain\SparkNest.Services.BlogAPI.Domain.csproj", "{5E043EC5-F821-49DB-9448-09D17E82C329}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SparkNest.Services.BlogAPI.Application", "src\Services\Blog\SparkNest.Services.BlogAPI.Application\SparkNest.Services.BlogAPI.Application.csproj", "{293E579C-F6D6-4D21-BA23-E5314902A654}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SparkNest.Services.BlogAPI.Application", "src\Services\Blog\SparkNest.Services.BlogAPI.Application\SparkNest.Services.BlogAPI.Application.csproj", "{293E579C-F6D6-4D21-BA23-E5314902A654}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SparkNest.Services.BlogAPI.Infrastructure", "src\Services\Blog\SparkNest.Services.BlogAPI.Infrastructure\SparkNest.Services.BlogAPI.Infrastructure.csproj", "{F35558A9-B022-4476-B515-5C3B182BAAFC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SparkNest.Services.BlogAPI.Infrastructure", "src\Services\Blog\SparkNest.Services.BlogAPI.Infrastructure\SparkNest.Services.BlogAPI.Infrastructure.csproj", "{F35558A9-B022-4476-B515-5C3B182BAAFC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SparkNest.Services.ProductAPI.Domain", "src\Services\Product\SparkNest.Services.ProductAPI.Domain\SparkNest.Services.ProductAPI.Domain.csproj", "{73F25726-CDF4-407C-BA00-D52037E4B558}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SparkNest.Services.ProductAPI.Infrastructure", "src\Services\Product\SparkNest.Services.ProductAPI.Infrastructure\SparkNest.Services.ProductAPI.Infrastructure.csproj", "{5D29B243-DBCE-45C4-9B0C-29698E461228}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -210,6 +214,14 @@ Global
 		{F35558A9-B022-4476-B515-5C3B182BAAFC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F35558A9-B022-4476-B515-5C3B182BAAFC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F35558A9-B022-4476-B515-5C3B182BAAFC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{73F25726-CDF4-407C-BA00-D52037E4B558}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{73F25726-CDF4-407C-BA00-D52037E4B558}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{73F25726-CDF4-407C-BA00-D52037E4B558}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{73F25726-CDF4-407C-BA00-D52037E4B558}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5D29B243-DBCE-45C4-9B0C-29698E461228}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5D29B243-DBCE-45C4-9B0C-29698E461228}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5D29B243-DBCE-45C4-9B0C-29698E461228}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5D29B243-DBCE-45C4-9B0C-29698E461228}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -258,6 +270,8 @@ Global
 		{5E043EC5-F821-49DB-9448-09D17E82C329} = {D14B9C38-A8BA-4944-A702-3BC259E1C17C}
 		{293E579C-F6D6-4D21-BA23-E5314902A654} = {D14B9C38-A8BA-4944-A702-3BC259E1C17C}
 		{F35558A9-B022-4476-B515-5C3B182BAAFC} = {D14B9C38-A8BA-4944-A702-3BC259E1C17C}
+		{73F25726-CDF4-407C-BA00-D52037E4B558} = {28991EA0-2D24-46E8-8D3D-029C266EC638}
+		{5D29B243-DBCE-45C4-9B0C-29698E461228} = {28991EA0-2D24-46E8-8D3D-029C266EC638}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {38840450-182B-4FB2-A535-57FC89B94029}
