@@ -26,6 +26,9 @@ namespace SparkNest.Services.BlogAPI.Infrastructure.Concretes
         {
             try
             {
+                var subscriberDb= await _subcribers.FindAsync(x=>x.Email== subscriber.Email);
+                if (subscriberDb is not null)
+                    return Response<bool>.Fail("User already exists!", 400); ;
                 subscriber.CreateDate = DateTime.Now;
                 await _subcribers.InsertOneAsync(subscriber);
                 return Response<bool>.Success(true, 200);
