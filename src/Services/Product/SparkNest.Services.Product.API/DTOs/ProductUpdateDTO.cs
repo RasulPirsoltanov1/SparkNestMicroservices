@@ -15,5 +15,9 @@
         //public double? RateCount { get; set; }
         public double? DiscountPercentage { get; set; }
         public double? PriceDiscount { get; set; }
+        public int? Views { get; set; }
+        public double? Rating { get; set; }
+        public double? RateCount { get; set; }
+        public List<string>? RatedUsers { get; set; } = new List<string>();
     }
 }

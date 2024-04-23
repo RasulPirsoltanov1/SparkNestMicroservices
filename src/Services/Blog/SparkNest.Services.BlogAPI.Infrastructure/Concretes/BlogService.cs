@@ -94,7 +94,7 @@ namespace SparkNest.Services.BlogAPI.Infrastructure.Concretes
 
                 if (blog == null)
                     return Response<BlogDTO>.Fail("Blog not found", 404);
-                if (blog.Views is null)
+                if (blog.Views is null || blog.Views == 0)
                 {
                     blog.Views = 1;
                 }

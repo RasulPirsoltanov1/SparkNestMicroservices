@@ -82,6 +82,10 @@ namespace SparkNest.Services.ProductAPI.Services
         public async Task<SparkNest.Common.DTOs.Response<NoContent>> UpdateAsync(ProductUpdateDTO productUpdateDTO)
         {
             var product = _mapper.Map<Product>(productUpdateDTO);
+            productUpdateDTO.Views = product.Views;
+            productUpdateDTO.Rating = product.Rating;
+            productUpdateDTO.RateCount = product.RateCount;
+            productUpdateDTO.RatedUsers = product.RatedUsers;
             var result = await _productCollection.FindOneAndReplaceAsync(x => x.Id == productUpdateDTO.Id, product);
             if (result == null)
             {
