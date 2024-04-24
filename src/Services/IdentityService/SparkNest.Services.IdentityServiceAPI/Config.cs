@@ -43,6 +43,18 @@ namespace SparkNest.Services.IdentityServiceAPI
             {
                 Scopes={ "gatewaymvc_full_permission" }
             },
+            new ApiResource("resource_mail")
+            {
+                Scopes={ "mail_full_permission" }
+            },
+            new ApiResource("resource_blog")
+            {
+                Scopes={ "blog_full_permission" }
+            },
+            new ApiResource("resource_comment")
+            {
+                Scopes={ "comment_full_permission" }
+            },
             new ApiResource(IdentityServerConstants.LocalApi.ScopeName)
         };
 
@@ -65,6 +77,9 @@ namespace SparkNest.Services.IdentityServiceAPI
                 new ApiScope("order_full_permission","full access for file basket api."),
                 new ApiScope("fakepayment_full_permission","full access for file basket api."),
                 new ApiScope("gatewaymvc_full_permission","full access for file basket api."),
+                new ApiScope("mail_full_permission","full access for file basket api."),
+                new ApiScope("comment_full_permission","full access for file basket api."),
+                new ApiScope("blog_full_permission","full access for file basket api."),
 
                 new ApiScope(IdentityServerConstants.LocalApi.ScopeName),
                 //new ApiScope("scope1"),
@@ -80,7 +95,7 @@ namespace SparkNest.Services.IdentityServiceAPI
                     ClientId="SparkNest.Clients.MVC",
                     ClientSecrets = {new Secret("secret".Sha256()) },
                     AllowedGrantTypes= GrantTypes.ClientCredentials,
-                    AllowedScopes = { "product_full_permission", "file_stock_full_permission","gatewaymvc_full_permission",IdentityServerConstants.LocalApi.ScopeName }
+                    AllowedScopes = { "product_full_permission", "file_stock_full_permission","gatewaymvc_full_permission", "mail_full_permission", "comment_full_permission", "blog_full_permission", IdentityServerConstants.LocalApi.ScopeName }
                 },
                 new Client()
                 {
@@ -89,7 +104,7 @@ namespace SparkNest.Services.IdentityServiceAPI
                     AllowOfflineAccess =true,
                     ClientSecrets = {new Secret("secret".Sha256()) },
                     AllowedGrantTypes= GrantTypes.ResourceOwnerPassword,
-                    AllowedScopes = { "discount_full_permission", "order_full_permission","basket_full_permission", "fakepayment_full_permission", "gatewaymvc_full_permission","product_full_permission", IdentityServerConstants.StandardScopes.Email, IdentityServerConstants.StandardScopes.OpenId, IdentityServerConstants.StandardScopes.Profile, IdentityServerConstants.StandardScopes.OfflineAccess ,
+                    AllowedScopes = { "discount_full_permission","mail_full_permission","comment_full_permission", "blog_full_permission","order_full_permission","basket_full_permission", "fakepayment_full_permission", "gatewaymvc_full_permission","product_full_permission", IdentityServerConstants.StandardScopes.Email, IdentityServerConstants.StandardScopes.OpenId, IdentityServerConstants.StandardScopes.Profile, IdentityServerConstants.StandardScopes.OfflineAccess ,
                      "roles",
                         IdentityServerConstants.LocalApi.ScopeName },
                     AccessTokenLifetime = 1*60*600,

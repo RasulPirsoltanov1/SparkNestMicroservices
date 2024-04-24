@@ -96,9 +96,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SparkNest.Services.BlogAPI.
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SparkNest.Services.BlogAPI.Infrastructure", "src\Services\Blog\SparkNest.Services.BlogAPI.Infrastructure\SparkNest.Services.BlogAPI.Infrastructure.csproj", "{F35558A9-B022-4476-B515-5C3B182BAAFC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SparkNest.Services.ProductAPI.Domain", "src\Services\Product\SparkNest.Services.ProductAPI.Domain\SparkNest.Services.ProductAPI.Domain.csproj", "{73F25726-CDF4-407C-BA00-D52037E4B558}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SparkNest.Services.ProductAPI.Domain", "src\Services\Product\SparkNest.Services.ProductAPI.Domain\SparkNest.Services.ProductAPI.Domain.csproj", "{73F25726-CDF4-407C-BA00-D52037E4B558}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SparkNest.Services.ProductAPI.Infrastructure", "src\Services\Product\SparkNest.Services.ProductAPI.Infrastructure\SparkNest.Services.ProductAPI.Infrastructure.csproj", "{5D29B243-DBCE-45C4-9B0C-29698E461228}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SparkNest.Services.ProductAPI.Infrastructure", "src\Services\Product\SparkNest.Services.ProductAPI.Infrastructure\SparkNest.Services.ProductAPI.Infrastructure.csproj", "{5D29B243-DBCE-45C4-9B0C-29698E461228}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

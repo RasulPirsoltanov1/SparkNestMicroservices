@@ -13,7 +13,7 @@
                             <!-- Start Single Blog -->
                             <div class="single-blog">
                                 <div class="blog-img">
-                                    <a href="blog-single-sidebar.html">
+                                    <a asp-action="Detail" asp-controller="Blog" asp-route-Id="@blog.Id">
                                         <img src="@blog.PhotoFileStockUrl" alt="#">
                                     </a>
                                 </div>

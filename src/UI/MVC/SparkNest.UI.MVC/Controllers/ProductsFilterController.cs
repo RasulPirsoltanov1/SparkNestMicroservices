@@ -51,7 +51,7 @@ namespace SparkNest.UI.MVC.Controllers
         public async Task<IActionResult> Index2(ProductsFilterVM productsFilterVM, params string[] CategoryIds)
         {
             // Minimum fiyat belirtilmişse
-            if (productsFilterVM.MinAmount != null)
+            if (productsFilterVM.MinAmount != null && productsFilterVM.MaxAmount != null)
             {
                 // Tüm ürünleri al
                 var products = await _productService.GetAllProductsAsync();
@@ -64,9 +64,6 @@ namespace SparkNest.UI.MVC.Controllers
                     (decimal)(x.PriceDiscount == null ? x.Price : (decimal)x.PriceDiscount) <= maxAmount
                 ).ToList();
 
-
-               
-
                 return View(products);
             }
             else
@@ -76,7 +73,7 @@ namespace SparkNest.UI.MVC.Controllers
                 if (CategoryIds?.Any() == true)
                 {
                     // Seçilen kategorilere göre filtrele
-                    allProducts = allProducts.Where(p => CategoryIds.Contains(p.CategoryId)).ToList();
+                    allProducts = allProducts.Where(p => CategoryIds.Any(x => x == p.Category.Id || x == p.Category.SubCategoryId)).ToList();
                 }
                 // Minimum fiyat belirtilmemişse, tüm ürünleri getir
                 return View(allProducts);
