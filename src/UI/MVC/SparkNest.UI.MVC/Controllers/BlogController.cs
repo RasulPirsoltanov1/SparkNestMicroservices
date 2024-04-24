@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using SparkNest.UI.MVC.Application.Features.Blogs.Queries.GetAll;
 using SparkNest.UI.MVC.Application.Features.Blogs.Queries.GetById;
+using SparkNest.UI.MVC.Application.Features.Subscribers.Commands;
 
 namespace SparkNest.UI.MVC.Controllers
 {
@@ -27,5 +28,17 @@ namespace SparkNest.UI.MVC.Controllers
             });
             return View(blog);
         }
+
+
+        [HttpPost]
+        public async Task<IActionResult> Subscribe(string? email)
+        {
+            var result = await _mediator.Send(new SubscriberCreateCommandRequest
+            {
+                Email = email
+            });
+            return Ok(result);
+        }
+
     }
 }

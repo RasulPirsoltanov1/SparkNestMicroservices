@@ -7,7 +7,7 @@
         <div class="row">
             <div class="col-lg-8 col-md-12 col-12">
                 <div class="row">
-                    @foreach(var blog in Model)
+                    @foreach (var blog in Model)
                     {
                         <div class="col-lg-6 col-md-6 col-12">
                             <!-- Start Single Blog -->
@@ -20,7 +20,7 @@
                                 <div class="blog-content">
                                     <a class="category" href="javascript:void(0)">@blog.Category?.Name</a>
                                     <h4>
-                                        <a asp-action ="Detail" asp-controller="Blog" asp-route-Id="@blog.Id">@blog.Title</a>
+                                        <a asp-action="Detail" asp-controller="Blog" asp-route-Id="@blog.Id">@blog.Title</a>
                                     </h4>
                                     <p>
                                         @* @(blog.Content.Length > 150 ? blog.Content.Substring(0, 150) : blog.Content) *@
@@ -37,45 +37,40 @@
                     }
                 </div>
                 <!-- Pagination -->
-          @*       <div class="pagination left blog-grid-page">
-                    <ul class="pagination-list">
-                        <li><a href="javascript:void(0)">Prev</a></li>
-                        <li class="active"><a href="javascript:void(0)">2</a></li>
-                        <li><a href="javascript:void(0)">3</a></li>
-                        <li><a href="javascript:void(0)">4</a></li>
-                        <li><a href="javascript:void(0)">Next</a></li>
-                    </ul>
+                @*       <div class="pagination left blog-grid-page">
+                <ul class="pagination-list">
+                <li><a href="javascript:void(0)">Prev</a></li>
+                <li class="active"><a href="javascript:void(0)">2</a></li>
+                <li><a href="javascript:void(0)">3</a></li>
+                <li><a href="javascript:void(0)">4</a></li>
+                <li><a href="javascript:void(0)">Next</a></li>
+                </ul>
                 </div> *@
                 <!--/ End Pagination -->
             </div>
             <aside class="col-lg-4 col-md-12 col-12">
                 <div class="sidebar blog-grid-page">
                     <!-- Start Single Widget -->
-                    <div class="widget search-widget">
-                        <h5 class="widget-title">Search This Site</h5>
-                        <form action="#">
-                            <input type="text" placeholder="Search Here...">
-                            <button type="submit"><i class="lni lni-search-alt"></i></button>
-                        </form>
-                    </div>
+                    @await Component.InvokeAsync("SubscribeVC")
+
                     <!-- End Single Widget -->
                     <!-- Start Single Widget -->
-                  @await Component.InvokeAsync("FeaturedPostsVC")
+                    @await Component.InvokeAsync("FeaturedPostsVC")
                     <!-- End Single Widget -->
                     <!-- Start Single Widget -->
                     @await Component.InvokeAsync("TopCategoriesVC")
 
                     <!-- End Single Widget -->
                     <!-- Start Single Widget -->
-              @*       <div class="widget popular-tag-widget">
-                        <h5 class="widget-title">Popular Tags</h5>
-                        <div class="tags">
-                            <a href="javascript:void(0)">#electronics</a>
-                            <a href="javascript:void(0)">#cpu</a>
-                            <a href="javascript:void(0)">#gadgets</a>
-                            <a href="javascript:void(0)">#wearables</a>
-                            <a href="javascript:void(0)">#smartphones</a>
-                        </div>
+                    @*       <div class="widget popular-tag-widget">
+                    <h5 class="widget-title">Popular Tags</h5>
+                    <div class="tags">
+                    <a href="javascript:void(0)">#electronics</a>
+                    <a href="javascript:void(0)">#cpu</a>
+                    <a href="javascript:void(0)">#gadgets</a>
+                    <a href="javascript:void(0)">#wearables</a>
+                    <a href="javascript:void(0)">#smartphones</a>
+                    </div>
                     </div> *@
                     <!-- End Single Widget -->
                 </div>

@@ -8,11 +8,11 @@
         {
             <div class="single-popular-feed">
                 <div class="feed-desc">
-                    <a class="feed-img" href="blog-single-sidebar.html">
+                    <a class="feed-img" asp-action="Detail" asp-controller="Blog" asp-route-Id="@blog.Id">
                         <img src="@blog.PhotoFileStockUrl" alt="#">
                     </a>
                     <h6 class="post-title">
-                        <a href="blog-single-sidebar.html">
+                        <a asp-action="Detail" asp-controller="Blog" asp-route-Id="@blog.Id">
                             @blog.Title
                         </a>
                     </h6>

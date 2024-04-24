@@ -54,6 +54,37 @@
     @await Html.PartialAsync("/Views/Shared/UIPartialViews/_JsPV.cshtml")
     <script src="~/lib/jquery/dist/jquery.js"></script>
     @await RenderSectionAsync("Js", false);
+
+
+    <script>
+        function subscribe(e) {
+            debugger;
+            var subscriberEmail = document.getElementById("subscriberEmail").value;
+            if (subscriberEmail.length < 5) {
+                alert("Please fill input with correct email address!");
+                return;
+            }
+            $.ajax({
+                type: 'Post',
+                url: '/Blog/Subscribe',
+                data: {
+                    email: subscriberEmail
+                },
+                success: function (response) {
+                    alert("Your email registered succeffully.");
+                },
+                error: function (xhr, status, error) {
+                    console.error(error);
+                }
+            });
+            subscriberEmail.value = "";
+        }
+    </script>
+
+
+
+
+
     <script>
         var searchKey = document.getElementById("searchKey");
         var searchResults = document.getElementById("searchResults");
@@ -67,7 +98,7 @@
                 success: function (response) {
                     for (var i = 0; i < response.length; i++) {
                         routes += `
-                                                <a href="http://localhost:2007/Search/SearchFromAjax?key=${response[i].name}" onclick="redirectTo('${response[i].name}')" class="btn w-100 mt-1" style="background:white; width:fit-content; border:1px solid black;">${response[i].name}</a>`
+                                                        <a href="http://localhost:2007/Search/SearchFromAjax?key=${response[i].name}" onclick="redirectTo('${response[i].name}')" class="btn w-100 mt-1" style="background:white; width:fit-content; border:1px solid black;">${response[i].name}</a>`
                     }
                     searchResults.innerHTML = routes;
                     routes = "";
@@ -80,7 +111,7 @@
         function clearResults() {
             setInterval(() => {
                 searchResults.innerHTML = "";
-            },200)
+            }, 200)
         }
         function redirectTo(name) {
             debugger;

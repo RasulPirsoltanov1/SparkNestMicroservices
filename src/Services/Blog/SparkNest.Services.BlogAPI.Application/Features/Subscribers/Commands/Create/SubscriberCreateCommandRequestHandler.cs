@@ -23,6 +23,8 @@ namespace SparkNest.Services.BlogAPI.Application.Features.Subscribers.Commands.C
             {
                 Email = request.Email,
             });
+            if (response.IsSuccessful == false)
+                return response;
             await _publishEndpoint.Publish<BlogsSubscribeEvent>(new BlogsSubscribeEvent
             {
                 Email = request.Email

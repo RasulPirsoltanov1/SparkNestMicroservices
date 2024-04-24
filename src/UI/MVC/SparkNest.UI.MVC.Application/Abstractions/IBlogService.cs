@@ -12,6 +12,7 @@ namespace SparkNest.UI.MVC.Application.Abstractions
     {
         Task<bool> CreateBlogAsync(BlogCreateDTO blogCreateDTO);
         Task<bool> UpdateBlogAsync(BlogUpdateDTO blogUpdateDTO);
+        Task<bool> SubscibeAsync(string email);
         Task<bool> CreateCategoryAsync(BlogCategoryCreateDTO blogCategoryCreateDTO);
         Task<bool> DeleteAsync(string blogId);
         Task<bool> DeleteCategoryAsync(string categoryId);

@@ -23,11 +23,6 @@
         "DebugTarget": ""
       },
       {
-        "Name": "src\\Services\\Discount\\SparkNest.Services.DiscountAPI\\SparkNest.Services.DiscountAPI.csproj",
-        "Action": "Start",
-        "DebugTarget": ""
-      },
-      {
         "Name": "src\\Services\\Order\\SparkNest.Services.OrderAPI\\SparkNest.Services.OrderAPI.csproj",
         "Action": "Start",
         "DebugTarget": ""

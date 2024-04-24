@@ -168,5 +168,22 @@ namespace SparkNest.UI.MVC.Application.Concretes
                 return false;
             }
         }
+
+        public async Task<bool> SubscibeAsync(string email)
+        {
+            try
+            {
+                var response = await _httpClient.PostAsJsonAsync($"subscriber",new
+                {
+                    Email = email
+                });
+                var result = await response.Content.ReadFromJsonAsync<Response<bool>>();
+                return result.Data;
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+        }
     }
 }
