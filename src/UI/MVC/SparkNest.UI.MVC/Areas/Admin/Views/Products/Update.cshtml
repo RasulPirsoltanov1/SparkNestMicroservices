@@ -1,11 +1,17 @@
 ﻿@using SparkNest.UI.MVC.Models.Product
 @model ProductUpdateVM
 
+@{
+    var count = 1;
+}
+
 <form asp-controller="Products" asp-action="Update" method="post" enctype="multipart/form-data">
     <div asp-validation-summary="All" class=" alert-danger"></div>
     <div class="form-group">
         <img src="@Model.PhotoFileStockUrl" width="200px" style="margin:auto;" />
     </div>
+
+    <hr />
 
     <div class="form-group">
         <label asp-for="Name" class="control-label"></label>
@@ -23,6 +29,16 @@
         <input asp-for="Price" class="form-control" />
         <span asp-validation-for="Price" class="text-danger"></span>
     </div>
+     <div class="form-group">
+        <label asp-for="DiscountPercentage" class="control-label"></label>
+        <input asp-for="DiscountPercentage" class="form-control" />
+        <span asp-validation-for="DiscountPercentage" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="PriceDiscount" class="control-label"></label>
+        <input asp-for="PriceDiscount" class="form-control" />
+        <span asp-validation-for="PriceDiscount" class="text-danger"></span>
+    </div>
     <div class="form-group">
         <label asp-for="Feature.Color" class="control-label"></label>
         <input asp-for="Feature.Color" class="form-control" />
@@ -38,11 +54,114 @@
     </div>
 
 
+    <!-- #region Summernote description -->
+
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+    <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
     <div class="form-group">
         <label asp-for="Description" class="control-label"></label>
-        <textarea asp-for="Description" class="form-control"></textarea>
-        <span asp-validation-for="Description" class="text-danger"></span>
+        <textarea id="summernote" asp-for="Description" ></textarea>
+        <span asp-validation-for="Description" class="text-danger" ></span>
     </div>
 
-    <button type="submit" class="btn btn-primary">Update</button>
+    <script>
+        $('#summernote').summernote({
+            placeholder: 'Hello stand alone ui',
+            tabsize: 2,
+            height: 120,
+            toolbar: [
+                ['style', ['style']],
+                ['font', ['bold', 'underline', 'clear']],
+                ['color', ['color']],
+                ['para', ['ul', 'ol', 'paragraph']],
+                ['table', ['table']],
+                ['insert', ['link', 'picture', 'video']],
+                ['view', ['fullscreen', 'codeview', 'help']]
+            ]
+        });
+    </script>
+
+    <!-- #endregion -->
+    <button type="submit" class="btn btn-primary m-3 mb-5">Update</button>
 </form>
+
+
+
+<div class="gallery-section">
+    @await Component.InvokeAsync("AddPhotosToGallery", new { ProductId = Model.Id })
+
+    <hr></hr>
+    <h3>Gallery</h3>
+
+    <div class="row">
+        @foreach (var photoUrl in Model.PhotoFileStockUrls)
+        {
+            <div class="col-md-4 mb-4 gallery-item" id="@("id"+photoUrl)">
+                <div class="card h-100 position-relative">
+                    <img src="@photoUrl" class="card-img-top img-fluid" alt="Photo">
+                    <div class="card-body">
+                        <button type="button" class="btn btn-danger delete-button m-2" data-photo-url="@photoUrl">Delete</button>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+
+@section Js {
+    <script>
+        $(document).ready(function () {
+            $(".delete-button").click(function () {
+                var photoUrl = $(this).data("photo-url");
+                console.log("Deleting photo with URL:", photoUrl); // Debugging statement
+                $.ajax({
+                    url: "/Admin/Gallery/DeletePhoto",
+                    type: "POST",
+                    data: { id: "@Model.Id", photoUrl: photoUrl },
+                    success: function () {
+                        console.log("Photo deleted successfully."); // Debugging statement
+                        const labelEmail = document.getElementById(`id${photoUrl}`);
+                        labelEmail.remove();
+                    },
+                    error: function (xhr, status, error) {
+                        console.error(error);
+                        alert("An error occurred while deleting the photo.");
+                    }
+                });
+                // location.reload();
+
+            });
+        });
+    </script>
+}
+
+
+@section Css {
+    <style>
+        .gallery-section {
+            background-color: #f8f9fa; /* Light gray background color */
+            padding: 20px; /* Add some padding around the gallery */
+            border-radius: 10px; /* Add rounded corners */
+        }
+
+            .gallery-section h3 {
+                margin-bottom: 20px; /* Add space below the heading */
+            }
+
+        .gallery-item {
+            margin-bottom: 20px; /* Add space between gallery items */
+        }
+
+            .gallery-item img {
+                max-width: 100%; /* Make images responsive */
+                border-radius: 5px; /* Add rounded corners to images */
+            }
+
+            .gallery-item .delete-button {
+                position: absolute;
+                bottom: 10px; /* Align the button to the bottom */
+                right: 10px; /* Align the button to the right */
+            }
+    </style>
+}

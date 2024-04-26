@@ -29,7 +29,8 @@ namespace SparkNest.Services.FakePaymentAPI.Controllers
             var sendEndpoint = await _sendEndpointProvider.GetSendEndpoint(new Uri("queue:create-order-service"));
 
             var createOrderMessageCommand = new CreateOrderMessageCommand();
-
+            createOrderMessageCommand.UserName = paymentDto.UserName;
+            createOrderMessageCommand.Email = paymentDto.Email;
             createOrderMessageCommand.BuyerId = paymentDto.Order.BuyerId;
             createOrderMessageCommand.Province = paymentDto.Order.Address.Province;
             createOrderMessageCommand.District = paymentDto.Order.Address.District;

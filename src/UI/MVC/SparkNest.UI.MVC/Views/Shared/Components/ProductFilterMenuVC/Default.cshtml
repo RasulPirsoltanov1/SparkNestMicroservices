@@ -1,0 +1,39 @@
+﻿@using SparkNest.UI.MVC.Models.Product
+@using SparkNest.UI.MVC.Models.Products
+
+@model ProductsFilterVM
+
+
+<div class="product-sidebar">
+    <!-- Start Single Widget -->
+    <form asp-controller="ProductsFilter" asp-action="filter" method="post" style="display:grid;">
+        <div class="single-widget">
+            <h3>All Categories</h3>
+            @foreach (var category in (List<CategoryVM>)ViewBag.Categories)
+            {
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" name="CategoryIds" id="category_@category.Id" value="@category.Id">
+                    <label class="form-check-label" for="category_@category.Id">
+                        @category.Name
+                    </label>
+                </div>
+            }
+        </div>
+        <!-- End Single Widget -->
+        <!-- Start Single Widget -->
+        <div class="single-widget range">
+            <h3>Price Range</h3>
+            <div class="range-inner">
+                <br />
+                <input class="form-control" placeholder="min" type="number" min="1" max="1000000" step="1" asp-for="MinAmount">
+            </div>
+            <div class="range-inner">
+                <br />
+                <input class="form-control" placeholder="max" type="number" min="1" max="1000000" step="1" asp-for="MaxAmount">
+            </div>
+        </div>
+        <!-- End Single Widget -->
+        <button type="submit" class="btn btn-primary m-auto">Submit</button>
+    </form>
+
+</div>

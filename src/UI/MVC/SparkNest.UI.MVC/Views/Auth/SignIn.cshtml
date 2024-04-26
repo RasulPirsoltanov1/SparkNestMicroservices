@@ -52,11 +52,14 @@
                                 </div>
                                 <form class="mb-5" method="post" asp-action="SignIn" asp-controller="Auth">
                                     <div asp-validation-summary="All" class="text-danger"></div>
-
+                                    @if (ViewBag.ReturnUrl != null)
+                                    {
+                                        <input type="hidden" name="ReturnUrl" value="@ViewBag.ReturnUrl" />
+                                    }
                                     <div class="mb-3">
                                         <input type="email" value="resulresull510@gmail.com" asp-for="Email" class="form-control" placeholder="Enter email" autofocus
                                                required>
-                                               <span asp-validation-for="Email" class="text-danger"></span>
+                                        <span asp-validation-for="Email" class="text-danger"></span>
                                     </div>
                                     <div class="mb-3">
                                         <input type="password" value="Rasul123." asp-for="Password" class="form-control" placeholder="Enter password"
@@ -66,7 +69,7 @@
                                     </div>
                                     <div class="mb-3 form-check">
                                         <label class="form-check-label">Remember me?</label>
-                                        <input type="checkbox" asp-for="IsRememberMe" class="form-check-input" >
+                                        <input type="checkbox" asp-for="IsRememberMe" class="form-check-input">
                                         <span asp-validation-for="IsRememberMe" class="text-danger"></span>
                                     </div>
                                     <div class="text-center text-lg-start">
@@ -74,14 +77,14 @@
                                         <button class="btn btn-primary">Sign In</button>
                                     </div>
                                 </form>
-                                <div class="social-links justify-content-center">
+                              @*   <div class="social-links justify-content-center">
                                     <a href="#">
                                         <i class="ti-google bg-google"></i> Sign in with Google
                                     </a>
                                     <a href="#">
                                         <i class="ti-facebook bg-facebook"></i> Sign in with Facebook
                                     </a>
-                                </div>
+                                </div> *@
                                 <p class="text-center d-block d-lg-none mt-5 mt-lg-0">
                                     Don't have an account? <a asp-action="SignUp" asp-controller="Auth">Sign up</a>.
                                 </p>
@@ -95,7 +98,7 @@
                         <div>
                             <h3 class="fw-bold">Welcome to SparkNest!</h3>
                             <p class="lead my-5">If you don't have an account, would you like to register right now?</p>
-                            <a href="#" class="btn btn-primary">Sign Up</a>
+                            <a asp-action="SignUp" asp-controller="Auth" btn btn-primary" class="btn btn-primary">Sign Up</a>
                         </div>
                         <ul class="list-inline">
                             <li class="list-inline-item">
@@ -122,7 +125,7 @@
 <script>
     setInterval(() => {
         let item = document.querySelector(".item-action-buttons").innerHTML = "";
-    },10);
+    }, 10);
 </script>
 <!-- Mirrored from SparkNest.laborasyon.com/demos/default/login.html by HTTrack Website Copier/3.x [XR&CO'2014], Mon, 04 Mar 2024 18:40:47 GMT -->
 </html>

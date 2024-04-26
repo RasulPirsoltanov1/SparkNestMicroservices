@@ -1,0 +1,12 @@
+﻿@using SparkNest.UI.MVC.Application.DTOs
+@model CreateCommentDTO
+
+<form id="commentForm" class="p-4 border rounded" asp-action="Create" asp-controller="Comment">
+    <h2 class="text-center mb-4">Leave a Comment</h2>
+    <div class="mb-3">
+        <input hidden asp-for="ProductId" value="@ViewBag.ProductId" />
+        <label for="commentInput" class="form-label">Comment:</label>
+        <textarea class="form-control" asp-for="Content" id="commentInput" rows="3" required></textarea>
+    </div>
+    <button type="submit" class="btn btn-primary">Submit</button>
+</form>

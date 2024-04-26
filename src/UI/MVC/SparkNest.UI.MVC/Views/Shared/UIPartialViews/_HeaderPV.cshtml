@@ -1,0 +1,88 @@
+﻿<header class="header navbar-area">
+    <!-- Start Topbar -->
+   @*  <div class="topbar">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-4 col-md-4 col-12">
+                    <div class="top-left">
+                        <ul class="menu-top-link">
+                            <li>
+                                <div class="select-position">
+                                    <select id="select4">
+                                        <option value="0" selected>$ USD</option>
+                                        <option value="1">€ EURO</option>
+                                        <option value="2">$ CAD</option>
+                                        <option value="3">₹ INR</option>
+                                        <option value="4">¥ CNY</option>
+                                        <option value="5">৳ BDT</option>
+                                    </select>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="select-position">
+                                    <select id="select5">
+                                        <option value="0" selected>Eng</option>
+                                        <option value="1">Aze</option>
+                                        <option value="2">Rus</option>
+                                    </select>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-4 col-12">
+                    <div class="top-middle">
+                        <ul class="useful-links">
+                            <li><a href="index-2.html">Home</a></li>
+                            <li><a href="about-us.html">About Us</a></li>
+                            <li><a href="contact.html">Contact Us</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-4 col-12">
+                    <div class="top-end"> 
+                        <div class="user">
+                            <i class="lni lni-user"></i>
+                            @if (User.Identity.IsAuthenticated)
+                            {
+                                @User.Identity.Name
+                            }
+                            else
+                            {
+                                <>Anonymus</>
+                            }
+                        </div>
+                        @if (User.Identity.IsAuthenticated)
+                        {
+                            <ul class="user-login">
+                                <li>
+                                    <a asp-action="SignOut" asp-controller="Auth">Sign Out</a>
+                                </li>
+                            </ul>
+                        }
+                        else
+                        {
+                            <ul class="user-login">
+                                <li>
+                                    <a asp-action="SignIn" asp-controller="Auth">Sign In</a>
+                                </li>
+                                <li>
+                                    <a asp-action="SignUp" asp-controller="Auth">Register</a>
+                                </li>
+                            </ul>
+                        }
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div> *@
+    <!-- End Topbar -->
+    <!-- Start Header Middle -->
+    @await Component.InvokeAsync("HeaderSearchbarVC")
+    <!-- End Header Middle -->
+    <!-- Start Header Bottom -->
+    @await Component.InvokeAsync("HeaderNavbarVC")
+
+    <!-- End Header Bottom -->
+</header>

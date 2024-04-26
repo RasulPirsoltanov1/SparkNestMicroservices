@@ -14,13 +14,13 @@ namespace SparkNest.UI.MVC.Services.Concretes
             _httpClient = httpClient;
         }
 
-        public async Task<bool> DeletePhoto(string photoPath)
+        public async Task<bool> DeletePhoto(string photoUrl)
         {
-            if (photoPath == null)
+            if (photoUrl == null)
             {
                 return false;
             }
-            var response = await _httpClient.DeleteAsync($"photos/{photoPath}");
+            var response = await _httpClient.DeleteAsync($"photos?photoUrl={photoUrl}");
             if (!response.IsSuccessStatusCode)
             {
                 return false;

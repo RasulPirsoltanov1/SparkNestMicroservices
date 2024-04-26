@@ -1,0 +1,124 @@
+﻿@page
+<div class="container">
+    
+@*     <h3>@ViewBag.ClientConnectionId Messages</h3>
+    <h3>@ViewBag.Message Messages</h3>
+    <hr></hr>
+    <div class="row p-1">
+        <div class="col-1">Connection Id</div>
+        <div class="col-5"><span type="text" id="connectionId" /></div>
+    </div>
+    <input hidden id="clientConnectionId" />
+    <div class="row p-1">
+        <div class="col-1">Receiver Id</div>
+        <div class="col-5"><input type="text" id="receiverId" /></div>
+    </div>
+    <div hidden class="row p-1">
+        <div class="col-1">User</div>
+        <div class="col-5"><input type="text" id="userInput" /></div>
+    </div> *@
+
+    <div class="container">
+        <div class="row mb-3">
+            <hr></hr>
+            <h3>Name: <b><i>@ViewBag.UserName</i></b></h3>
+            <div class="col-12 col-md-6">
+                <label for="messageInput" class="form-label">Message</label>
+                <input type="text" class="form-control" id="messageInput" required placeholder="Enter your message">
+            </div>
+            <div class="col-12 col-md-6 d-flex align-items-end justify-content-md-end">
+                <button type="button" id="sendButton" class="btn btn-primary">Send to Client</button>
+            </div>
+        </div>
+        <hr />
+        <div class="row">
+            <div class="col-12">
+                <ul id="messagesList" class="list-group" style="list-style:none;">
+                    <hr class="my-4">
+
+                    <li class="alert alert-info" role="alert">
+                        <i class="bi bi-info-circle-fill"></i> @ViewBag.Message
+                    </li>
+
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<script src="~/lib/signalr/dist/browser/signalr.js"></script>
+
+@* <script src="~/js/chat.js"></script> *@
+
+<script>
+    "use strict";
+
+    var connection = new signalR.HubConnectionBuilder().withUrl("/chatHub").build();
+    var clientConnectionIdFromAction = "@ViewBag.ClientConnectionId";
+
+    //Disable the send button until connection is established.
+    document.getElementById("sendButton").disabled = true;
+
+    var clientConnId;
+    connection.on("SendToAdminMessage", function (user, clientConnectionId, message) {
+        debugger;
+        if (clientConnectionId == "@ViewBag.ClientConnectionId") {
+            var li = document.createElement("li");
+            clientConnId = clientConnectionId;
+            // document.getElementById("clientConnectionId").value = clientConnectionId;
+            document.getElementById("messagesList").appendChild(li);
+            li.innerHTML = `
+                <li class="alert alert-primary float-start" role="alert">
+                <i class="bi bi-primary-circle-fill"></i> ${message}
+            </li>`;
+        }
+      
+
+        // var li2 = document.createElement("li");
+        // document.getElementById("requestList").appendChild(li2);
+        // li.innerHTML = `<a class="btn btn-info" style="width:100%" href="http://localhost:2007/Admin/Helpcenter/${clientConnectionId}/${message}/${user}">${user} Sent request</a>`;
+    });
+
+
+    var myConnectionId;
+    connection.start().then(function () {
+        document.getElementById("sendButton").disabled = false;
+        connection.invoke("GetConnectionId").then(function (id) {
+            myConnectionId = id;
+            console.log("id===" + id)
+            // document.getElementById("connectionId").innerText = id;
+        })
+    }).catch(function (err) {
+        return console.error(err.toString());
+    });
+
+    document.getElementById("sendButton").addEventListener("click", function (event) {
+        debugger;
+        var message = document.getElementById("messageInput").value;
+        if (message == "") {
+            alert("please fill message section!");
+            return;
+        }
+        var li = document.createElement("li");
+        li.innerHTML = `
+
+        <li class="alert alert-info float-end" role="alert">
+            <i class="bi bi-info-circle-fill"></i> ${message}
+        </li>
+        
+        `;
+        document.getElementById("messagesList").appendChild(li);
+        connection.invoke("SendToClient", "", clientConnectionIdFromAction, message).catch(function (err) {
+            return console.error(err.toString());
+        });
+        event.preventDefault();
+        document.getElementById("messageInput").value = "";
+
+        //neden li add olunmuyor?
+    });
+
+
+
+</script>

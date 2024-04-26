@@ -1,0 +1,35 @@
+﻿@model List<SparkNest.UI.MVC.Application.DTOs.Blog.BlogCategoryDTO>
+
+@{
+    ViewData["Title"] = "Blogs";
+    var count = 0;
+}
+
+<h1>Blogs</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <td>#</td>
+            <th>Name</th>
+            <th>Blogs Count</th>
+            <th>Create Date</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var blog in Model)
+        {
+            @(count++)
+            <tr>
+                <td>@count</td>
+                <td>@blog.Name</td>
+                <td>@blog?.Blogs?.Count</td>
+                <td>@blog.CreateDate</td>
+                <td>
+                    <a class="btn btn-danger" asp-action="Delete" asp-controller="BlogCategory" asp-area="Admin" asp-route-categoryId="@blog.Id">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

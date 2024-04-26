@@ -3,8 +3,11 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using SparkNest.Common.Base.Services;
 using SparkNest.Common.ControllerBases;
-using SparkNest.Services.OrderAPI.Application.Features.Orders.Commands;
+using SparkNest.Services.OrderAPI.Application.Features.Orders.Commands.Create;
+using SparkNest.Services.OrderAPI.Application.Features.Orders.Commands.StatusChange;
 using SparkNest.Services.OrderAPI.Application.Features.Orders.Queries;
+using SparkNest.Services.OrderAPI.Application.Features.Orders.Queries.Get;
+using SparkNest.Services.OrderAPI.Application.Features.Orders.Queries.GetAll;
 
 namespace SparkNest.Services.OrderAPI.Controllers
 {
@@ -21,6 +24,12 @@ namespace SparkNest.Services.OrderAPI.Controllers
         }
 
 
+        [HttpGet("[action]")]
+        public async Task<IActionResult> GetAll()
+        {
+            return CreateActionResultInstance(await _mediator.Send(new GetAllOrdersQuery()));
+        }
+
         [HttpGet]
         public async Task<IActionResult> GetByUserId()
         {
@@ -30,6 +39,13 @@ namespace SparkNest.Services.OrderAPI.Controllers
         public async Task<IActionResult> Post(CreateOrderCommand createOrderCommand)
         {
             var result = await _mediator.Send(createOrderCommand);
+            return CreateActionResultInstance(result);
+        }
+
+        [HttpPost("StatusChange")]
+        public async Task<IActionResult> StatusChange(StatusChangeOrderCommand statusChangeOrderCommand)
+        {
+            var result = await _mediator.Send(statusChangeOrderCommand);
             return CreateActionResultInstance(result);
         }
     }

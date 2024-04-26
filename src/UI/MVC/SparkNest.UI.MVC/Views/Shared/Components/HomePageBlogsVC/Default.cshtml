@@ -1,0 +1,47 @@
+﻿@using SparkNest.UI.MVC.Application.DTOs.Blog
+
+@model List<BlogDTO>
+<section class="blog-section section">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="section-title">
+                    <h2>Our Latest News</h2>
+                    <p>
+                        There are many variations of passages of Lorem
+                        Ipsum available, but the majority have suffered alteration in some form.
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            @foreach (var blog in Model)
+            {
+                <div class="col-lg-4 col-md-6 col-12">
+                    <!-- Start Single Blog -->
+                    <div class="single-blog">
+                        <div class="blog-img">
+                            <a href="blog-single-sidebar.html">
+                                <img src="@blog.PhotoFileStockUrl" alt="#">
+                            </a>
+                        </div>
+                        <div class="blog-content">
+                            <a class="category" href="javascript:void(0)">@(blog.Category?.Name??"Default category")</a>
+                            <h4>
+                                <a href="blog-single-sidebar.html">@blog.Title</a>
+                            </h4>
+                            <p>
+                                @* @(blog.Content.Length > 150 ? blog.Content.Substring(0, 150) : blog.Content) *@
+                                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt.
+                            </p>
+                            <div class="button">
+                                <a asp-action="Detail" asp-controller="Blog" asp-route-Id="@blog.Id" class="btn">Read More</a>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- End Single Blog -->
+                </div>
+            }
+        </div>
+    </div>
+</section>

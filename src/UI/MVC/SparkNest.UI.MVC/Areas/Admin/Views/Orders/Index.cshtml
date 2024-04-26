@@ -1,0 +1,78 @@
+﻿@using SparkNest.UI.MVC.Models.Orders
+@model List<OrderVM>
+@{
+    int count = 0;
+}
+<div class="container mt-5">
+    <h2>Order List</h2>
+    <table class="table">
+        <thead class="thead-light">
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Customer Name</th>
+                <th scope="col">Email</th>
+                <th scope="col">Order Date</th>
+                <th scope="col">Set Status</th>
+                <th scope="col">Order Items</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var order in Model)
+            {
+                count++;
+                <tr>
+                    <td>@order.Id</td>
+                    <td>@order.UserName</td>
+                    <td>@order.Email</td>
+                    <td>@order.CreatedDate.ToString("yyyy-MM-dd")</td>
+                    <td>
+                        <select class="form-select status-select" data-buyer-id="@order.BuyerId">
+                            <option value="0" selected="@(order.Status == 0 ? true : false)">Checking</option>
+                            <option value="1" selected="@(order.Status == 1 ? true : false)">Ready to ship</option>
+                            <option value="2" selected="@(order.Status == 2 ? true : false)">Successful Shipped</option>
+                        </select>
+
+                    </td>
+                    <td>
+                        <ul>
+                            @foreach (var orderItem in order.OrderItems)
+                            {
+                                <li>@orderItem.ProductName - Quantity: @orderItem.Quantity</li>
+                            }
+                        </ul>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+
+
+@section Css {
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/alertify.rtl.min.css" />
+}
+@section Js {
+    <script src="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/alertify.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('.status-select').change(function () {
+                var buyerId = $(this).data('buyer-id');
+                var orderId = $(this).closest('tr').find('td:first-child').text();
+                var selectedStatus = $(this).val();
+
+                $.post('/Admin/Orders/StatusChange', { buyerId: buyerId, orderId: orderId, status: selectedStatus }, function (response) {
+                    console.log(response);
+                    alertify.set('notifier', 'position', 'top-center');
+                    if (response == true) {
+                        alertify.notify('Successfully changed status.', 'success', 5, function () { console.log('dismissed'); });
+                    }
+                    else {
+                        alertify.notify('Something went wrong!', 'error', 5, function () { console.log('dismissed'); });
+
+                    }
+                });
+            });
+        });
+    </script>
+}

@@ -1,0 +1,72 @@
+﻿@using SparkNest.UI.MVC.Models.Product
+@model List<CategoryVM>
+
+
+
+<h1>Category List</h1>
+
+<p>
+    <a asp-action="Create" asp-area="Admin" asp-controller="Category">Create New</a>
+</p>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>PhotoUrl</th>
+            <th>Name</th>
+            <th>SubCategoryId</th>
+            <th>Description</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr id="@item.Id">
+                <td><img width="50px" src="@(item.PhotoUrl??"https://www.icinginks.com/assets/front/img/dummy_category.png")" /></td>
+                <td>@item.Name</td>
+                <td>@if (item.SubCategoryId is not null)
+                    {
+                        for(int x=0;x<Model.Count;x++)
+                        {
+                            if (item.SubCategoryId == Model[x].Id)
+                            {
+                                <text>@Model[x].Name</text>
+                            }
+                        }   
+                    }
+                    else
+                    {
+                        <text>Main Category</text>
+                    }
+                </td>
+                <td>@item.Description</td>
+                <td>
+                    <a asp-area="Admin" class="btn btn-info" asp-action="Update" asp-route-id="@item.Id">Edit</a>
+                    <button class="btn btn-danger deleteBtn" data-id="@item.Id">Delete</button>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+@section Js{
+    <script>
+        $(document).ready(function () {
+            $('.deleteBtn').click(function () {
+                var id = $(this).data('id');
+                    $.ajax({
+                        url: '/Admin/Category/Delete',
+                        type: 'POST',
+                        data: { categoryId: id },
+                        success: function (result) {
+                            let tr = document.getElementById(id).remove();
+                        },
+                        error: function (xhr, status, error) {
+                            alert("An error occurred while deleting the category.");
+                        }
+                    });
+            });
+        });
+    </script>
+}

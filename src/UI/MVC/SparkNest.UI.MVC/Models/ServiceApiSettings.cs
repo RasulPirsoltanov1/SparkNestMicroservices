@@ -12,5 +12,7 @@
         public string DiscountPath { get; set; }
         public string FakePaymentPath { get; set; }
         public string OrderServicePath { get; set; }
+        public string CommentServicePath { get; set; }
+        public string BlogUriPath { get; set; }
     }
 }

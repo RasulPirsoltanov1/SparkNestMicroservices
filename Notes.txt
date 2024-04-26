@@ -3,12 +3,11 @@ Services :
 	SparkNest.Services.ProductAPI => http://localhost:2001 
 	SparkNest.Services.FileStockAPI => http://localhost:2002
 	SparkNest.Services.BasketAPI => http://localhost:2003
-	SparkNest.Services.DiscountAPI => http://localhost:2004
+	SparkNest.Services.MailService=> http://localhost:2004 this comunication via only RabbitMQ 
 	SparkNest.Services.OrderAPI => http://localhost:2005
 	SparkNest.Services.FakePaymentAPI => http://localhost:2006
-	DiscountDB Port=> 2005
-
-
+	SparkNest.Services.CommentAPI=> http://localhost:2008
+	SparkNest.Services.BlogAPI=> http://localhost:2009
 UI:
 	SparkNest.UI.MVC => http://localhost:2007
 

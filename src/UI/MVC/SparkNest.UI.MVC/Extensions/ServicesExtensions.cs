@@ -1,4 +1,7 @@
-﻿using SparkNest.UI.MVC.Handlers;
+﻿using SparkNest.UI.MVC.Application.Abstractions;
+using SparkNest.UI.MVC.Application.Concretes;
+using SparkNest.UI.MVC.Handlers;
+using SparkNest.UI.MVC.Infrastructure.Concretes;
 using SparkNest.UI.MVC.Models;
 using SparkNest.UI.MVC.Services.Concretes;
 using SparkNest.UI.MVC.Services.Interfaces;
@@ -51,6 +54,21 @@ namespace SparkNest.UI.MVC.Extensions
             {
                 opt.BaseAddress = new Uri(serviceApiSettings.BaseUri + serviceApiSettings.OrderServicePath);
             }).AddHttpMessageHandler<ResourceOwnerPasswordTokenHandler>();
+
+            services.AddHttpClient<ICommentService, CommentService>(opt =>
+            {
+                opt.BaseAddress = new Uri(serviceApiSettings.BaseUri + serviceApiSettings.CommentServicePath);
+
+            }).AddHttpMessageHandler<ClientCredentialTokenHandler>();
+
+
+            services.AddHttpClient<IBlogService,BlogService>(opt =>
+            {
+                opt.BaseAddress = new Uri(serviceApiSettings.BaseUri + serviceApiSettings.BlogUriPath);
+            }).AddHttpMessageHandler<ClientCredentialTokenHandler>();
+
+
+
             return services;
         }
     }

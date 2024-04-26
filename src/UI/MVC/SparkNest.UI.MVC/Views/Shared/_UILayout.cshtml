@@ -1,0 +1,131 @@
+﻿<!DOCTYPE html>
+<html class="no-js" lang="zxx">
+
+
+<!-- Mirrored from demo.graygrids.com/themes/shopgrids/index.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 07 Apr 2024 20:44:01 GMT -->
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="x-ua-compatible" content="ie=edge" />
+    <title>SparkNest</title>
+    <meta name="description" content="" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="shortcut icon" type="image/x-icon" href="~/shopgrids/assets/images/favicon.svg" />
+
+    <!-- ========================= CSS here ========================= -->
+    <link rel="stylesheet" href="~/shopgrids/assets/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/shopgrids/assets/css/LineIcons.3.0.css" />
+    <link rel="stylesheet" href="~/shopgrids/assets/css/tiny-slider.css" />
+    <link rel="stylesheet" href="~/shopgrids/assets/css/glightbox.min.css" />
+    <link rel="stylesheet" href="~/shopgrids/assets/css/main.css" />
+
+</head>
+
+<body>
+    <!--[if lte IE 9]>
+      <p class="browserupgrade">
+        You are using an <strong>outdated</strong> browser. Please
+        <a href="https://browsehappy.com/">upgrade your browser</a> to improve
+        your experience and security.
+      </p>
+    <![endif]-->
+    <!-- Preloader -->
+    <div class="preloader">
+        <div class="preloader-inner">
+            <div class="preloader-icon">
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </div>
+    <!-- /End Preloader -->
+    <!-- Start Header Area -->
+    @await Html.PartialAsync("/Views/Shared/UIPartialViews/_HeaderPV.cshtml")
+    <!-- End Header Area -->
+    @RenderBody()
+    <!-- Start Footer Area -->
+    @await Html.PartialAsync("/Views/Shared/UIPartialViews/_FooterPV.cshtml")
+    <!--/ End Footer Area -->
+    <!-- ========================= scroll-top ========================= -->
+    <a href="#" class="scroll-top">
+        <i class="lni lni-chevron-up"></i>
+    </a>
+
+    <!-- ========================= JS here ========================= -->
+    @await Html.PartialAsync("/Views/Shared/UIPartialViews/_JsPV.cshtml")
+    <script src="~/lib/jquery/dist/jquery.js"></script>
+    @await RenderSectionAsync("Js", false);
+
+
+    <script>
+        function subscribe(e) {
+            debugger;
+            var subscriberEmail = document.getElementById("subscriberEmail").value;
+            if (subscriberEmail.length < 5) {
+                alert("Please fill input with correct email address!");
+                return;
+            }
+            $.ajax({
+                type: 'Post',
+                url: '/Blog/Subscribe',
+                data: {
+                    email: subscriberEmail
+                },
+                success: function (response) {
+                    alert("Your email registered succeffully.");
+                },
+                error: function (xhr, status, error) {
+                    console.error(error);
+                }
+            });
+            subscriberEmail.value = "";
+        }
+    </script>
+
+
+
+
+
+    <script>
+        var searchKey = document.getElementById("searchKey");
+        var searchResults = document.getElementById("searchResults");
+        var routes = "";
+        function getResults(e) {
+            console.log(e);
+
+            $.ajax({
+                type: 'GET',
+                url: '/Search/SearchResultForAjax?key=' + encodeURIComponent(e),
+                success: function (response) {
+                    for (var i = 0; i < response.length; i++) {
+                        routes += `
+                                                        <a href="http://localhost:2007/Search/SearchFromAjax?key=${response[i].name}" onclick="redirectTo('${response[i].name}')" class="btn w-100 mt-1" style="background:white; width:fit-content; border:1px solid black;">${response[i].name}</a>`
+                    }
+                    searchResults.innerHTML = routes;
+                    routes = "";
+                },
+                error: function (xhr, status, error) {
+                    console.error(error);
+                }
+            });
+        }
+        function clearResults() {
+            setInterval(() => {
+                searchResults.innerHTML = "";
+            }, 200)
+        }
+        function redirectTo(name) {
+            debugger;
+            window.location.href = "http://localhost:2007/Search/SearchFromAjax?key=" + encodeURIComponent(name);
+        }
+    </script>
+</body>
+
+<style>
+    footer{
+        margin-bottom:-30px;
+    }
+</style>
+<!-- Mirrored from demo.graygrids.com/themes/shopgrids/index.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 07 Apr 2024 20:44:01 GMT -->
+
+
+</html>

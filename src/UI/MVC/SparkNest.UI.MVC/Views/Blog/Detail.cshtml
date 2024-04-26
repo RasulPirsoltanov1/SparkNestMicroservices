@@ -1,0 +1,70 @@
+﻿@using SparkNest.UI.MVC.Application.DTOs.Blog
+@model BlogDTO
+
+<section class="section blog-single">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-md-12 col-12">
+                <div class="single-inner">
+                    <div class="post-details">
+                        <div class="main-content-head">
+                            <div class="post-thumbnils">
+                                <img src="@Model.PhotoFileStockUrl" alt="#">
+                            </div>
+                            <div class="meta-information">
+                                <h2 class="post-title">
+                                    <a href="blog-single.html">@Model.Title</a>
+                                </h2>
+                                <!-- End Meta Info -->
+                                <ul class="meta-info">
+                                    <li>
+                                        <a href="javascript:void(0)">
+                                            <i class="lni lni-calendar"></i> @Model.CreateDate
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="javascript:void(0)"><i class="lni lni-tag"></i> @Model.Category?.Name</a>
+                                    </li>
+                                    <li>
+                                        <a href="javascript:void(0)"><i class="lni lni-timer"></i> 5 min read</a>
+                                    </li>
+                                </ul>
+                                <!-- End Meta Info -->
+                            </div>
+                            <div class="detail-inner">
+                                @Html.Raw(Model.Content)
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <aside class="col-lg-4 col-md-12 col-12">
+                <div class="sidebar blog-grid-page">
+                    <!-- Start Single Widget -->
+                    @await Component.InvokeAsync("SubscribeVC")
+                    <!-- End Single Widget -->
+                    <!-- End Single Widget -->
+                    <!-- Start Single Widget -->
+                    @await Component.InvokeAsync("FeaturedPostsVC")
+                    <!-- End Single Widget -->
+                    <!-- Start Single Widget -->
+                    @await Component.InvokeAsync("TopCategoriesVC")
+
+                    <!-- End Single Widget -->
+                    <!-- Start Single Widget -->
+                    @*       <div class="widget popular-tag-widget">
+                    <h5 class="widget-title">Popular Tags</h5>
+                    <div class="tags">
+                    <a href="javascript:void(0)">#electronics</a>
+                    <a href="javascript:void(0)">#cpu</a>
+                    <a href="javascript:void(0)">#gadgets</a>
+                    <a href="javascript:void(0)">#wearables</a>
+                    <a href="javascript:void(0)">#smartphones</a>
+                    </div>
+                    </div> *@
+                    <!-- End Single Widget -->
+                </div>
+            </aside>
+        </div>
+    </div>
+</section>

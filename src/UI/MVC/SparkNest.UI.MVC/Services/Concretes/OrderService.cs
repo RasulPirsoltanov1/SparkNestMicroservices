@@ -2,6 +2,7 @@
 using SparkNest.Common.DTOs;
 using SparkNest.UI.MVC.Models.FakePayment;
 using SparkNest.UI.MVC.Models.Orders;
+using SparkNest.UI.MVC.Models.Orders.StatusChange;
 using SparkNest.UI.MVC.Services.Interfaces;
 using System.Diagnostics;
 
@@ -47,6 +48,8 @@ namespace SparkNest.UI.MVC.Services.Concretes
             OrderCreateVM orderCreateVM = new OrderCreateVM()
             {
                 BuyerId = _sharedIdentityService.UserId,
+                UserName = checkoutInfoVM.UserName,
+                Email = checkoutInfoVM.Email,
                 Address = new AddressCreateVM
                 {
                     District = checkoutInfoVM.District,
@@ -84,12 +87,33 @@ namespace SparkNest.UI.MVC.Services.Concretes
         public async Task<List<OrderVM>> GetAllOrders()
         {
             var response = await _httpClient.GetAsync("orders");
-            if(!response.IsSuccessStatusCode)
+            if (!response.IsSuccessStatusCode)
             {
                 return null;
             }
-            var result =await response.Content.ReadFromJsonAsync<Response<List<OrderVM>>>();
+            var result = await response.Content.ReadFromJsonAsync<Response<List<OrderVM>>>();
             return result.Data;
+        }
+        public async Task<List<OrderVM>> GetAll()
+        {
+            var response = await _httpClient.GetAsync("orders/GetAll");
+            if (!response.IsSuccessStatusCode)
+            {
+                return null;
+            }
+            var result = await response.Content.ReadFromJsonAsync<Response<List<OrderVM>>>();
+            return result.Data;
+        }
+
+        public async Task<bool> StatusChange(StatusChangeVM statusChangeVM)
+        {
+            var response = await _httpClient.PostAsJsonAsync("orders/StatusChange", statusChangeVM);
+            if (!response.IsSuccessStatusCode)
+            {
+                return false;
+            }
+            var result = await response.Content.ReadFromJsonAsync<Response<bool>>();
+            return true;
         }
 
         public async Task<OrderSuspendStatusVM> SuspendOrder(CheckoutInfoVM checkoutInfoVM)
@@ -98,6 +122,8 @@ namespace SparkNest.UI.MVC.Services.Concretes
             OrderCreateVM orderCreateVM = new OrderCreateVM()
             {
                 BuyerId = _sharedIdentityService.UserId,
+                UserName=checkoutInfoVM.UserName,
+                Email=checkoutInfoVM.Email,
                 Address = new AddressCreateVM
                 {
                     District = checkoutInfoVM.District,
@@ -115,7 +141,7 @@ namespace SparkNest.UI.MVC.Services.Concretes
                     ProductId = item.ProductId,
                     ProductName = item.ProductName,
                     ProductUrl = "",
-                    Quantity=item.Quantity
+                    Quantity = item.Quantity
                 });
             }
             PaymentInfoVM paymentInfoVM = new PaymentInfoVM()
@@ -123,6 +149,8 @@ namespace SparkNest.UI.MVC.Services.Concretes
                 CardName = checkoutInfoVM.CardName,
                 CardNumber = checkoutInfoVM.CardNumber,
                 CVV = checkoutInfoVM.CVV,
+                UserName = checkoutInfoVM.UserName,
+                Email=checkoutInfoVM.Email,
                 Expiration = checkoutInfoVM.Expiration,
                 TotalPrice = basket.TotalPrice,
                 Order = orderCreateVM
@@ -138,7 +166,7 @@ namespace SparkNest.UI.MVC.Services.Concretes
                 };
             }
             await _basketService.Delete();
-            return new OrderSuspendStatusVM();  
+            return new OrderSuspendStatusVM();
         }
     }
 }

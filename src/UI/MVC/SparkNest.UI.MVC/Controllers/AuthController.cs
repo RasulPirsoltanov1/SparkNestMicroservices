@@ -17,8 +17,9 @@ namespace SparkNest.UI.MVC.Controllers
             _contextAccessor = contextAccessor;
         }
 
-        public IActionResult SignIn()
+        public IActionResult SignIn(string? ReturnUrl)
         {
+            ViewBag.ReturnUrl = ReturnUrl;
             return View();
         }
 
@@ -37,7 +38,7 @@ namespace SparkNest.UI.MVC.Controllers
         {
             await _contextAccessor.HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
             await _identityService.RevokeRefreshToken();
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("Index", "HomePage");
 
         }
         [HttpPost]
@@ -62,6 +63,11 @@ namespace SparkNest.UI.MVC.Controllers
             catch (Exception ex)
             {
                 await Console.Out.WriteLineAsync(ex.Message);
+            }
+            string returnUrl = Request.Form["ReturnUrl"];
+            if (returnUrl is not null)
+            {
+                return Redirect(returnUrl);
             }
             return RedirectToAction("Index", "User");
         }

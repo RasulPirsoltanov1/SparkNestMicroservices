@@ -1,0 +1,37 @@
+﻿@using SparkNest.UI.MVC.Models.Product
+@model List<CategoryVM>
+
+
+<section class="featured-categories section">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="section-title">
+                    <h2>Categories</h2>
+                    <p>
+                        There are many variations of passages of Lorem Ipsum available, but the majority have
+                        suffered alteration in some form.
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            @foreach (var category in Model)
+            {
+                <div class="col-lg-4 col-md-6 col-12 pt-2 pb-2">
+                    <!-- Start Single Category -->
+                    <div class="single-category">
+                        <h3 class="heading">@category.Name</h3>
+                        <ul>
+                            <li><a asp-action="GetProductsByCategory" asp-controller="Category" asp-route-Id="@category.Id" style="width:100px">@category.Description</a></li>
+                        </ul>
+                        <div class="images">
+                            <img src="@category.PhotoUrl" alt="#">
+                        </div>
+                    </div>
+                    <!-- End Single Category -->
+                </div>
+            }
+        </div>
+    </div>
+</section>

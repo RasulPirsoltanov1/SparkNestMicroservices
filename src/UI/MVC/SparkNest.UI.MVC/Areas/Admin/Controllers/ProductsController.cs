@@ -19,7 +19,7 @@ namespace SparkNest.UI.MVC.Areas.Admin.Controllers
             _sharedIdentityService = sharedIdentityService;
         }
 
-        public async Task<IActionResult> IndexAsync()
+        public async Task<IActionResult> Index()
         {
             return View(await _productService.GetAllProductsAsync());
         }
@@ -57,8 +57,11 @@ namespace SparkNest.UI.MVC.Areas.Admin.Controllers
                 Name = product.Name,
                 PhotoFileStockUrl = product.PhotoFileStockUrl,
                 Price = product.Price,
-                UserId = product.UserId
-            });
+                UserId = product.UserId,
+                PhotoFileStockUrls = product.PhotoFileStockUrls,
+                PriceDiscount = product.PriceDiscount,
+                DiscountPercentage = product.DiscountPercentage
+            }) ;
         }
         [HttpPost]
         public async Task<IActionResult> Update(ProductUpdateVM productUpdateVM)
@@ -81,5 +84,7 @@ namespace SparkNest.UI.MVC.Areas.Admin.Controllers
             var result = await _productService.DeleteAsync(id);
             return RedirectToAction(nameof(Index));
         }
+
+  
     }
 }

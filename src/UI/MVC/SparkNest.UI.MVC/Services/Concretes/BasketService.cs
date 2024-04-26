@@ -83,7 +83,7 @@ namespace SparkNest.UI.MVC.Services.Concretes
                 var existingBasketItem = basket.BasketItems.FirstOrDefault(x => x.ProductId == basketItemVM.ProductId);
                 if (existingBasketItem != null)
                 {
-                    existingBasketItem.Quantity += 1;
+                    existingBasketItem.Quantity += basketItemVM?.Quantity!=null||basketItemVM.Quantity<=0?basketItemVM.Quantity:1;
                 }
                 else
                 {
@@ -99,33 +99,33 @@ namespace SparkNest.UI.MVC.Services.Concretes
             await SaveOrUpdate(basket);
         }
 
-        public async Task<bool> ApplyDicount(string discountCode)
-        {
-            await CancelApplyDicount();
-            var basket =await Get();
-            if (basket == null)
-                return false;
-            var hasDiscount = await _discountService.GetDiscount(discountCode);
-            if(hasDiscount == null)
-            {
-                return false;
-            }
-            basket.DiscountRate = hasDiscount.Rate;
-            basket.DiscountCode = hasDiscount.Code;
-            await SaveOrUpdate(basket);
-            return true;
+        //public async Task<bool> ApplyDicount(string discountCode)
+        //{
+        //    await CancelApplyDicount();
+        //    var basket =await Get();
+        //    if (basket == null)
+        //        return false;
+        //    var hasDiscount = await _discountService.GetDiscount(discountCode);
+        //    if(hasDiscount == null)
+        //    {
+        //        return false;
+        //    }
+        //    basket.DiscountRate = hasDiscount.Rate;
+        //    basket.DiscountCode = hasDiscount.Code;
+        //    await SaveOrUpdate(basket);
+        //    return true;
 
-        }
+        //}
 
-        public async Task<bool> CancelApplyDicount()
-        {
-            BasketVM basket = await Get();
-            if (basket == null || basket.DiscountCode == null)
-                return false;
-            basket.CancelDiscount();
-            await SaveOrUpdate(basket);
-            return true;
-        }
+        //public async Task<bool> CancelApplyDicount()
+        //{
+        //    BasketVM basket = await Get();
+        //    if (basket == null || basket.DiscountCode == null)
+        //        return false;
+        //    basket.CancelDiscount();
+        //    await SaveOrUpdate(basket);
+        //    return true;
+        //}
 
         public async Task<bool> TestSend(TestBasket testBasket)
         {

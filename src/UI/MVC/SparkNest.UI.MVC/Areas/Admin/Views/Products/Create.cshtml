@@ -35,21 +35,58 @@
         <span asp-validation-for="Photo" class="text-danger"></span>
     </div>
 
-    <div class="form-group">
-        <label asp-for="CategoryId" class="control-label"></label>
-        <select asp-for="CategoryId" class="form-control" asp-items="@(new SelectList((List<CategoryVM>)ViewBag.CategoryList, "Id", "Name"))">
-            <option value="">Select Category</option>
-        </select>
-        <span asp-validation-for="CategoryId" class="text-danger"></span>
-    </div>
 
     <div class="form-group">
+        <label asp-for="Photos" class="control-label"></label>
+        <input type="file" asp-for="Photos" multiple class="form-control" />
+        <span asp-validation-for="Photos" class="text-danger"></span>
+    </div>
+
+    @if (ViewBag.CategoryList is not null)
+    {
+        <div class="form-group">
+            <label asp-for="CategoryId" class="control-label"></label>
+            <select asp-for="CategoryId" class="form-control" asp-items="@(new SelectList((List<CategoryVM>)ViewBag.CategoryList, "Id", "Name"))">
+                <option value="">Select Category</option>
+            </select>
+            <span asp-validation-for="CategoryId" class="text-danger"></span>
+        </div>
+    }
+    <!-- #region Summernote description -->
+
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+    <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
+    <div class="form-group">
         <label asp-for="Description" class="control-label"></label>
-        <textarea asp-for="Description" class="form-control"></textarea>
+        <textarea id="summernote" asp-for="Description"></textarea>
         <span asp-validation-for="Description" class="text-danger"></span>
     </div>
 
-    <div class="form-group">
+    <script>
+        $('#summernote').summernote({
+            placeholder: 'Hello stand alone ui',
+            tabsize: 2,
+            height: 120,
+            toolbar: [
+                ['style', ['style']],
+                ['font', ['bold', 'underline', 'clear']],
+                ['color', ['color']],
+                ['para', ['ul', 'ol', 'paragraph']],
+                ['table', ['table']],
+                ['insert', ['link', 'picture', 'video']],
+                ['view', ['fullscreen', 'codeview', 'help']]
+            ]
+        });
+    </script>
+
+    <!-- #endregion -->
+    
+    <div class="form-group mt-2">
         <input type="submit" value="Create" class="btn btn-primary" />
     </div>
 </form>
+
+
+
+

@@ -18,22 +18,7 @@
         "DebugTarget": ""
       },
       {
-        "Name": "src\\Gateways\\SparkNest.Gateways.GatewayMVC\\SparkNest.Gateways.GatewayMVC.csproj",
-        "Action": "Start",
-        "DebugTarget": ""
-      },
-      {
-        "Name": "src\\UI\\MVC\\SparkNest.UI.MVC\\SparkNest.UI.MVC.csproj",
-        "Action": "Start",
-        "DebugTarget": ""
-      },
-      {
         "Name": "src\\Services\\Basket\\SparkNest.Services.BasketAPI\\SparkNest.Services.BasketAPI.csproj",
-        "Action": "Start",
-        "DebugTarget": ""
-      },
-      {
-        "Name": "src\\Services\\Discount\\SparkNest.Services.DiscountAPI\\SparkNest.Services.DiscountAPI.csproj",
         "Action": "Start",
         "DebugTarget": ""
       },
@@ -44,6 +29,31 @@
       },
       {
         "Name": "src\\Services\\FakePayment\\SparkNest.Services.FakePaymentAPI\\SparkNest.Services.FakePaymentAPI.csproj",
+        "Action": "Start",
+        "DebugTarget": ""
+      },
+      {
+        "Name": "src\\Services\\Comments\\SparkNest.Services.CommentAPI\\SparkNest.Services.CommentAPI.csproj",
+        "Action": "Start",
+        "DebugTarget": ""
+      },
+      {
+        "Name": "src\\Gateways\\SparkNest.Gateways.GatewayMVC\\SparkNest.Gateways.GatewayMVC.csproj",
+        "Action": "Start",
+        "DebugTarget": ""
+      },
+      {
+        "Name": "src\\Services\\Blog\\SparkNest.Services.BlogAPI\\SparkNest.Services.BlogAPI.csproj",
+        "Action": "Start",
+        "DebugTarget": ""
+      },
+      {
+        "Name": "src\\Services\\MailService\\SparkNest.Services.MailServiceAPI\\SparkNest.Services.MailServiceAPI.csproj",
+        "Action": "Start",
+        "DebugTarget": ""
+      },
+      {
+        "Name": "src\\UI\\MVC\\SparkNest.UI.MVC\\SparkNest.UI.MVC.csproj",
         "Action": "Start",
         "DebugTarget": ""
       }

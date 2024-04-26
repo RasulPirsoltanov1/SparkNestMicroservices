@@ -7,7 +7,7 @@
 <div class="menu">
     <div class="menu-header">
         <a asp-action ="Index" asp-area="Admin" asp-controller="Dashboard" class="menu-header-logo">
-            <img src="https://vetra.laborasyon.com/assets/images/logo.svg" alt="logo">
+            <img style="width:200px;" src="~/shopgrids/assets/images/logo/logo.png" alt="logo">
         </a>
         <a href="index.html" class="btn btn-sm menu-close-btn">
             <i class="bi bi-x"></i>
@@ -66,6 +66,94 @@
                         <i class="bi bi-plus-circle"></i>
                     </span>
                     <span>Create Product</span>
+                </a>
+            </li>
+            <li>
+                <a class="@((currentController.ToLower() == "category" && currentAction.ToLower() == "index") ? "active" : "")"
+                   asp-action="Index" asp-area="Admin" asp-controller="Category">
+                    <span class="nav-link-icon">
+                        <i class="bi bi-bookmark"></i>
+                    </span>
+                    <span>Categories</span>
+                </a>
+            </li>
+            <li>
+                <a class="@((currentController == "category" && currentArea == "admin" && currentAction == "create") ? "active" : "")"
+                   asp-action="Create" asp-area="Admin" asp-controller="Category">
+                    <span class="nav-link-icon">
+                        <i class="bi bi-file-plus"></i>
+                    </span>
+                    <span>Create Category</span>
+                </a>
+            </li>
+
+
+            <li>
+                <a class="@((currentController == "orders" && currentArea == "admin" && currentAction == "index") ? "active" : "")"
+                   asp-action="Index" asp-area="Admin" asp-controller="Orders">
+                    <span class="nav-link-icon">
+                        <i class="bi bi-cart-check"></i>
+                    </span>
+                    <span>Orders</span>
+                </a>
+            </li>
+
+            <li>
+                <a class="@((currentController == "helpcenter" && currentArea == "admin" && currentAction == "index") ? "active" : "")"
+                   asp-action="Index" asp-area="Admin" asp-controller="HelpCenter">
+                    <span class="nav-link-icon">
+                        <i class="bi bi-chat-left-dots"></i>
+                    </span>
+                    <span>Help Center Messages</span>
+                </a>
+            </li>
+
+            <li>
+                <a class="@((currentController == "comment" && currentArea == "admin" && currentAction == "index") ? "active" : "")"
+                   asp-action="Index" asp-area="Admin" asp-controller="Comment">
+                    <span class="nav-link-icon">
+                        <i class="bi bi-chat-quote"></i>
+                    </span>
+                    <span>Product Comments</span>
+                </a>
+            </li>
+
+
+            <li>
+                <a class="@((currentController == "blog" && currentArea == "admin" && currentAction == "index") ? "active" : "")"
+                   asp-action="Index" asp-area="Admin" asp-controller="Blog">
+                    <span class="nav-link-icon">
+                        <i class="bi bi-substack"></i>
+                    </span>
+                    <span>Blogs</span>
+                </a>
+            </li>
+
+            <li>
+                <a class="@((currentController == "blog" && currentArea == "admin" && currentAction == "create") ? "active" : "")"
+                   asp-action="Create" asp-area="Admin" asp-controller="Blog">
+                    <span class="nav-link-icon">
+                        <i class="bi bi-cloud-plus"></i>
+                    </span>
+                    <span>Create Blog</span>
+                </a>
+            </li>
+            <li>
+                <a class="@((currentController == "blogcategory" && currentArea == "admin" && currentAction == "index") ? "active" : "")"
+                   asp-action="Index" asp-area="Admin" asp-controller="BlogCategory">
+                    <span class="nav-link-icon">
+                        <i class="bi bi-cloud-plus"></i>
+                    </span>
+                    <span>Blog Categories</span>
+                </a>
+            </li>
+            <li>
+                <a class="@((currentController == "blogcategory" && currentArea == "admin" && currentAction == "create") ? "active" : "")"
+                   asp-action="Create" asp-area="Admin" asp-controller="BlogCategory">
+                    <span class="nav-link-icon">
+                        <i class="bi bi-cloud-plus"></i>
+                    </span>
+                    <span>Create Blog Category</span>
                 </a>
             </li>
         </ul>

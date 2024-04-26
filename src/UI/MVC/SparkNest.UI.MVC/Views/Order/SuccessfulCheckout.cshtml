@@ -1,10 +1,17 @@
-﻿﻿@{
-    ViewData["Title"] = "SuccessfulCheckout";
+﻿@{
+    ViewData["Title"] = "Successful Checkout";
 }
 
-<div class="alert alert-info">
-
-    <p>Order finished successfully</p>
-    <p>Order no : @ViewBag.orderId</p>
-</div>
-<a class="btn btn-primary" asp-controller="Home" asp-action="Index">Home</a>
+<section class="checkout-wrapper section">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-12 justify-content-center ">
+                <div class="success" style="background-color:rgba(0,200,0,0.5);padding:40px; border-radius:10px; margin:20px; text-align:center; color:white; font-size:35px">
+                    <p style="font-size:22px;">Your order has been successfully processed.</p>
+                    <p style="font-size:22px;">Order Number: @ViewBag.orderId</p>
+                </div>
+            </div>
+                <a class="btn btn-success col-3" asp-controller="Home" asp-action="Index">Return to Shopping</a>
+        </div>
+    </div>
+</section>

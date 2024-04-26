@@ -1,0 +1,13 @@
+﻿@using SparkNest.UI.MVC.Application.DTOs.Blog
+@model List<BlogCategoryDTO>
+<div class="widget categories-widget">
+    <h5 class="widget-title">Top Categories</h5>
+    <ul class="custom">
+        @foreach (var cat in Model)
+        {
+            <li>
+                <a href="javascript:void(0)">@cat.Name</a><span>@(cat.Blogs.Count() == 0 ? "" : "("+cat.Blogs.Count()+")")</span>
+            </li>
+        }
+    </ul>
+</div>

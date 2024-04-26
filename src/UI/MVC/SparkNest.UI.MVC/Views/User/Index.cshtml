@@ -1,47 +1,52 @@
-﻿@model UserVM
-
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>User Information</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
-</head>
-<body>
-    
-        <div class="container mt-5">
+﻿@model SparkNest.UI.MVC.Models.UserVM
+<div class="container mt-5">
+    <div class="container mt-5">
+        <h1 class="text-center mb-4">User Information</h1>
         <div class="row">
-            <div class="col-10">
-                <h1>User Information</h1>
+            <div class="col-md-6">
                 <table class="table">
                     <tbody>
                         <tr>
-                            <th scope="row">ID</th>
+                            <th>ID</th>
                             <td>@Model.Id</td>
                         </tr>
                         <tr>
-                            <th scope="row">Username</th>
+                            <th>Username</th>
                             <td>@Model.UserName</td>
                         </tr>
                         <tr>
-                            <th scope="row">Email</th>
+                            <th>Email</th>
                             <td>@Model.Email</td>
                         </tr>
                         <tr>
-                            <th scope="row">Country</th>
+                            <th>Country</th>
                             <td>@Model.Countyr</td>
                         </tr>
                     </tbody>
                 </table>
             </div>
-            <div class="col-2">
-                <a asp-action="Index" asp-controller="Products" class="alert-info">
-                    My Products
-                </a>
+            <div class="col-md-6">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="card">
+                            <div class="round-image">
+                                <img src="@Model.ImageFileStockUrl" class="card-img-top" alt="User Photo" width="200px">
+                            </div>
+                            <div class="card-body">
+                                <h5 class="card-title">User Photo</h5>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 float-end ps-3">
+                        @await Component.InvokeAsync("UploadProfileImageVC")
+                    </div>
+                </div>
+             
             </div>
+
+
         </div>
     </div>
 
-</body>
-</html>
+</div>
+</div>

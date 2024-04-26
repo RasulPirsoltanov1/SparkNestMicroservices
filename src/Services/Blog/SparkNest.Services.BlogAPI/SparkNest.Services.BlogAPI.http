@@ -1,0 +1,6 @@
+@SparkNest.Services.BlogAPI_HostAddress = http://localhost:5126
+
+GET {{SparkNest.Services.BlogAPI_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

@@ -28,6 +28,14 @@ namespace SparkNest.Services.IdentityServiceAPI.Controllers
         [HttpPost]
         public async Task<IActionResult> SignUpAsync(SignUpDTO signUpDTO)
         {
+            var dbUser = await _userManager.FindByEmailAsync(signUpDTO.Email);
+            if (dbUser != null)
+            {
+                return BadRequest(Response<NoContent>.Fail(new System.Collections.Generic.List<string>()
+                {
+                    "User already exists!"
+                }, 400));
+            }
             ApplicationUser applicationUser = new ApplicationUser
             {
                 UserName = signUpDTO.UserName,
@@ -56,7 +64,25 @@ namespace SparkNest.Services.IdentityServiceAPI.Controllers
                 UserName = user.UserName,
                 Email = user.Email,
                 Countyr = user.Country,
+                ImageUrl = user.ImageUrl,
             });
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> UploadImage(UploadProfileImageDTO uploadProfileImageDTO)
+        {
+            var user = await _userManager.FindByNameAsync(uploadProfileImageDTO.UserNameOrEmail);
+            if (user == null)
+            {
+                user = await _userManager.FindByEmailAsync(uploadProfileImageDTO.UserNameOrEmail);
+                if (user == null)
+                {
+                    return BadRequest();
+                }
+            }
+            user.ImageUrl = uploadProfileImageDTO.ImageUrl;
+            await _userManager.UpdateAsync(user);
+            return Ok();
         }
     }
 }

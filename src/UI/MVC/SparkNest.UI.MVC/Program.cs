@@ -5,10 +5,16 @@ using SparkNest.Common.Base.Services;
 using SparkNest.UI.MVC.Extensions;
 using SparkNest.UI.MVC.Handlers;
 using SparkNest.UI.MVC.Helpers;
+using SparkNest.UI.MVC.Hubs;
+using SparkNest.UI.MVC.Infrastructure;
 using SparkNest.UI.MVC.Models;
 using SparkNest.UI.MVC.Services.Concretes;
 using SparkNest.UI.MVC.Services.Interfaces;
 using SparkNest.UI.MVC.Validators;
+using SparkNest.UI.MVC.Application.Features.Messages.Queries.GetAllMessages;
+using SparkNest.UI.MVC.Application.Abstractions;
+using SparkNest.UI.MVC.Infrastructure.Concretes;
+using SparkNest.UI.MVC.Application.Concretes;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -46,6 +52,13 @@ builder.Services.AddScoped<IDiscountService, DiscountService>();
 builder.Services.AddScoped<IPaymentService, PaymentService>();
 
 
+builder.Services.AddScoped<ICommentService, CommentService>();
+builder.Services.AddScoped<IBlogService, BlogService>();
+
+
+//MVC infrastructure Layer Registration
+builder.Services.AddMvcInfrastructure();
+
 //Http services 
 builder.Services.AddHttpClientServices();
 
@@ -54,9 +67,10 @@ builder.Services.AddAuthentication().AddCookie(CookieAuthenticationDefaults.Auth
 {
     opt.LoginPath = "/Auth/SignIn";
     opt.AccessDeniedPath = "/Auth/SignIn";
-    opt.ExpireTimeSpan = TimeSpan.FromDays(10);
+    opt.ExpireTimeSpan = TimeSpan.FromHours(7);
     opt.SlidingExpiration = true;
     opt.Cookie.Name = "SparkNest";
+
 });
 
 //Helpers 
@@ -64,6 +78,17 @@ builder.Services.AddSingleton<FileStockHelper>();
 
 //Fluent Validation
 builder.Services.AddValidatorsFromAssemblyContaining<ProductCreateVMValidator>(); // register validators
+
+
+builder.Services.AddSignalR();
+
+builder.Services.AddMediatR(options =>
+{
+    options.RegisterServicesFromAssemblyContaining<GetAllMessagesQueryRequestHandler>();
+});
+
+
+
 
 var app = builder.Build();
 
@@ -81,6 +106,7 @@ app.UseRouting();
 app.UseAuthentication();
 app.UseAuthorization();
 
+app.MapHub<ChatHub>("/chathub");
 
 app.MapControllerRoute(
       name: "areas",
@@ -88,7 +114,7 @@ app.MapControllerRoute(
 
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=Home}/{action=Index}/{id?}");
+    pattern: "{controller=HomePage}/{action=Index}/{id?}");
 
 
 

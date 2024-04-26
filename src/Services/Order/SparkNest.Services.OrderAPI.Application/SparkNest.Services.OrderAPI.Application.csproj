@@ -14,6 +14,7 @@
 	<PackageReference Include="MassTransit.AspNetCore" Version="7.1.7" />
 	<PackageReference Include="MassTransit.RabbitMQ" Version="7.1.7" />
     <ProjectReference Include="..\..\..\Common\SparkNest.Common.Base\SparkNest.Common.Base.csproj" />
+    <ProjectReference Include="..\..\..\MessagesAndEvents\SparkNest.MessagesAndEvents.Base\SparkNest.MessagesAndEvents.Base.csproj" />
     <ProjectReference Include="..\SparkNest.Services.OrderAPI.Domain\SparkNest.Services.OrderAPI.Domain.csproj" />
     <ProjectReference Include="..\SparkNest.Services.OrderAPI.Infrastructure\SparkNest.Services.OrderAPI.Infrastructure.csproj" />
   </ItemGroup>

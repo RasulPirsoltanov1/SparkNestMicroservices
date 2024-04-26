@@ -24,7 +24,7 @@ namespace SparkNest.Services.OrderAPI.Application.Consumers
         {
             var address = new Address(context.Message.Province, context.Message.Street, context.Message.District, context.Message.Line, context.Message.ZipCode);
 
-            Order order = new Order(context.Message.BuyerId, address);
+            Order order = new Order(context.Message.BuyerId,context.Message.UserName,context.Message.Email, address);
 
             context.Message.OrderItems.ForEach(x =>
             {

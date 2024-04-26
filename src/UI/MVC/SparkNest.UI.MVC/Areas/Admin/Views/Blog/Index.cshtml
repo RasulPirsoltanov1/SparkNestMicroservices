@@ -1,0 +1,44 @@
+﻿@model List<SparkNest.UI.MVC.Application.DTOs.Blog.BlogDTO>
+
+@{
+    ViewData["Title"] = "Blogs";
+}
+
+<h1>Blogs</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Photo</th>
+            <th>Title</th>
+            <th>Content</th>
+            <th>Views</th>
+            <th>Category</th>
+            <th>Create Date</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var blog in Model)
+        {
+            <tr>
+                <td>
+                    @if (!string.IsNullOrEmpty(blog.PhotoUrl))
+                    {
+                        <img src="@blog.PhotoFileStockUrl" alt="Blog Photo" style="max-width: 100px;" />
+                    }
+                </td>
+                <td>@blog.Title</td>
+                <td>@(blog?.Content?.Length < 20 ? blog.Content : blog.Content.Substring(0, 20))</td>
+                <td>@blog.Views</td>
+                <td>@blog.Category?.Name</td>
+                <td>@blog.CreateDate</td>
+                <td>
+                    <a class="btn btn-info" asp-action="Update" asp-controller="Blog" asp-area="Admin" asp-route-blogId="@blog.Id">Update</a>
+                    <a class="btn btn-primary">Visit</a>
+                    <a class="btn btn-danger" asp-action="Delete" asp-controller="Blog" asp-area="Admin" asp-route-blogId="@blog.Id">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
