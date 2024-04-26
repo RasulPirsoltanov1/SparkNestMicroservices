@@ -1,6 +1,7 @@
 ﻿using MassTransit;
 using Microsoft.EntityFrameworkCore;
 using SparkNest.Common.Base.Events;
+using SparkNest.MessagesAndEvents.Base.Product;
 using SparkNest.Services.OrderAPI.Infrastructure.Data;
 using System;
 using System.Collections.Generic;

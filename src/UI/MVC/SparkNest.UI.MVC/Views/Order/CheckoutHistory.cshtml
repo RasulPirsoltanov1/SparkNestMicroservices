@@ -21,6 +21,7 @@
                                             <th>Order(Payment) No</th>
                                             <th>Purchase Date</th>
                                             <th>Details</th>
+                                            <th>Status</th>
                                         </tr>
                                         @foreach (var item in Model)
                                         {
@@ -46,13 +47,27 @@
                                                         }
                                                     </table>
                                                 </td>
+                                                <td>
+                                                    @if (item.Status == 0)
+                                                    {
+                                                        <text>Sifarisiniz hazirlanir. </text>
+                                                    }
+                                                    @if (item.Status == 1)
+                                                    {
+                                                        <text>Siafidiniz catdirlma sirketine tehvil verildi.</text>
+                                                    }
+                                                    @if(item.Status == 2)
+                                                    {
+                                                        <text>Siafidiniz ugurla catdirildi.</text>
+                                                    }
+                                                </td>
                                             </tr>
                                         }
                                     </table>
                                 }
                                 else
                                 {
-                                    <div  style="background-color:rgba(200,50,0,0.5);padding:40px; border-radius:10px; margin:20px; text-align:center; color:white; font-size:35px">You haven't purchased any courses yet.</div>
+                                    <div style="background-color:rgba(200,50,0,0.5);padding:40px; border-radius:10px; margin:20px; text-align:center; color:white; font-size:35px">You haven't purchased any courses yet.</div>
                                 }
                             </div>
                         </div>

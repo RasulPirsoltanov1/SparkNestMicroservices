@@ -26,7 +26,8 @@ namespace SparkNest.Services.CommentAPI.Application.Features.Comments.Queries.Ge
                 Id = x.Id,
                 ProductId = x.ProductId,
                 UserName = x.UserName,
-                PhotoUrl = x.PhotoUrl
+                PhotoUrl = x.PhotoUrl,
+                CreateDate = x.CreateDate,
             }).ToList();
             return Response<List<GetAllCommentsResponse>>.Success(getAllCommentsResponses, 200);
         }

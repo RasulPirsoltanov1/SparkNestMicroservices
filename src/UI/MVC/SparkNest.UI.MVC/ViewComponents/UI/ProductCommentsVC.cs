@@ -23,6 +23,7 @@ namespace SparkNest.UI.MVC.ViewComponents.UI
                 PhotoUrl=x.PhotoUrl,
                 UserId=x.UserId,
                 UserName=x.UserName,
+                CreateDate=x.CreateDate
             }).ToList());
         }
     }

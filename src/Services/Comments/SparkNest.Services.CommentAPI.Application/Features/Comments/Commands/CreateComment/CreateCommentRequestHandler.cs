@@ -30,6 +30,7 @@ namespace SparkNest.Services.CommentAPI.Application.Features.Comments.Commands.C
                     Content = request.Content,
                     PhotoUrl = request.PhotoUrl,
                     UserName = request.UserName,
+                    CreateDate=DateTime.UtcNow,
                 };
                 await dbContext.Comments.AddAsync(comment);
                 await dbContext.SaveChangesAsync();
