@@ -6,4 +6,8 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\Common\SparkNest.Common.Base\SparkNest.Common.Base.csproj" />
+  </ItemGroup>
+
 </Project>

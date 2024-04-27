@@ -5,9 +5,11 @@ using MongoDB.Driver.Core.Authentication;
 using SparkNest.Common.Base.Events;
 using SparkNest.Common.Base.Services;
 using SparkNest.Common.DTOs;
+using SparkNest.Services.ProductAPI.Application.Abstrctions;
 using SparkNest.Services.ProductAPI.DTOs;
 using SparkNest.Services.ProductAPI.Models;
 using SparkNest.Services.ProductAPI.Settings;
+using System.Text.Json;
 using System.Text.RegularExpressions;
 
 namespace SparkNest.Services.ProductAPI.Services
@@ -19,7 +21,8 @@ namespace SparkNest.Services.ProductAPI.Services
         IMapper _mapper;
         IDatabaseSettings _databaseSettings;
         IPublishEndpoint _publishEndpoint;
-        public ProductService(IMapper mapper, IDatabaseSettings databaseSettings, IPublishEndpoint publishEndpoint)
+        IRedisService<List<Product>> _redisService;
+        public ProductService(IMapper mapper, IDatabaseSettings databaseSettings, IPublishEndpoint publishEndpoint, IRedisService<List<Product>> redisService)
         {
             _mapper = mapper;
             _databaseSettings = databaseSettings;
@@ -28,9 +31,9 @@ namespace SparkNest.Services.ProductAPI.Services
             _productCollection = database.GetCollection<Product>(_databaseSettings.ProductCollectionName);
             _categoryCollection = database.GetCollection<Category>(_databaseSettings.CategoryCollectionName);
             _publishEndpoint = publishEndpoint;
+            _redisService = redisService;
         }
-
-        public async Task<SparkNest.Common.DTOs.Response<List<ProductDTO>>> GetAllAsync()
+        public async Task<SparkNest.Common.DTOs.Response<List<ProductDTO>>> GetAllForUpdateRedisAsync()
         {
             var products = await _productCollection.Find(x => true).ToListAsync();
             if (products == null)
@@ -41,6 +44,27 @@ namespace SparkNest.Services.ProductAPI.Services
             {
                 product.Category = _categoryCollection.Find(x => x.Id == product.CategoryId).FirstOrDefault();
             }
+            await _redisService.SaveStringAsync(nameof(Product), JsonSerializer.Serialize(products));
+            return SparkNest.Common.DTOs.Response<List<ProductDTO>>.Success(_mapper.Map<List<ProductDTO>>(products), 200);
+        }
+
+        public async Task<SparkNest.Common.DTOs.Response<List<ProductDTO>>> GetAllAsync()
+        {
+            var cacheProducts = await _redisService.GetStringAsync(nameof(Product));
+            if (cacheProducts != null)
+            {
+                return SparkNest.Common.DTOs.Response<List<ProductDTO>>.Success(_mapper.Map<List<ProductDTO>>(cacheProducts), 200);
+            }
+            var products = await _productCollection.Find(x => true).ToListAsync();
+            if (products == null)
+            {
+                return SparkNest.Common.DTOs.Response<List<ProductDTO>>.Fail("Have not any product!", 404);
+            }
+            foreach (var product in products)
+            {
+                product.Category = _categoryCollection.Find(x => x.Id == product.CategoryId).FirstOrDefault();
+            }
+            await _redisService.SaveStringAsync(nameof(Product), JsonSerializer.Serialize(products));
             return SparkNest.Common.DTOs.Response<List<ProductDTO>>.Success(_mapper.Map<List<ProductDTO>>(products), 200);
         }
 
@@ -76,6 +100,7 @@ namespace SparkNest.Services.ProductAPI.Services
             var product = _mapper.Map<Product>(productCreateDTO);
             product.CreatedDate = DateTime.Now;
             await _productCollection.InsertOneAsync(product);
+            await GetAllForUpdateRedisAsync();
             return SparkNest.Common.DTOs.Response<ProductDTO>.Success(_mapper.Map<ProductDTO>(product), 200);
         }
 
@@ -102,6 +127,8 @@ namespace SparkNest.Services.ProductAPI.Services
                 ProductId = product.Id,
                 UpdatedName = productUpdateDTO.Name,
             });
+            await GetAllForUpdateRedisAsync();
+
             return SparkNest.Common.DTOs.Response<NoContent>.Success(200);
         }
 
@@ -112,6 +139,8 @@ namespace SparkNest.Services.ProductAPI.Services
             {
                 return SparkNest.Common.DTOs.Response<NoContent>.Fail("Product not found!", 404);
             }
+            await GetAllForUpdateRedisAsync();
+
             return SparkNest.Common.DTOs.Response<NoContent>.Success(202);
         }
 
@@ -126,6 +155,8 @@ namespace SparkNest.Services.ProductAPI.Services
                 await Console.Out.WriteLineAsync(url);
                 dbProduct.PhotoUrls.Remove(url); // Remove the specified photoUrl from the list
                 var result = await _productCollection.FindOneAndReplaceAsync(x => x.Id == dbProduct.Id, dbProduct);
+                await GetAllForUpdateRedisAsync();
+
                 return SparkNest.Common.DTOs.Response<NoContent>.Success(202);
             }
             else
@@ -196,6 +227,7 @@ namespace SparkNest.Services.ProductAPI.Services
                 }
                 dbProduct.RatedUsers.Add(productRateDTO.UserId);
                 var result = await _productCollection.FindOneAndReplaceAsync(x => x.Id == dbProduct.Id, dbProduct);
+                await GetAllForUpdateRedisAsync();
                 return SparkNest.Common.DTOs.Response<NoContent>.Success(202);
             }
             else
