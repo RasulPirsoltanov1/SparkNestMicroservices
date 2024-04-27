@@ -16,7 +16,7 @@ namespace SparkNest.UI.MVC.ViewComponents.UI
         public async Task<IViewComponentResult> InvokeAsync()
         {
             var featuredBlogs = await _mediator.Send(new BlogsGetAllQueryRequest());
-            return View(featuredBlogs);
+            return View(featuredBlogs.Take(3).ToList());
         }
     }
 }

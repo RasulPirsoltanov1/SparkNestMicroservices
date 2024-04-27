@@ -6,6 +6,8 @@ using Microsoft.AspNetCore.Mvc.Authorization;
 using Microsoft.EntityFrameworkCore;
 using SparkNest.Common.Base.Messages;
 using SparkNest.Common.Base.Services;
+using SparkNest.Services.OrderAPI.Application.Abstractions;
+using SparkNest.Services.OrderAPI.Application.Concretes;
 using SparkNest.Services.OrderAPI.Application.Consumers;
 using SparkNest.Services.OrderAPI.Application.EventConsumers;
 using SparkNest.Services.OrderAPI.Application.Features.Orders.Queries.Get;
@@ -77,6 +79,15 @@ builder.Services.AddMassTransit(x =>
 });
 
 builder.Services.AddMassTransitHostedService();
+
+
+builder.Services.AddStackExchangeRedisCache(option =>
+{
+    option.Configuration = "localhost:6379";
+    option.InstanceName = "RedisComment";
+});
+
+builder.Services.AddScoped(typeof(IRedisService<>),typeof(RedisService<>));
 
 
 var app = builder.Build();

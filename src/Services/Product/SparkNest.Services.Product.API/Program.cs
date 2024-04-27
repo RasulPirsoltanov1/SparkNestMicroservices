@@ -3,6 +3,8 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Mvc.Authorization;
 using Microsoft.Extensions.DependencyInjection;
 using SparkNest.Common.Base.Services;
+using SparkNest.Services.ProductAPI.Application.Abstrctions;
+using SparkNest.Services.ProductAPI.Infrastructure.Concretes;
 using SparkNest.Services.ProductAPI.Services;
 using SparkNest.Services.ProductAPI.Settings;
 using System.Reflection;
@@ -45,6 +47,7 @@ builder.Services.AddHttpContextAccessor();
 builder.Services.AddScoped<ICategoryService, CategoryService>();
 builder.Services.AddScoped<IProductService, ProductService>();
 builder.Services.AddScoped<ISharedIdentityService, SharedIdentityService>();
+builder.Services.AddScoped(typeof(IRedisService<>), typeof(RedisService<>));
 
 
 
@@ -68,6 +71,11 @@ builder.Services.AddMassTransitHostedService();
 
 
 
+builder.Services.AddStackExchangeRedisCache(option =>
+{
+    option.Configuration = "localhost:6379";
+    option.InstanceName = "RedisProduct";
+});
 
 
 
@@ -83,7 +91,7 @@ using (var scope = app.Services.CreateScope())
     {
         for (int i = 0; i < 10; i++)
         {
-           await categoryService.CreateAsync(new SparkNest.Services.ProductAPI.DTOs.CategoryDTO { Name = "Test "+i });
+            await categoryService.CreateAsync(new SparkNest.Services.ProductAPI.DTOs.CategoryDTO { Name = "Test " + i });
         }
     }
 }

@@ -1,9 +1,12 @@
 ﻿using MassTransit;
 using MediatR;
+using Microsoft.EntityFrameworkCore;
 using SparkNest.Common.DTOs;
 using SparkNest.MessagesAndEvents.Base.Events;
+using SparkNest.Services.OrderAPI.Application.Abstractions;
 using SparkNest.Services.OrderAPI.Domain.OrderAggregate;
 using SparkNest.Services.OrderAPI.Infrastructure.Data;
+using System.Text.Json;
 
 namespace SparkNest.Services.OrderAPI.Application.Features.Orders.Commands.StatusChange
 {
@@ -11,10 +14,12 @@ namespace SparkNest.Services.OrderAPI.Application.Features.Orders.Commands.Statu
     {
         OrderDbContext _dbContext;
         public readonly IPublishEndpoint _publishEndpoint;
-        public StatusChangeOrderCommandHnadler(OrderDbContext dbContext, IPublishEndpoint publishEndpoint)
+        IRedisService<List<Order>> _redisService;
+        public StatusChangeOrderCommandHnadler(OrderDbContext dbContext, IPublishEndpoint publishEndpoint, IRedisService<List<Order>> redisService)
         {
             _dbContext = dbContext;
             _publishEndpoint = publishEndpoint;
+            _redisService = redisService;
         }
 
         public async Task<Common.DTOs.Response<bool>> Handle(StatusChangeOrderCommand request, CancellationToken cancellationToken)
@@ -48,6 +53,11 @@ namespace SparkNest.Services.OrderAPI.Application.Features.Orders.Commands.Statu
                     break;
             }
             await _publishEndpoint.Publish(eventMessage);
+            var orders = await _dbContext.Orders.Include(x => x.OrderItems).ToListAsync();
+            if (orders == null || orders.Count <= 0)
+            {
+                await _redisService.SaveStringAsync(nameof(Order), JsonSerializer.Serialize(orders));
+            }
             return Common.DTOs.Response<bool>.Success(true, 200);
         }
     }
