@@ -20,8 +20,8 @@ namespace SparkNest.Services.MailServiceAPI.EventConsumers
             foreach (var sub in subscribers)
             {
                 var content = context.Message.Content.Length < 1000 ? context.Message.Content : context.Message.Content.Substring(1000);
-                _mailService.SendMail(sub.Email, context.Message.Title, "<hr/>" +
-                        $"{context}", "http://localhost:2007/Blogs/Index");
+                _mailService.SendMail(sub.Email, context.Message.Title, "<hr/>" +context.Message.CategoryName + "<hr/>" +
+                        $"{content}", "http://localhost:2007/Blogs/Index");
             }
         }
     }

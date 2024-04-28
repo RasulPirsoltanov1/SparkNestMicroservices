@@ -29,12 +29,13 @@ namespace SparkNest.Services.BlogAPI.Application.Features.Blogs.Commands.Create
                 CreateDate = DateTime.Now,
                 Title = request.Title,
             });
-            await _publishEndpoint.Publish<SubscriberNotificationEvent>(new SubscriberNotificationEvent
+            var subEvent = new SubscriberNotificationEvent
             {
-                CategoryName = (await _categoryService.GetByIdAsync(request.CategoryId)).Data.Name??"Default",
+                CategoryName = (await _categoryService.GetByIdAsync(request.CategoryId)).Data.Name ?? "Default",
                 Content = request.Content,
                 Title = request.Title
-            });
+            };
+            await _publishEndpoint.Publish<SubscriberNotificationEvent>(subEvent);
             return result;
         }
     }

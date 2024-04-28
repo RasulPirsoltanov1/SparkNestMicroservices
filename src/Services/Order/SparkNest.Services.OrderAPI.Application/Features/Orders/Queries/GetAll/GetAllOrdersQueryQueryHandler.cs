@@ -34,9 +34,9 @@ namespace SparkNest.Services.OrderAPI.Application.Features.Orders.Queries.GetAll
             var orders = await _orderDbContext.Orders.Include(x => x.OrderItems).ToListAsync();
             if (orders == null || orders.Count <= 0)
             {
-                await _redisService.SaveStringAsync(nameof(Order), JsonSerializer.Serialize(orders));
                 return Response<List<OrderDTO>>.Success(new List<OrderDTO>(), 200);
             }
+            await _redisService.SaveStringAsync(nameof(Order), JsonSerializer.Serialize(orders));
             var orderDtos = ObjectMapping.Mapper.Map<List<OrderDTO>>(orders);
             return Response<List<OrderDTO>>.Success(orderDtos, 200);
         }
