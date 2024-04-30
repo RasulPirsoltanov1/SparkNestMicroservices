@@ -34,7 +34,8 @@ namespace SparkNest.Services.OrderAPI.Application.Features.Orders.Commands.Creat
             var orders = await _dbContext.Orders.Include(x => x.OrderItems).ToListAsync();
             if (orders == null || orders.Count <= 0)
             {
-                await _redisService.SaveStringAsync(nameof(Order), JsonSerializer.Serialize(orders));
+                var orderDtos = ObjectMapping.Mapper.Map<List<OrderDTO>>(orders);
+                await _redisService.SaveStringAsync(nameof(Order), JsonSerializer.Serialize(orderDtos));
             }
             return Response<CreatedOrderDTO>.Success(new CreatedOrderDTO { OrderId = order.Id }, 200);
         }

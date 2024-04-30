@@ -7,7 +7,7 @@ using SparkNest.UI.MVC.Services.Interfaces;
 namespace SparkNest.UI.MVC.Areas.Admin.Controllers
 {
     [Area("Admin")]
-    [Authorize(Roles ="Admin,Moderator")]
+    [Authorize(Roles = "Admin,Moderator")]
     public class ProductsController : Controller
     {
         IProductService _productService;
@@ -19,10 +19,34 @@ namespace SparkNest.UI.MVC.Areas.Admin.Controllers
             _sharedIdentityService = sharedIdentityService;
         }
 
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(int currentPageIndex)
         {
-            return View(await _productService.GetAllProductsAsync());
+            var productsAndPageCount = await GetProducts(currentPageIndex);
+            var products = productsAndPageCount.Item1;
+            var pageCount = productsAndPageCount.Item2;
+
+            ViewBag.CurrentPageIndex = currentPageIndex;
+            ViewBag.PageCount = pageCount;
+
+            return View(products);
         }
+
+        private async Task<(List<ProductVM>, int)> GetProducts(int currentPage)
+        {
+            int maxRows = 3;
+            var products = (await _productService.GetAllProductsAsync()).ToList();
+            int totalProductCount = products.Count;
+            int pageCount = (int)Math.Ceiling((double)totalProductCount / maxRows);
+
+            // Make sure currentPage is within valid range
+            currentPage = currentPage < 1 ? 1 : currentPage;
+            currentPage = currentPage > pageCount ? pageCount : currentPage;
+
+            var paginatedProducts = products.Skip((currentPage - 1) * maxRows).Take(maxRows).ToList();
+
+            return (paginatedProducts, pageCount);
+        }
+
         public async Task<IActionResult> CreateAsync()
         {
             var categories = await _productService.GetAllCateegoryAsync();
@@ -61,7 +85,7 @@ namespace SparkNest.UI.MVC.Areas.Admin.Controllers
                 PhotoFileStockUrls = product.PhotoFileStockUrls,
                 PriceDiscount = product.PriceDiscount,
                 DiscountPercentage = product.DiscountPercentage
-            }) ;
+            });
         }
         [HttpPost]
         public async Task<IActionResult> Update(ProductUpdateVM productUpdateVM)
@@ -84,7 +108,5 @@ namespace SparkNest.UI.MVC.Areas.Admin.Controllers
             var result = await _productService.DeleteAsync(id);
             return RedirectToAction(nameof(Index));
         }
-
-  
     }
 }

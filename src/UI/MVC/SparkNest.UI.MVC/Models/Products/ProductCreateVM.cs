@@ -9,11 +9,11 @@ namespace SparkNest.UI.MVC.Models.Product
         //[Required]
         public decimal Price { get; set; }
         public string? UserId { get; set; }
-        //[Required]
         public FeatureVM Feature { get; set; }
         public string CategoryId { get; set; }
         public string Description { get; set; }
-        public IFormFile? Photo { get; set; }
+        [Required]
+        public IFormFile Photo { get; set; }
         public string? PhotoUrl{ get; set; }
         public List<IFormFile>? Photos { get; set; }
         public List<string>? PhotoUrls { get; set; } = new List<string>();

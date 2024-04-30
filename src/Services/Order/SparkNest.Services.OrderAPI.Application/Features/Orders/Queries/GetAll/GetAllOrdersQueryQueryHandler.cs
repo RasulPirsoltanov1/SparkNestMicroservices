@@ -14,9 +14,9 @@ namespace SparkNest.Services.OrderAPI.Application.Features.Orders.Queries.GetAll
     public class GetAllOrdersQueryQueryHandler : IRequestHandler<GetAllOrdersQuery, Response<List<OrderDTO>>>
     {
         OrderDbContext _orderDbContext;
-        IRedisService<List<Order>> _redisService;
+        IRedisService<List<OrderDTO>> _redisService;
 
-        public GetAllOrdersQueryQueryHandler(OrderDbContext orderDbContext, IRedisService<List<Order>> redisService)
+        public GetAllOrdersQueryQueryHandler(OrderDbContext orderDbContext, IRedisService<List<OrderDTO>> redisService)
         {
             _orderDbContext = orderDbContext;
             _redisService = redisService;
@@ -36,8 +36,8 @@ namespace SparkNest.Services.OrderAPI.Application.Features.Orders.Queries.GetAll
             {
                 return Response<List<OrderDTO>>.Success(new List<OrderDTO>(), 200);
             }
-            await _redisService.SaveStringAsync(nameof(Order), JsonSerializer.Serialize(orders));
             var orderDtos = ObjectMapping.Mapper.Map<List<OrderDTO>>(orders);
+            await _redisService.SaveStringAsync(nameof(Order), JsonSerializer.Serialize(orderDtos));
             return Response<List<OrderDTO>>.Success(orderDtos, 200);
         }
     }

@@ -14,7 +14,7 @@ namespace SparkNest.UI.MVC.ViewComponents.UI
 
         public async Task<IViewComponentResult> InvokeAsync()
         {
-            return View(await _productService.GetAllProductsAsync());
+            return View((await _productService.GetAllProductsAsync()).Take(6).ToList());
         }
     }
 }
