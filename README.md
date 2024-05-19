@@ -26,6 +26,9 @@ This project uses the following technologies and components:
 The project follows the following structure:
 
 - **src**: Contains all source code.
+## Project Architecture
+
+<img src='https://media.licdn.com/dms/image/D4E2DAQGEPEU7uPEppg/profile-treasury-image-shrink_800_800/0/1714575964308?e=1716717600&v=beta&t=WRDaUgxAXQqh3tj4l3SHJPk6TeQbrMfiOZMkRyqYk-c'/>
 
 ## Installation
 
