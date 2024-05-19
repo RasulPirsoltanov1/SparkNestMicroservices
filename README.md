@@ -2,6 +2,10 @@
 
 This project is developed using ASP.NET Web API, SignalR, Docker, RabbitMQ, MassTransit, Ocelot API Gateway, MongoDB, Redis, PostgreSQL, SQL Server, Dapper, Entity Framework Core technologies to develop microservices. This project is built following the principles of CQRS (Command Query Responsibility Segregation) and Clean Architecture, aiming to provide optimal performance and user experience for project clients by incorporating immediate consistency, validation, and eventual consistency.
 
+## Project Architecture
+
+<img src='https://media.licdn.com/dms/image/D4E2DAQGEPEU7uPEppg/profile-treasury-image-shrink_800_800/0/1714575964308?e=1716717600&v=beta&t=WRDaUgxAXQqh3tj4l3SHJPk6TeQbrMfiOZMkRyqYk-c'/>
+
 ## Technologies and Components
 
 This project uses the following technologies and components:
@@ -26,9 +30,6 @@ This project uses the following technologies and components:
 The project follows the following structure:
 
 - **src**: Contains all source code.
-## Project Architecture
-
-<img src='https://media.licdn.com/dms/image/D4E2DAQGEPEU7uPEppg/profile-treasury-image-shrink_800_800/0/1714575964308?e=1716717600&v=beta&t=WRDaUgxAXQqh3tj4l3SHJPk6TeQbrMfiOZMkRyqYk-c'/>
 
 ## Installation
 
