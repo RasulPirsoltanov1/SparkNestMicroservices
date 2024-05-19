@@ -26,10 +26,6 @@ This project uses the following technologies and components:
 The project follows the following structure:
 
 - **src**: Contains all source code.
-  - **Microservice1**: First microservice.
-  - **Microservice2**: Second microservice.
-  - **Shared**: Contains source code shared by both microservices.
-- **tests**: Contains user and automated tests.
 
 ## Installation
 
