@@ -41,5 +41,5 @@ To run the project in your local environment, follow these steps:
 
 ## Assistance on Topics
 
-If you need more information or assistance, please refer to the help files on the topic or contact me.
+If you need more information or assistance, please contact me.
 
