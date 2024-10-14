@@ -4,7 +4,7 @@ This project is developed using ASP.NET Web API, SignalR, Docker, RabbitMQ, Mass
 
 ## Project Architecture
 
-<img src='https://media.licdn.com/dms/image/D4E2DAQGEPEU7uPEppg/profile-treasury-image-shrink_800_800/0/1714575964308?e=1717354800&v=beta&t=02yYMp0egJzWSiwv3VQ3V-TnOhW4LFHlZL-Z7LqXKd8'/>
+<img src='1714575964308.jpeg'/>
 
 ## Technologies and Components
 
